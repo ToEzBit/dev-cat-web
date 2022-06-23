@@ -4,6 +4,16 @@ module.exports = {
     themes: ['light'],
   },
   theme: {
+    // screens: {
+    //   desktop: { max: '1279px' },
+    //   // => @media (max-width: 1279px) { ... }
+
+    //   laptop: { max: '1023px' },
+    //   // => @media (max-width: 1023px) { ... }
+
+    //   tablet: { max: '767px' },
+    //   // => @media (max-width: 767px) { ... }
+    // },
     fontSize: {
       '9xl': ['144px', { lineHeight: '144px' }],
       '8xl': ['128px', { lineHeight: '128px' }],
