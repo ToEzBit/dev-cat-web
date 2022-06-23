@@ -18,6 +18,20 @@ module.exports = {
       base: ['16px', { lineHeight: '24px' }],
       xs: ['14px', { lineHeight: '16px' }],
     },
+
+    colors: {
+      'text-placeholder': '#706D9E',
+      'text-orange': '#FF7937',
+      'text-color-footer': '#E8E7FF',
+      'text-banner': '#F0D5BB',
+      'text-btn': '#5D5FEF',
+      'text-card': '#57548A',
+      'p-detail': '#908FA6',
+      stroke: '#A5A6F',
+      link: '#9747FF',
+      star: '#F8D57E',
+    },
+
     extend: {},
   },
   plugins: [require('daisyui')],
