@@ -1,6 +1,10 @@
 import React from 'react';
 import BGHome from '../asset/image/BGhome.png';
 import Cathome from '../asset/image/Cathome.png';
+<<<<<<< HEAD
+=======
+import Footer from '../components/footer/Footer';
+>>>>>>> dev
 import NavbarHome from '../components/navbars/NavbarHome';
 import Workcard from '../components/workcard/Workcard';
 
@@ -130,6 +134,7 @@ function HomePage() {
         </div>
       </div>
       {/* ================================== Footer ===================================== */}
+<<<<<<< HEAD
       <div className=" w-screen bg-gray-900 py-12">
         <div className="max-w-screen-lg mx-auto grid grid-cols-4">
           <div className=" text-white">LOGO</div>
@@ -162,6 +167,9 @@ function HomePage() {
           </div>
         </div>
       </div>
+=======
+      <Footer />
+>>>>>>> dev
     </div>
   );
 }
