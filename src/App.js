@@ -4,9 +4,8 @@ import HomePage from './pages/HomePage';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <HomePage />
-      <h1>Welcome DevCats</h1>
     </div>
   );
 }
