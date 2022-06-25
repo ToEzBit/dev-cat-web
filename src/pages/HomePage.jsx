@@ -13,11 +13,17 @@ import Alltype2 from '../asset/image/Alltype2.png';
 import Alltype3 from '../asset/image/Alltype3.png';
 import Alltype4 from '../asset/image/Alltype4.png';
 import Alltype5 from '../asset/image/Alltype5.png';
+import { motion } from 'framer-motion';
 
 function HomePage() {
   return (
     <>
-      <div className="relative flex flex-col  gap-20">
+      <motion.div
+        className="relative flex flex-col  gap-20"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
         {/* ================================== Section 1 ===================================== */}
         <div className=" relative h-screen">
           <NavbarHome className="absolute" />
@@ -335,7 +341,7 @@ function HomePage() {
         </div>
         {/* ================================== Footer ===================================== */}
         <Footer />
-      </div>
+      </motion.div>
     </>
   );
 }
