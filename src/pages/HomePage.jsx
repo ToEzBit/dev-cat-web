@@ -57,7 +57,11 @@ function HomePage() {
             {/* ================================== Button Home ===================================== */}
 
             <div className="absolute bottom-12 left-0 right-0 flex justify-center max-w-screen-lg mx-auto">
-              <div className=" text-white col-start-2">
+              <a
+                href="#section1"
+                alt=""
+                className="animate-bounce text-white col-start-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-16 w-16"
@@ -72,7 +76,7 @@ function HomePage() {
                     d="M19 13l-7 7-7-7m14-8l-7 7-7-7"
                   />
                 </svg>
-              </div>
+              </a>
 
               {/* <button className="btn glass h-24 z-1 hover:scale-110 duration-300 ">
               Mobile Application
@@ -122,6 +126,7 @@ function HomePage() {
               </div>
             </div>
           </div>
+          <div id="section1"></div>
           <div className="flex flex-col gap-4 text-center">
             <h1>Devwork, one of the best quality developer</h1>
             <div>
