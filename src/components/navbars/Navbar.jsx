@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 
-function NavbarHome() {
+function Navbar() {
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
@@ -11,7 +11,7 @@ function NavbarHome() {
           <input
             type="text"
             placeholder="Search"
-            className="w-96 h-8 input  input-bordered   shadow-2xl shadow-green-900"
+            className="w-96 h-8 input  input-bordered   shadow-sm shadow-bg-home-content"
           />
         </div>
       </div>
@@ -26,7 +26,7 @@ function NavbarHome() {
                 className="h-8 w-8"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="white"
+                stroke="black"
               >
                 <path
                   strokeLinecap="round"
@@ -51,11 +51,10 @@ function NavbarHome() {
               </li>
             </ul>
           </div>
-          <Link
-            to="/"
-            className="btn btn-ghost text-emerald-600 normal-case text-3xl"
-          >
-            daisyUI
+          <Link to="/">
+            <div className="btn btn-ghost text-emerald-600 normal-case text-3xl">
+              daisyUI
+            </div>
           </Link>
         </div>
 
@@ -70,7 +69,7 @@ function NavbarHome() {
                   className="h-8 w-8"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="white"
+                  stroke="black"
                   strokeWidth="2"
                 >
                   <path
@@ -93,7 +92,7 @@ function NavbarHome() {
                   className="h-8 w-8"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="white"
+                  stroke="black"
                 >
                   <path
                     strokeLinecap="round"
@@ -137,4 +136,4 @@ function NavbarHome() {
   );
 }
 
-export default NavbarHome;
+export default Navbar;
