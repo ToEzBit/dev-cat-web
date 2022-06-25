@@ -1,10 +1,16 @@
 import React from 'react';
-// import Navbar from '../components/navbars/Navbar';
+import Navbar from '../components/navbars/Navbar';
+import { motion } from 'framer-motion';
+import ProfilePic from '../asset/image/ProfilePic.png';
 
 function ChatRoom() {
   return (
-    <div>
-      {/* <Navbar /> */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Navbar />
       {/* ============================================ Nav Chat  ===================================================== */}
       <div className="grid grid-cols-4 border items-baseline ">
         <div className="col-span-1">
@@ -28,14 +34,14 @@ function ChatRoom() {
           <div className="px-8 py-6 ">
             <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
               <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
-                Download
+                Special Requirement
               </button>
               <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
                 <h5>John Doe</h5>
                 <div>#01234567PP</div>
               </div>
               <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
-                Download
+                SUBMIT
               </button>
             </div>
           </div>
@@ -58,8 +64,10 @@ function ChatRoom() {
         <div className="  col-span-1 ">
           {/* --------------- History Chat -------------- */}
           <div className="flex flex-col justify-center items-center p-8">
-            <div className="w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
-              <div>LOGO</div>
+            <div className="w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-center gap-4">
+              <div className="w-12 rounded-full">
+                <img src={ProfilePic} alt="" />
+              </div>
               <div>
                 <div className="text-base">Developer</div>
                 <div className=" text-sm ">pls give me more details</div>
@@ -78,8 +86,10 @@ function ChatRoom() {
           <div className="px-12 py-8 flex flex-col gap-8">
             <div>
               <div className="w-full ">
-                <div className="flex p-4 items-baseline gap-4">
-                  <div>LOGO</div>
+                <div className="flex p-4 items-center gap-4">
+                  <div className="w-12 rounded-full">
+                    <img src={ProfilePic} alt="" />
+                  </div>
                   <div className="flex flex-col gap-2">
                     <div className="border p-4 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
                       Lorem Ipsum has been the industry's standard dummy{' '}
@@ -90,7 +100,7 @@ function ChatRoom() {
               </div>
               {/* --------------- user center Chat -------------- */}
               <div className="w-full flex justify-end">
-                <div className="flex p-4 items-baseline gap-4">
+                <div className="flex p-4 items-center gap-4">
                   <div className="flex flex-col gap-2">
                     <div className="border p-4 shadow-md shadow-bg-home-content bg-chat text-white rounded-lg  border-stroke">
                       Lorem Ipsum has been the industry's standard dummy{' '}
@@ -99,13 +109,17 @@ function ChatRoom() {
                       8.00 PM
                     </div>
                   </div>
-                  <div>LOGO</div>
+                  <div className="w-12 rounded-full">
+                    <img src={ProfilePic} alt="" />
+                  </div>
                 </div>
               </div>
               {/* --------------- dev Quotation Chat -------------- */}
               <div className="w-full ">
-                <div className="flex p-4 items-baseline gap-4">
-                  <div>LOGO</div>
+                <div className="flex p-4 items-center gap-4">
+                  <div className="w-12 rounded-full">
+                    <img src={ProfilePic} alt="" />
+                  </div>
                   <div className="flex flex-col gap-2">
                     <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
                       <div className="flex justify-between items-baseline px-4">
@@ -172,15 +186,15 @@ function ChatRoom() {
                 <button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6  "
+                    className="h-6 w-6  "
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    stroke-width="2"
+                    strokeWidth="2"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
                     />
                   </svg>
@@ -188,15 +202,15 @@ function ChatRoom() {
                 <button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6 stroke-chat"
+                    className="h-6 w-6 stroke-chat"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    stroke-width="2"
+                    strokeWidth="2"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                     />
                   </svg>
@@ -264,7 +278,9 @@ function ChatRoom() {
             {/* --------------- Dev profile -------------- */}
             <div className="w-full ">
               <div className="flex p-4 items-center gap-4">
-                <div>LOGO</div>
+                <div className="w-12 rounded-full">
+                  <img src={ProfilePic} alt="" />
+                </div>
                 <div className="flex flex-col gap-2">
                   <div className=" text-chat rounded-lg  border-stroke">
                     John Doe
@@ -278,7 +294,7 @@ function ChatRoom() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
