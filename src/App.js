@@ -1,13 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
-import HomePage from './pages/HomePage';
-
+import { AnimatePresence } from 'framer-motion';
+import Router from './router/Router';
 function App() {
   return (
-    <div className="App">
-      <HomePage />
-      <h1>Welcome DevCats</h1>
-    </div>
+    <>
+      <AnimatePresence>
+        <Router />
+      </AnimatePresence>
+    </>
   );
 }
 

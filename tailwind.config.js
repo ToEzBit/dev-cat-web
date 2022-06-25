@@ -27,6 +27,8 @@ module.exports = {
         'text-banner': '#F0D5BB',
         'text-btn': '#5D5FEF',
         'text-card': '#57548A',
+        'text-normal': '#06033A',
+        'bg-home-content': '#E8E7FF',
         'p-detail': '#908FA6',
         stroke: '#A5A6F',
         link: '#9747FF',

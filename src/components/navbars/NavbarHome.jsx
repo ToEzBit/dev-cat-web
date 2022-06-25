@@ -1,8 +1,9 @@
 import React from 'react';
+import ProfilePic from '../../asset/image/ProfilePic.png';
 
 function NavbarHome() {
   return (
-    <div className="relative pt-2 ">
+    <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
       <div className="max-w-screen-2xl mx-auto flex justify-center ">
         <div className="form-control absolute pt-4 hidden md:block">
@@ -105,7 +106,7 @@ function NavbarHome() {
           <div className="dropdown dropdown-end">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
               <div className="w-12 rounded-full">
-                <img src="https://api.lorem.space/image/face?hash=33791" />
+                <img src={ProfilePic} />
               </div>
             </label>
             <ul
