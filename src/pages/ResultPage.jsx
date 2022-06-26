@@ -2,10 +2,9 @@ import { useState } from 'react';
 
 import Navbar from '../components/navbars/Navbar';
 import Workcard from '../components/workcard/Workcard';
-import FilterResultPage from '../components/filter/FilterResultPageDropDown';
+import FilterResultPageDropDown from '../components/filter/FilterResultPageDropDown';
 import Footer from '../components/footer/Footer';
 import CarouselSecondary from '../components/carousel/CarouselSecondary';
-import Carousel from '../components/carousel/Carousel';
 
 export default function ResultPage() {
   const [LowerBoundPrice, setLowerBoundPrice] = useState(100);
@@ -38,16 +37,19 @@ export default function ResultPage() {
           <div className="flex justify-between w-full">
             <h5 className="text-text-btn">All Types</h5>
             <div className="flex justify-between w-3/5">
-              <FilterResultPage
+              <FilterResultPageDropDown
                 title="Price"
                 LowerBoundPrice={LowerBoundPrice}
                 upperBoundPrice={upperBoundPrice}
                 setLowerBoundPrice={setLowerBoundPrice}
                 setUpperBoundPrice={setUpperBoundPrice}
               />
-              <FilterResultPage title="Rating" setRating={setRating} />
-              <FilterResultPage title="Duration" setRating={setDuration} />
-              <FilterResultPage title="Order by" setOrder={setOrder} />
+              <FilterResultPageDropDown title="Rating" setRating={setRating} />
+              <FilterResultPageDropDown
+                title="Duration"
+                setRating={setDuration}
+              />
+              <FilterResultPageDropDown title="Order by" setOrder={setOrder} />
             </div>
           </div>
 
@@ -83,18 +85,6 @@ export default function ResultPage() {
               <Workcard />
               <Workcard />
             </div>
-          </div>
-          <div class="btn-group btn-ghost my-8 mx-auto">
-            <button class="btn btn-ghost">{'<<'}</button>
-
-            <button class="btn btn-ghost">{'<'}</button>
-
-            <button class="btn btn-ghost">1</button>
-            <button class="btn btn-ghost text-text-btn">2</button>
-            <button class="btn btn-ghost">3</button>
-            <button class="btn btn-ghost">4</button>
-            <button class="btn btn-ghost">{'>'}</button>
-            <button class="btn btn-ghost">{'>>'}</button>
           </div>
         </div>
         <Footer />

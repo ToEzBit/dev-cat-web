@@ -1,7 +1,6 @@
-import React from 'react';
 import FilterResultPageContent from './FilterResultPageContent';
 
-export default function FilterResultPage({
+export default function FilterResultPageDropDown({
   title,
   LowerBoundPrice,
   upperBoundPrice,

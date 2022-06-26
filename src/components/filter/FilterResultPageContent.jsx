@@ -40,7 +40,6 @@ export default function FilterResultPageContent({
           </label>
           <input
             type="text"
-            placeholder=""
             class="input input-bordered w-full h-6"
             onChange={(e) => setLowerBoundPrice(e.target.value)}
           />
@@ -51,7 +50,6 @@ export default function FilterResultPageContent({
           </label>
           <input
             type="text"
-            placeholder=""
             class="input input-bordered w-full h-6"
             onChange={(e) => setUpperBoundPrice(e.target.value)}
           />
