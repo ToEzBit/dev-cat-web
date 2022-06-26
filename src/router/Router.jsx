@@ -8,6 +8,7 @@ export default function Router() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/chatroom" element={<ChatRoom />} />
+      <Route path="/product/:id" element={<ProductPage/>} />
     </Routes>
   );
 }
