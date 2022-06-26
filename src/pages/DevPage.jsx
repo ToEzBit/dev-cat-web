@@ -7,7 +7,7 @@ import Workcard from '../components/workcard/Workcard';
 import Footer from '../components/footer/Footer';
 // import Reviews from './Reviews';
 
-export default function DevProfilePage() {
+function DevProfilePage() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   return (
     <div className="w-screen flex flex-col items-center">
@@ -87,3 +87,5 @@ export default function DevProfilePage() {
     </div>
   );
 }
+
+export default DevProfileCard

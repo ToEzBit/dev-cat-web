@@ -1,6 +1,6 @@
 import ProfilePic from '../../../asset/image/ProfilePic.png';
 
-export default function DevProfileCard() {
+ function DevProfileCard() {
   return (
     <div className="w-10/12 flex justify-evenly gap-10">
       <img src={ProfilePic} alt="" className="w-1/5" />
@@ -19,3 +19,5 @@ export default function DevProfileCard() {
     </div>
   );
 }
+
+export default DevProfileCard

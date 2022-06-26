@@ -1,9 +1,4 @@
-export default function DevSkills({
-  workExperience,
-  language,
-  programming,
-  certificate,
-}) {
+function DevSkills({ workExperience, language, programming, certificate }) {
   return (
     <div className="grid grid-cols-4">
       <ul className="col-start-2 col-span-3 mx-7">
@@ -14,3 +9,5 @@ export default function DevSkills({
     </div>
   );
 }
+
+export default DevSkills;
