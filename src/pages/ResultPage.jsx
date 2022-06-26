@@ -60,7 +60,7 @@ export default function ResultPage() {
             </p>
           </div>
 
-          <div className="w-full flex flex-col gap-6">
+          <div className="w-full flex flex-col gap-6 pb-10">
             <div className="w-full flex justify-between gap-2">
               <Workcard />
               <Workcard />
