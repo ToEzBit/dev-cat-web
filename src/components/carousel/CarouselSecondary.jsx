@@ -24,7 +24,7 @@ export default function CarouselSecondary() {
       <div id="item4" className="carousel-item w-full relative">
         <img
           src="https://api.lorem.space/image/car?w=800&h=400&hash=225E6693"
-          class="w-full"
+          className="w-full"
         />
       </div>
       <div className="flex justify-center py-2 gap-2 absolute mx-auto w-4/5">

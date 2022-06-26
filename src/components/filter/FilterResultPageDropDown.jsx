@@ -12,7 +12,7 @@ export default function FilterResultPageDropDown({
 }) {
   return (
     <div className="dropdown dropdown-end">
-      <label tabIndex="0" class="btn btn-ghost" htmlFor="price">
+      <label tabIndex="0" className="btn btn-ghost" htmlFor="price">
         <div className="flex justify-between gap-2">
           {title}
           <svg

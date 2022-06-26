@@ -48,7 +48,7 @@ export default function ResultPage() {
               <FilterResultPageDropDown title="Rating" setRating={setRating} />
               <FilterResultPageDropDown
                 title="Duration"
-                setRating={setDuration}
+                setDuration={setDuration}
               />
               <FilterResultPageDropDown title="Order by" setOrder={setOrder} />
             </div>
@@ -60,32 +60,10 @@ export default function ResultPage() {
               <span>124</span> services available
             </p>
           </div>
-
-          <div className="w-full flex flex-col gap-6 pb-10">
-            <div className="w-full flex justify-between gap-2">
+          <div className="grid grid-cols-4 gap-x-2 gap-y-3">
+            {[...Array(12).keys()].map((el) => (
               <Workcard />
-              <Workcard />
-              <Workcard />
-              <Workcard />
-            </div>
-            <div className="w-full flex justify-between gap-2">
-              <Workcard />
-              <Workcard />
-              <Workcard />
-              <Workcard />
-            </div>
-            <div className="w-full flex justify-between gap-2">
-              <Workcard />
-              <Workcard />
-              <Workcard />
-              <Workcard />
-            </div>
-            <div className="w-full flex justify-between gap-2">
-              <Workcard />
-              <Workcard />
-              <Workcard />
-              <Workcard />
-            </div>
+            ))}
           </div>
         </div>
         <Pagination />
