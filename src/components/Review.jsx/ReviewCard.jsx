@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 import { useFilter } from '../context/FilterContext';
 // import { FilterContext } from '../context/FilterContext';
@@ -8,7 +8,6 @@ export default function ReviewCard({ name, message, rate }) {
   const { setReviewRating } = useFilter();
   const [isReadOnlyMode, setIsReadOnlyMode] = useState(false);
   const [newMessage, setNewMessage] = useState('');
-  console.log(isReadOnlyMode);
   return (
     <div className="card card-compact h-30 w-full bg-base-100 shadow-xl">
       <div className="card-body">

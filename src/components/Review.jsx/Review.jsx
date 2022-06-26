@@ -1,4 +1,3 @@
-import { useState, useContext } from 'react';
 import { useFilter } from '../context/FilterContext';
 import Rating from './Rating';
 import ReviewCard from './ReviewCard';
