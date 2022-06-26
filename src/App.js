@@ -1,13 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import HomePage from './pages/HomePage';
+import Router from './Routes/Router';
 
 function App() {
   return (
-    <div className="App">
-      <HomePage />
-      <h1>Welcome DevCats</h1>
-    </div>
+    <>
+      <Router />
+    </>
   );
 }
 

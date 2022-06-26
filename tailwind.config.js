@@ -5,6 +5,9 @@ module.exports = {
   },
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
       fontSize: {
         '9xl': ['144px', { lineHeight: '144px' }],
         '8xl': ['128px', { lineHeight: '128px' }],
@@ -28,6 +31,7 @@ module.exports = {
         'text-btn': '#5D5FEF',
         'text-card': '#57548A',
         'p-detail': '#908FA6',
+        'box-login': '#808AFF',
         stroke: '#A5A6F',
         link: '#9747FF',
         star: '#F8D57E',
