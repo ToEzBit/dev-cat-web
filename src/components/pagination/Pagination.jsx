@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Pagination() {
+function Pagination() {
   return (
     <div className="btn-group btn-ghost my-8 mx-auto">
       <button className="btn btn-ghost">{'<<'}</button>
@@ -16,3 +16,5 @@ export default function Pagination() {
     </div>
   );
 }
+
+export default Pagination;

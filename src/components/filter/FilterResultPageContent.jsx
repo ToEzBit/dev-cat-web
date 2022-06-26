@@ -2,7 +2,7 @@ import React from 'react';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-export default function FilterResultPageContent({
+function FilterResultPageContent({
   title,
   LowerBoundPrice,
   upperBoundPrice,
@@ -174,3 +174,5 @@ export default function FilterResultPageContent({
   }
   return <div>{content}</div>;
 }
+
+export default FilterResultPageContent;

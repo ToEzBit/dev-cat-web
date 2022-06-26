@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CarouselSecondary() {
+ function CarouselSecondary() {
   return (
     <div className="carousel w-full flex items-end">
       <div id="item1" className="carousel-item w-full relative">
@@ -44,3 +44,5 @@ export default function CarouselSecondary() {
     </div>
   );
 }
+
+export default CarouselSecondary

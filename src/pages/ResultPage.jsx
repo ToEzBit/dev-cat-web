@@ -7,7 +7,7 @@ import Footer from '../components/footer/Footer';
 import CarouselSecondary from '../components/carousel/CarouselSecondary';
 import Pagination from '../components/pagination/Pagination';
 
-export default function ResultPage() {
+function ResultPage() {
   const [LowerBoundPrice, setLowerBoundPrice] = useState(100);
   const [upperBoundPrice, setUpperBoundPrice] = useState(1000);
   const [rating, setRating] = useState(5);
@@ -72,3 +72,5 @@ export default function ResultPage() {
     </div>
   );
 }
+
+export default ResultPage;

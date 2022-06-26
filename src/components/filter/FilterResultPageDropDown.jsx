@@ -1,6 +1,6 @@
 import FilterResultPageContent from './FilterResultPageContent';
 
-export default function FilterResultPageDropDown({
+function FilterResultPageDropDown({
   title,
   LowerBoundPrice,
   upperBoundPrice,
@@ -49,3 +49,5 @@ export default function FilterResultPageDropDown({
     </div>
   );
 }
+
+export default FilterResultPageDropDown;
