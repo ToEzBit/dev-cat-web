@@ -44,12 +44,12 @@ function NewPasswordForm() {
                 <span className="label-text">Email</span>
               </label>
               <input
-                type="text"
+                type="password"
                 placeholder="New Password"
                 className="input input-bordered w-full max-w-xs mb-3"
               />
               <input
-                type="text"
+                type="password"
                 placeholder="Confirm New Password"
                 className="input input-bordered w-full max-w-xs"
               />
