@@ -5,6 +5,7 @@ import Workcard from '../components/workcard/Workcard';
 import FilterResultPageDropDown from '../components/filter/FilterResultPageDropDown';
 import Footer from '../components/footer/Footer';
 import CarouselSecondary from '../components/carousel/CarouselSecondary';
+import Pagination from '../components/pagination/Pagination';
 
 export default function ResultPage() {
   const [LowerBoundPrice, setLowerBoundPrice] = useState(100);
@@ -87,6 +88,7 @@ export default function ResultPage() {
             </div>
           </div>
         </div>
+        <Pagination />
         <Footer />
       </div>
     </div>
