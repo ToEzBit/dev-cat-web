@@ -62,7 +62,7 @@ function ResultPage() {
           </div>
           <div className="grid grid-cols-4 gap-x-2 gap-y-3">
             {[...Array(12).keys()].map((el) => (
-              <Workcard />
+              <Workcard key={el} />
             ))}
           </div>
         </div>

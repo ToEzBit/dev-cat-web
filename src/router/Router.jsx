@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, Routes, Route } from 'react-router-dom';
 import ChatRoom from '../pages/ChatRoom';
 import HomePage from '../pages/HomePage';
-import DevProfilePage from '../pages/DevPage'
+import DevProfilePage from '../pages/DevProfilePage'
 
 export default function Router() {
   return (

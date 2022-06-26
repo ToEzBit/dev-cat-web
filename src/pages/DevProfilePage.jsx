@@ -76,6 +76,7 @@ function DevProfilePage() {
                 <img
                   src="https://api.lorem.space/image/shoes?w=500&h=400"
                   alt="cats"
+                  key={el}
                 />
               </figure>
             ))}
@@ -88,4 +89,4 @@ function DevProfilePage() {
   );
 }
 
-export default DevProfileCard
+export default DevProfilePage;
