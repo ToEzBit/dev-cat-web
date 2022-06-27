@@ -1,39 +1,39 @@
 import React from 'react';
 
-function Rating({ setReviewRating, rate }) {
+function Rating({ setReviewRating, rate, setRate }) {
   let ratingVariances;
-  if (setReviewRating) {
+  if (setReviewRating || setRate) {
     return (ratingVariances = (
       <div className="rating flex gap-1 mx-1">
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400 h-4 w-4"
-          onChange={() => setReviewRating(1)}
+          onChange={() => setReviewRating(1) || setRate(1)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(2)}
+          onChange={() => setReviewRating(2) || setRate(2)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(3)}
+          onChange={() => setReviewRating(3) || setRate(3)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(4)}
+          onChange={() => setReviewRating(4) || setRate(4)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(5)}
+          onChange={() => setReviewRating(5) || setRate(5)}
         />
       </div>
     ));
