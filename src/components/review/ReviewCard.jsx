@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import ProfilePic from '../../asset/image/ProfilePic.png';
+import AnonymousProfilePic from '../../asset/image/AnonymousProfilePic.png';
+
 import { useFilter } from '../context/FilterContext';
 // import { FilterContext } from '../context/FilterContext';
 import Rating from './Rating';
@@ -12,7 +14,7 @@ export default function ReviewCard({ name, message, rate }) {
     <div className="card card-compact h-30 w-full bg-base-100 shadow-xl">
       <div className="card-body">
         <div className="flex justify-start gap-2">
-          <div className="w-2/12">
+          <div className="w-1/12">
             <img src={ProfilePic} alt="" />
           </div>
           <div className="h-30 w-full">

@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 
-function Workcard() {
+function WorkCard() {
   return (
     <div>
       <div className="hover:-translate-y-1 hover:scale-110 duration-300 group">
@@ -34,4 +34,4 @@ function Workcard() {
   );
 }
 
-export default Workcard;
+export default WorkCard;

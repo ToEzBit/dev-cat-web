@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Routes, Route } from 'react-router-dom';
-import Reviews from '../components/Review.jsx/Review';
+import Reviews from '../components/review/Review';
 import ChatRoom from '../pages/ChatRoom';
 import HomePage from '../pages/HomePage';
 import DevProfilePage from '../pages/DevProfilePage';

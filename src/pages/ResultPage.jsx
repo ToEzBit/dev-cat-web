@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Navbar from '../components/navbars/Navbar';
-import Workcard from '../components/workcard/Workcard';
+import Workcard from '../components/card/WorkCard';
 import FilterResultPageDropDown from '../components/filter/FilterResultPageDropDown';
 import Footer from '../components/footer/Footer';
 import CarouselSecondary from '../components/carousel/CarouselSecondary';

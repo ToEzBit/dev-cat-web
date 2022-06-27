@@ -110,23 +110,23 @@ export default function ProductPage() {
     },
   };
 
-//   const specialPackage = mockData.product.Packages;
-//   const specailPackageGroupByTitle = specialPackage.reduce((acc, curr) => {
-//     console.log(curr);
-//     // console.log(curr.value);
-//     if (acc[curr.title]) {
-//       //   acc[curr.title];
-//     }
-//     return acc;
-//   }, {});
-//   console.log(specailPackageGroupByTitle);
+  //   const specialPackage = mockData.product.Packages;
+  //   const specailPackageGroupByTitle = specialPackage.reduce((acc, curr) => {
+  //     console.log(curr);
+  //     // console.log(curr.value);
+  //     if (acc[curr.title]) {
+  //       //   acc[curr.title];
+  //     }
+  //     return acc;
+  //   }, {});
+  //   console.log(specailPackageGroupByTitle);
 
   return (
     <div className="w-screen flex flex-col items-center">
       <div className="w-full">
         <Navbar />
       </div>
-      <div className="w-10/12 h-screen flex flex-col gap-2">
+      <div className="w-9/12 h-screen flex flex-col gap-2">
         <div className="flex justify-end gap-2">
           <button class="btn btn-outline btn-info btn-sm">Edit</button>
           <button class="btn btn-outline btn-info btn-sm">Delete</button>

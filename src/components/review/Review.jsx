@@ -1,4 +1,5 @@
 import { useFilter } from '../context/FilterContext';
+import CreateReview from './CreateReview';
 import Rating from './Rating';
 import ReviewCard from './ReviewCard';
 
@@ -31,6 +32,7 @@ export default function Reviews() {
           </div>
         </div>
         <div className="flex flex-col gap-2">
+          <CreateReview />
           {testData.map((el) => {
             return (
               <ReviewCard
