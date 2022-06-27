@@ -1,10 +1,13 @@
 import './App.css';
-import Router from './Routes/Router';
+import { AnimatePresence } from 'framer-motion';
+import Router from './router/Router';
 
 function App() {
   return (
     <>
-      <Router />
+      <AnimatePresence>
+        <Router />
+      </AnimatePresence>
     </>
   );
 }

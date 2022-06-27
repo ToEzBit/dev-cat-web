@@ -1,5 +1,8 @@
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
+  ],
   daisyui: {
     themes: ['light'],
   },
@@ -30,13 +33,19 @@ module.exports = {
         'text-banner': '#F0D5BB',
         'text-btn': '#5D5FEF',
         'text-card': '#57548A',
+        'text-normal': '#06033A',
+        'bg-home-content': '#E8E7FF',
         'p-detail': '#908FA6',
         'box-login': '#808AFF',
-        stroke: '#A5A6F',
+        stroke: '#A5A6F6',
         link: '#9747FF',
         star: '#F8D57E',
+        chat: '#7879F1',
+        'chat-quotation': '#9794CB',
+
+        // 'stroke-chat': '#A5A6F6',
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [require('daisyui', 'flowbite/plugin')],
 };

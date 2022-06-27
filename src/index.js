@@ -2,17 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './contexts/AuthContext.jsx';
+
+import FilterContextProvider from './components/context/FilterContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthContextProvider>
-        <App />
-      </AuthContextProvider>
+      <FilterContextProvider>
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
+      </FilterContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );
