@@ -16,7 +16,7 @@ function DevProfilePage() {
       </div>
       <div className="w-8/12 flex flex-col gap-20">
         <div
-          tabindex="0"
+          tabIndex="0"
           className="collapse bg-base-100 border border-base-200 rounded-box row-start-1 mt-20"
         >
           <div className="collapse-title text-xl font-medium">
