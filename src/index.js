@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import AuthContextProvider from './contexts/AuthContext.jsx';
 
 import FilterContextProvider from './components/context/FilterContext';
 
@@ -12,10 +13,12 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <FilterContextProvider>
-        <App />
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
       </FilterContextProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
