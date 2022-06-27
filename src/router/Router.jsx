@@ -22,8 +22,8 @@ export default function Router() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-      <Route path="/changepassword" element={<ChangePasswordPage />} />
-      <Route path="/newpassword" element={<NewPasswordPage />} />
+      <Route path="/change-password" element={<ChangePasswordPage />} />
+      <Route path="/new-password" element={<NewPasswordPage />} />
     </Routes>
   );
 }
