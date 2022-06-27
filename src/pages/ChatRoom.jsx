@@ -2,6 +2,8 @@ import React from 'react';
 import Navbar from '../components/navbars/Navbar';
 import { motion } from 'framer-motion';
 import ProfilePic from '../asset/image/ProfilePic.png';
+import SpecialRequirement from '../components/modal/SpecialRequirement';
+import Submit from '../components/modal/Submit';
 
 function ChatRoom() {
   return (
@@ -33,16 +35,42 @@ function ChatRoom() {
         <div className=" col-span-2 border-x">
           <div className="px-8 py-6 ">
             <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
-              <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
-                Special Requirement
+              <button>
+                <label
+                  htmlFor="my-modal"
+                  className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                >
+                  Special Requirement
+                </label>
               </button>
+
+              <input type="checkbox" id="my-modal" className="modal-toggle" />
+              <div className="modal">
+                <div className="modal-box">
+                  <SpecialRequirement />
+                </div>
+              </div>
               <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
                 <h5>John Doe</h5>
                 <div>#01234567PP</div>
               </div>
-              <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
+              {/* <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
                 SUBMIT
+              </button> */}
+              <button>
+                <label
+                  htmlFor="my-modal1"
+                  className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                >
+                  SUBMIT
+                </label>
               </button>
+              <input type="checkbox" id="my-modal1" className="modal-toggle" />
+              <div className="modal">
+                <div className="modal-box">
+                  <Submit />
+                </div>
+              </div>
             </div>
           </div>
         </div>

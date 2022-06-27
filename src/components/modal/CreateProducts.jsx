@@ -1,4 +1,5 @@
 import React from 'react';
+import AddPackage from './AddPackage';
 
 function CreateProducts() {
   return (
@@ -203,6 +204,23 @@ function CreateProducts() {
               </label>
             </div>
             <div>
+              {/* <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
+                ADD Package
+              </button> */}
+              <button>
+                <label
+                  htmlFor="my-modal2"
+                  className=" bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md  modal-button text-center "
+                >
+                  ADD Package
+                </label>
+              </button>
+              <input type="checkbox" id="my-modal2" className="modal-toggle" />
+              <div className="modal">
+                <div className="modal-box">
+                  <AddPackage />
+                </div>
+              </div>
               <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
                 ADD
               </button>
@@ -212,7 +230,7 @@ function CreateProducts() {
             </div>
           </div>
 
-          <div className="flex flex-col  flex-auto text-[#5D5FEF] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg border border-[#9747FF]">
+          {/* <div className="flex flex-col  flex-auto text-[#5D5FEF] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg border border-[#9747FF]">
             <input
               className="block p-2 my-1 w-full text-[#706D9E]  rounded-lg border border-[#E8E7FF] sm:text-xs "
               id="username"
@@ -243,7 +261,7 @@ function CreateProducts() {
               type="text"
               placeholder="Input Revision"
             />
-          </div>
+          </div> */}
         </div>
         {/* ====================================================================add TitleProject =============================================================================*/}
 
