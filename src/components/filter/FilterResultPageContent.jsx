@@ -17,6 +17,10 @@ function FilterResultPageContent({
     setUpperBoundPrice(e[1]);
   };
 
+  const datePicker = (e) => {
+    setDuration(e.target.value);
+  };
+
   const priceContent = (
     <div>
       <div className="flex flex-col items-center justify-center gap-2 w-4/5 mx-auto my-2">
@@ -80,27 +84,12 @@ function FilterResultPageContent({
 
   const durationContent = (
     <div className="flex flex-col items-center justify-center gap-2 w-4/5 mx-auto my-2">
+      <div>
+        <input type="date" onChange={(e) => datePicker(e)} />
+      </div>
       <button
         className="btn btn-ghost w-full"
-        onClick={() => setDuration('test')}
-      >
-        within 24 hours
-      </button>
-      <button
-        className="btn btn-ghost w-full"
-        onClick={() => setDuration('test')}
-      >
-        within 1 week
-      </button>
-      <button
-        className="btn btn-ghost w-full"
-        onClick={() => setDuration('test')}
-      >
-        within 1 month
-      </button>
-      <button
-        className="btn btn-ghost w-full"
-        onClick={() => setDuration('test')}
+        onClick={() => setDuration(null)}
       >
         flexible
       </button>
@@ -172,6 +161,7 @@ function FilterResultPageContent({
     default:
       return;
   }
+
   return <div>{content}</div>;
 }
 
