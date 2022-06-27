@@ -33,11 +33,11 @@ function Submit() {
                 Comment
               </label>
             </div>
-            <input
-              className="flex   p-2 my-1 w-full text-[#706D9E] text-center rounded-lg border border-[#E8E7FF] sm:text-xs "
-              id="username"
-              type="text"
-              placeholder="Write your comment"
+            <textarea
+              id="message"
+              rows="4"
+              className="block p-7 mt-1 mb-3 w-full text-[#706D9E] text-center  rounded-lg border border-[#E8E7FF] sm:text-xs  "
+              placeholder="Write comment"
             />
           </div>
           {/* ==================================================================input detail============================================================= */}
