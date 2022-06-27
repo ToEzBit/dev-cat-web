@@ -21,7 +21,7 @@ export default function Router() {
       <Route path="/dev/profile/:id" element={<DevProfilePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/changepassword" element={<ChangePasswordPage />} />
       <Route path="/newpassword" element={<NewPasswordPage />} />
     </Routes>
