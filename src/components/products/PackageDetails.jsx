@@ -2,7 +2,6 @@ import { useVisualElementContext } from 'framer-motion';
 import React from 'react';
 
 function PackageDetails({ el }) {
-  console.log(el);
   return (
     <table>
       //ส่งเป็น Packageทั้งก้อน
@@ -33,22 +32,6 @@ function PackageDetails({ el }) {
         ))}
       </tr>
       <tr>
-        {/* {el.PackageDetails ? (
-          <>
-            {el.PackageDetails.forEach(el)}
-            <th scope="row">{el.title}</th>
-          </>
-        ) : (
-          ''
-        )} */}
-        {/* {el.forEach((element) => {
-          return (
-           &&
-            element.PackageDetails.map((specialPackage) => (
-              <td>{specialPackage.value}</td>
-            ))
-          );
-        })} */}
       </tr>
       <tr>
         <th scope="row">price</th>

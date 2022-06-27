@@ -110,17 +110,6 @@ export default function ProductPage() {
     },
   };
 
-//   const specialPackage = mockData.product.Packages;
-//   const specailPackageGroupByTitle = specialPackage.reduce((acc, curr) => {
-//     console.log(curr);
-//     // console.log(curr.value);
-//     if (acc[curr.title]) {
-//       //   acc[curr.title];
-//     }
-//     return acc;
-//   }, {});
-//   console.log(specailPackageGroupByTitle);
-
   return (
     <div className="w-screen flex flex-col items-center">
       <div className="w-full">
