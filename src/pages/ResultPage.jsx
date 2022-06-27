@@ -14,7 +14,6 @@ function ResultPage() {
   const [duration, setDuration] = useState('');
   const [order, setOrder] = useState('');
 
-  console.log(duration);
   return (
     <div className="flex flex-col gap-30 w-screen">
       <Navbar />
@@ -62,8 +61,8 @@ function ResultPage() {
             </p>
           </div>
           <div className="grid grid-cols-4 gap-x-2 gap-y-3">
-            {[...Array(12).keys()].map((el) => (
-              <Workcard key={el} />
+            {[...Array(12).keys()].map((el, idx) => (
+              <Workcard key={idx} />
             ))}
           </div>
         </div>
