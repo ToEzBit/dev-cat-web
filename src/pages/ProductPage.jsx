@@ -3,6 +3,8 @@ import Carousel from '../components/carousel/Carousel';
 import Navbar from '../components/navbars/Navbar';
 import ProductDetails from '../components/products/ProductDetails';
 import PackageDetails from '../components/products/PackageDetails';
+import DevProfileCard from '../components/card/DevProfileCard/DevProfileCard';
+import Review from '../components/review/Reviews';
 
 export default function ProductPage() {
   const mockData = {
@@ -115,35 +117,38 @@ export default function ProductPage() {
       <div className="w-full">
         <Navbar />
       </div>
-      <div className="w-10/12 h-screen flex flex-col gap-2">
+      <div className="w-10/12 h-screen flex flex-col gap-5">
         <div className="flex justify-end gap-2">
           <button class="btn btn-outline btn-info btn-sm">Edit</button>
           <button class="btn btn-outline btn-info btn-sm">Delete</button>
         </div>
-        <div className="grid grid-cols-4 grid-rows-4 w-full h-3/6">
-          <div className="col-start-1 col-span-2 row-start-1 row-span-4 bg-slate-300">
-            {/* <Carousel /> */}
-          </div>
-          <div className="col-start-3 col-span-2 row-span-2 bg-fuchsia-400"></div>
-          <div className="col-start-3 row-start-3 bg-fuchsia-600"></div>
-          <div className="col-start-4 row-start-3 bg-fuchsia-200"></div>
-          <div className="col-start-3 row-start-4 bg-fuchsia-300"></div>
-          <div className="col-start-4 row-start-4 bg-fuchsia-100"></div>
+        <div className="grid grid-cols-5 grid-rows-4 w-full h-3/6">
+          <div className="col-start-1 col-span-3 row-start-1 row-span-4 bg-slate-300"></div>
+          <div className="col-start-4 col-span-2 row-span-2 bg-fuchsia-400"></div>
+          <div className="col-start-4 row-start-3 bg-fuchsia-600"></div>
+          <div className="col-start-5 row-start-3 bg-fuchsia-200"></div>
+          <div className="col-start-4 row-start-4 bg-fuchsia-300"></div>
+          <div className="col-start-5 row-start-4 bg-fuchsia-100"></div>
         </div>
         <div>
           <ProductDetails />
         </div>
         <div>
-          <div>
+          <div className="w-full flex justify-between items-center my-2">
             <p>Package</p>
             <button class="btn btn-outline btn-info btn-sm">
               Edit Package
             </button>
-            {Object.values(mockData).map((el) => (
-              <PackageDetails el={el.Packages} />
+          </div>
+          <div className="w-full">
+            {Object.values(mockData).map((el, idx) => (
+              <PackageDetails el={el.Packages} key={idx} />
             ))}
           </div>
         </div>
+      </div>
+      <div className="w-full">
+        <Review mode="DevPage" />
       </div>
     </div>
   );
