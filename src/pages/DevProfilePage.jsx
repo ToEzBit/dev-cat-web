@@ -71,8 +71,8 @@ function DevProfilePage() {
             </div>
           </div>
           <div className="grid grid-cols-4 gap-2">
-            {[...Array(8).keys()].map((el) => (
-              <figure key={el}>
+            {[...Array(8).keys()].map((el, idx) => (
+              <figure key={idx}>
                 <img
                   src="https://api.lorem.space/image/shoes?w=500&h=400"
                   alt="cats"
