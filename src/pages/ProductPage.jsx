@@ -134,7 +134,7 @@ export default function ProductPage() {
           <ProductDetails />
         </div>
         <div>
-          <div className="w-full flex justify-between items-center my-2">
+          <div className="w-full flex justify-between items-center">
             <p>Package</p>
             <button class="btn btn-outline btn-info btn-sm">
               Edit Package
