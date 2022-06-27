@@ -3,21 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { devLogin, userLogin } from '../../api/auth';
 import { EyeIcon } from '@heroicons/react/solid';
 import { EyeOffIcon } from '@heroicons/react/solid';
-// error handling // okay
-// required input
+
 // protect route check if not have token cant get Chat Page
 // window.location.reload()
-// checkbox before register
 
 function LoginForm() {
   const [tab, setTab] = useState(true);
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const [apiError, setApiError] = useState(false);
 
   const [password, setPassword] = useState({
     password: '',
     showPassword: false,
   });
+
   const [passwordType, setPasswordType] = useState('password');
 
   const togglePassword = () => {
@@ -31,6 +32,12 @@ function LoginForm() {
   const handleSubmitLogin = async (e) => {
     try {
       e.preventDefault();
+      if (!email) {
+        setError(true);
+      }
+      if (!password) {
+        setError(true);
+      }
 
       if (tab) {
         await userLogin({ email, password });
@@ -39,7 +46,7 @@ function LoginForm() {
       }
       navigate('/');
     } catch (err) {
-      console.log(err);
+      setApiError(err.response.data.message);
     }
   };
 
@@ -96,15 +103,18 @@ function LoginForm() {
 
             <div className="divider text-gray-400">OR</div>
 
+            {error ? <p className="text-red-500">email is required</p> : null}
             <input
               id="email"
               type="email"
               placeholder="Email"
               className="input input-bordered w-full max-w-xs mb-3"
               onChange={(e) => setEmail(e.target.value)}
-              required={true}
             />
 
+            {error ? (
+              <p className="text-red-500">password is required</p>
+            ) : null}
             <div className="flex">
               <input
                 placeholder="password"
@@ -123,6 +133,9 @@ function LoginForm() {
             </div>
           </div>
 
+          {apiError ? (
+            <p className="text-red-500">Email or password is incorrect</p>
+          ) : null}
           <div className="card-actions">
             <button
               type="submit"

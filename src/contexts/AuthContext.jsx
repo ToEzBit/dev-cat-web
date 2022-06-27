@@ -1,10 +1,17 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from '../config/axios';
+import {
+  getAccessToken,
+  removeAccessToken,
+  setAccessToken,
+} from '../services/localStorage';
 
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-  //   const [user, setUser] = useState(null);
-  //   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   //   useEffect(() => {
   //     const fetchMe = async () => {
@@ -23,7 +30,13 @@ function AuthContextProvider({ children }) {
   //     fetchMe();
   //   }, []);
 
-  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
+  const logout = () => {
+    removeAccessToken();
+    setUser(null);
+  };
+  return (
+    <AuthContext.Provider value={{ logout }}>{children}</AuthContext.Provider>
+  );
 }
 
 const useAuth = () => {

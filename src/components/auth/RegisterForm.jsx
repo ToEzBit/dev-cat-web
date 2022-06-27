@@ -8,6 +8,7 @@ function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [checked, setChecked] = useState(false);
   const [tab, setTab] = useState(true);
   const [error, setError] = useState(false);
 
@@ -15,10 +16,22 @@ function RegisterForm() {
     try {
       e.preventDefault();
 
+      if (!username) {
+        setError(true);
+      }
+      if (!email) {
+        setError(true);
+      }
+      if (!password) {
+        setError(true);
+      }
       if (password !== confirmPassword) {
         setError(true);
       }
 
+      if (!checked) {
+        setError(true);
+      }
       if (tab) {
         await userRegister({ username, email, password, confirmPassword });
       } else {
@@ -27,8 +40,6 @@ function RegisterForm() {
       navigate('/');
     } catch (err) {
       console.log(err);
-    } finally {
-      setError(false);
     }
   };
 
@@ -74,29 +85,34 @@ function RegisterForm() {
           <div className="divider text-gray-400">OR</div>
           <p className="flex">Sign Up</p>
 
+          {error ? <p className="text-red-500">username is required</p> : null}
           <input
             type="text"
             placeholder="Username"
             className="input input-bordered w-full max-w-xs"
             onChange={(e) => setUsername(e.target.value)}
           />
-
+          {error ? <p className="text-red-500">email is required</p> : null}
           <input
             type="text"
             placeholder="Email"
             className="input input-bordered w-full max-w-xs"
             onChange={(e) => setEmail(e.target.value)}
-            required={true}
           />
 
+          {error ? <p className="text-red-500">password is required</p> : null}
           <input
             type="password"
             placeholder="Password"
             className="input input-bordered w-full max-w-xs"
             onChange={(e) => setPassword(e.target.value)}
-            required={true}
           />
-          {error ? <p className="text-red-500">Password is not match</p> : null}
+
+          {error ? (
+            <p className="text-red-500">
+              password and confirm password did not match
+            </p>
+          ) : null}
           <input
             type="password"
             placeholder="Confirm Password"
@@ -105,25 +121,33 @@ function RegisterForm() {
           />
           <div className="form-control">
             <label className="label cursor-pointer">
-              <input type="checkbox" className="checkbox" />
+              <input
+                type="checkbox"
+                className="checkbox"
+                onChange={(e) => setChecked(!checked)}
+              />
               <span className="label-text">I agree with Terms of Service</span>
             </label>
           </div>
           <div className="card-actions">
-            <button
-              className="block w-full bg-box-login mt-5 py-2 rounded-lg hover:bg-box-login hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
-              onClick={handleSubmitRegister}
-            >
-              Sign Up
-            </button>
+            {checked ? (
+              <>
+                <button
+                  className="block w-full bg-box-login mt-5 py-2 rounded-lg hover:bg-box-login hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
+                  onClick={handleSubmitRegister}
+                >
+                  Sign Up
+                </button>
+              </>
+            ) : null}
           </div>
-          <div className="flex">
-            <p>
-              Already have an Account? &nbsp;
-              <a className="link" href="/register">
-                LOGIN
-              </a>
-            </p>
+          <div className="flex justify-center mt-4">
+            <a
+              href="/login"
+              className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
+            >
+              Already have an Account ? LOG IN
+            </a>
           </div>
         </div>
       </div>

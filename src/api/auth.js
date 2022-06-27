@@ -25,3 +25,7 @@ export const devRegister = async (input) => {
   const res = await axios.post(`/auth/dev/register`, input);
   setAccessToken(res.data.token);
 };
+
+export const logout = async () => {
+  removeAccessToken();
+};
