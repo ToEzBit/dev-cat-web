@@ -12,14 +12,10 @@ export default function ReviewCard({ name, message, rate }) {
   const [isName, setIsName] = useState('text');
 
   const handleAnonymous = () => {
-    if (name === 'text') {
-    }
-    // const Anonymous = name.replaceAll(' ', '');
-    // const SplitAnonymous = Anonymous.split('');
     setIsAnonymous((prev) => !isAnonymous);
-    console.log('aaa');
-    // console.log(SplitAnonymous.map((el) => '*').join(''));
   };
+  const myRegEx = /[a-zA-Z0-9]/g;
+  const Anonymous = name.replaceAll(myRegEx, '*');
 
   return (
     <div className="card card-compact h-30 w-full bg-base-100 shadow-xl">
@@ -34,7 +30,7 @@ export default function ReviewCard({ name, message, rate }) {
                 <div className="h-2/5 flex justify-between">
                   <div className="flex items-center gap-2">
                     {isAnonymous ? (
-                      <div>true</div>
+                      <h4>{Anonymous}</h4>
                     ) : (
                       <h2 className="card-title">{name}</h2>
                     )}
@@ -64,7 +60,7 @@ export default function ReviewCard({ name, message, rate }) {
                 <div className="h-2/5 flex justify-between">
                   <div className="flex items-center gap-2">
                     {isAnonymous ? (
-                      <div>true</div>
+                      <h4>{Anonymous}</h4>
                     ) : (
                       <h2 className="card-title">{name}</h2>
                     )}
