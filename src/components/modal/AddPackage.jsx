@@ -13,7 +13,7 @@ function AddPackage({ setOpenModal }) {
         </div>
         {/* ==============================================================detailUser=============================================================== */}
         <div>
-          <div className="flex flex-col ...">
+          <div className="flex flex-col">
             <div className="flex justify-start">
               <label
                 className="block text-[#7879F1] text-sm font-bold mb-2"
