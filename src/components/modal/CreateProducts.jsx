@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AddPackage from './AddPackage';
 
 function CreateProducts() {
+  const [openModal, setOpenModal] = useState(false);
   return (
     <div className="flex flex-col ">
       <div className="flex justify-end px-5 py-3">
@@ -211,16 +212,26 @@ function CreateProducts() {
                 <label
                   htmlFor="my-modal2"
                   className=" bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md  modal-button text-center "
+                  role={'button'}
+                  onClick={() => {
+                    setOpenModal(true);
+                  }}
                 >
                   ADD Package
                 </label>
               </button>
               <input type="checkbox" id="my-modal2" className="modal-toggle" />
-              <div className="modal">
-                <div className="modal-box">
-                  <AddPackage />
-                </div>
-              </div>
+
+              {openModal ? (
+                <>
+                  <div className="modal">
+                    <div className="modal-box">
+                      {openModal && <AddPackage setOpenModal={setOpenModal} />}
+                    </div>
+                  </div>
+                </>
+              ) : null}
+
               <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
                 ADD
               </button>

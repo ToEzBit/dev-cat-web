@@ -1,7 +1,8 @@
 import React from 'react';
 import { Navigate, Routes, Route } from 'react-router-dom';
-import AddPackage from '../components/modal/AddPackage';
+
 import CreateProducts from '../components/modal/CreateProducts';
+
 import ChatRoom from '../pages/ChatRoom';
 import HomePage from '../pages/HomePage';
 
@@ -11,7 +12,6 @@ export default function Router() {
       <Route path="/" element={<HomePage />} />
       <Route path="/chatroom" element={<ChatRoom />} />
       <Route path="/createproduct" element={<CreateProducts />} />
-      <Route path="/addpackage" element={<AddPackage />} />
     </Routes>
   );
 }
