@@ -1,8 +1,9 @@
 import { useFilter } from '../context/FilterContext';
 import Rating from './Rating';
 import ReviewCard from './ReviewCard';
+import DevProfileCard from '../card/DevProfileCard/DevProfileCard';
 
-export default function Reviews() {
+function Review({ mode }) {
   const { reviewRating, setReviewRating } = useFilter();
   const testData = [
     {
@@ -22,6 +23,15 @@ export default function Reviews() {
   ];
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
+      {mode === 'DevPage' ? (
+        <div className="w-full flex justify-center bg-text-color-footer my-4">
+          <div className="w-3/5 ">
+            <DevProfileCard />
+          </div>
+        </div>
+      ) : (
+        ''
+      )}
       <div className="w-8/12 flex flex-col gap-8 py-6 ">
         <div className="w-full flex justify-between">
           <h5>Review</h5>
@@ -47,3 +57,5 @@ export default function Reviews() {
     </div>
   );
 }
+
+export default Review;

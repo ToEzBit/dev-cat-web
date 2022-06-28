@@ -5,7 +5,7 @@ import Navbar from '../components/navbars/Navbar';
 import DevSkills from '../components/card/DevProfileCard/DevSkills';
 import Workcard from '../components/workcard/Workcard';
 import Footer from '../components/footer/Footer';
-// import Reviews from './Reviews';
+import Reviews from '../components/review/Reviews';
 
 function DevProfilePage() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -82,7 +82,7 @@ function DevProfilePage() {
           </div>
         </div>
       </div>
-      {/* <Reviews /> */}
+      <Reviews />
       <Footer />
     </div>
   );
