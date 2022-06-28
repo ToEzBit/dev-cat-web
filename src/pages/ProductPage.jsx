@@ -119,8 +119,8 @@ export default function ProductPage() {
       </div>
       <div className="w-10/12 h-screen flex flex-col gap-5">
         <div className="flex justify-end gap-2">
-          <button class="btn btn-outline btn-info btn-sm">Edit</button>
-          <button class="btn btn-outline btn-info btn-sm">Delete</button>
+          <button className="btn btn-outline btn-info btn-sm">Edit</button>
+          <button className="btn btn-outline btn-info btn-sm">Delete</button>
         </div>
         <div className="grid grid-cols-5 grid-rows-4 w-full h-3/6">
           <div className="col-start-1 col-span-3 row-start-1 row-span-4 bg-slate-300"></div>
@@ -136,14 +136,9 @@ export default function ProductPage() {
         <div>
           <div className="w-full flex justify-between items-center">
             <p>Package</p>
-            <button class="btn btn-outline btn-info btn-sm">
+            <button className="btn btn-outline btn-info btn-sm">
               Edit Package
             </button>
-          </div>
-          <div className="w-full">
-            {Object.values(mockData).map((el, idx) => (
-              <PackageDetails el={el.Packages} key={idx} />
-            ))}
           </div>
         </div>
       </div>

@@ -38,7 +38,7 @@ function PackageDetails({ el }) {
           {el.map((element, idx) => (
             <td key={idx} className="text-blue-700">
               <div>{element.price} THB</div>
-              <button class="btn btn-info btn-xs">More Info</button>
+              <button className="btn btn-info btn-xs">More Info</button>
             </td>
           ))}
         </tr>
