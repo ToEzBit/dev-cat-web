@@ -1,48 +1,51 @@
 import React from 'react';
 
-function Rating({ setReviewRating, rate, setRate }) {
- handleOnChange = (newRate) => {
-  if (setReviewRating) {
-    return setReviewRating(newRate)
-  }
-  if (setRate) {
-    return setRate(newRate)
-  }
- }
+function Rating({ setReviewRating, rate, setRate, setNewRate }) {
+  const handleOnChange = (newRate) => {
+    if (setReviewRating) {
+      return setReviewRating(newRate);
+    }
+    if (setRate) {
+      return setRate(newRate);
+    }
+    if (setNewRate) {
+      return setNewRate(newRate);
+    }
+  };
 
   let ratingVariances;
-  if (setReviewRating || setRate) {
+  if (setReviewRating || setRate || setNewRate) {
     return (ratingVariances = (
       <div className="rating flex gap-1 mx-1">
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400 h-4 w-4"
-          onChange={() => setReviewRating(1) || setRate(1)}
+          onChange={handleOnChange(1)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(2) || setRate(2)}
+          onChange={handleOnChange(2)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(3) || setRate(3)}
+          onChange={handleOnChange(3)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(4) || setRate(4)}
+          onChange={handleOnChange(4)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(5) || setRate(5)}
+          onChange={handleOnChange(5)}
         />
       </div>
     ));

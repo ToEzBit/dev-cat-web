@@ -3,7 +3,7 @@ import CreateReview from './CreateReview';
 import Rating from './Rating';
 import ReviewCard from './ReviewCard';
 
-export default function Reviews({ reviews }) {
+export default function Reviews({ reviews, setProductByIDRender }) {
   const { reviewRating, setReviewRating } = useFilter();
 
   return (
@@ -17,9 +17,8 @@ export default function Reviews({ reviews }) {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <CreateReview />
+          <CreateReview setProductByIDRender={setProductByIDRender} />
           {reviews?.map((el) => {
-            console.log(reviews);
             return (
               <ReviewCard
                 key={el.id}
@@ -28,6 +27,7 @@ export default function Reviews({ reviews }) {
                 message={el.message}
                 rate={el.rate}
                 profilePic={el.User.profileImage}
+                setProductByIDRender={setProductByIDRender}
               />
             );
           })}

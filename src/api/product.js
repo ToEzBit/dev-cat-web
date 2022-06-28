@@ -2,7 +2,8 @@ import axios from '../config/axios';
 
 export const createProductReview = async (input, productId) => {
   const res = await axios.post(`/products/${productId}/review`, input);
-  return res.data.createdReview;
+  console.log(res);
+  // return res.data.createdReview;
 };
 
 export const updateProductReview = async (

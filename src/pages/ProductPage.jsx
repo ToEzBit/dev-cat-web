@@ -13,7 +13,7 @@ import PhotoCollage from '../components/products/PhotoCollage';
 
 export default function ProductPage() {
   const { productId } = useParams();
-
+  const [render, setRender] = useState(false);
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -22,7 +22,8 @@ export default function ProductPage() {
       setProduct(res);
     };
     fetchProduct();
-  }, []);
+    console.log(render);
+  }, [render]);
 
   return (
     <div className="w-screen flex flex-col items-center">
@@ -58,7 +59,10 @@ export default function ProductPage() {
             lastName={product?.Dev?.lastName}
             profileImage={product?.Dev?.lastName}
           />
-          <Reviews reviews={product?.ProductReviews} />
+          <Reviews
+            reviews={product?.ProductReviews}
+            setProductByIDRender={setRender}
+          />
         </div>
       </div>
       <Footer />

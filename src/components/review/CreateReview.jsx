@@ -6,29 +6,27 @@ import { useEffect } from 'react';
 import { useProduct } from '../context/ProductContext';
 import { useParams } from 'react-router-dom';
 
-export default function CreateReview({ name, setName }) {
-  const productId = useParams();
+export default function CreateReview({ name, setProductByIDRender }) {
+  const { productId } = useParams();
   const { handleCreateProductReview } = useProduct();
   const [rate, setRate] = useState(0);
   const [message, setMessage] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [createReviewError, setCreateReviewError] = useState('');
 
-  const handleCreateReview = async (
-    { rate, message, isAnonymous },
-    productId,
-  ) => {
-    console.log(message);
+  const handleCreateReview = async () => {
     if (!rate) {
-      setCreateReviewError(createReviewError.push('Rating is required. '));
+      setCreateReviewError('Rating is required. ');
     }
     if (!message) {
       setCreateReviewError(
-        createReviewError.push('Review Message is required. '),
+        setCreateReviewError('Review Message is required. '),
       );
     }
     await handleCreateProductReview({ rate, message, isAnonymous }, productId);
     setRate(0);
+    setProductByIDRender((prev) => !prev);
+
     setMessage('');
   };
 
@@ -104,15 +102,15 @@ export default function CreateReview({ name, setName }) {
         id="productReview"
         name="productReview"
         className="w-full  border border-indigo-50"
+        typeof="text"
+        value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Review this product..."
       ></textarea>
       <div className="w-full flex justify-end">
         <button
           className="btn btn-outline btn-info btn-sm mx-2 mb-1"
-          onClick={() =>
-            handleCreateProductReview({ message, rate, isAnonymous }, productId)
-          }
+          onClick={() => handleCreateReview()}
         >
           Submit
         </button>
