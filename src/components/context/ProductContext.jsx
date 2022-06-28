@@ -3,10 +3,9 @@ import { createProductReview, updateProductReview } from '../../api/product';
 
 const ProductContext = createContext();
 function ProductContextProvider({ children }) {
-
-  const handleCreateProductReview = async (message, rate, isAnonymous) => {
+  const handleCreateProductReview = async (input, productId) => {
     try {
-      const res = await createProductReview(message, rate, isAnonymous);
+      const res = await createProductReview(input, productId);
       return res.data.createdReview;
     } catch (err) {
       console.log(err);

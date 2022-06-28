@@ -1,15 +1,10 @@
 import axios from '../config/axios';
 
-export const createProductReview = async ({ message, rate, isAnonymous }) => {
-  const res = await axios.post(`/products/:productId/review`, {
-    message,
-    rate,
-    isAnonymous,
-  });
+export const createProductReview = async (input, productId) => {
+  const res = await axios.post(`/products/${productId}/review`, input);
   return res.data.createdReview;
 };
 
-// id???
 export const updateProductReview = async (
   { message, rate, isAnonymous },
   productId,
@@ -25,4 +20,9 @@ export const updateProductReview = async (
 export const getProductById = async (productId) => {
   const res = await axios.get(`/products/${productId}`);
   return res.data.product;
+};
+
+export const deleteProductReview = async (productId) => {
+  const res = await axios.delete(`/products/${productId}`);
+  return res.data;
 };

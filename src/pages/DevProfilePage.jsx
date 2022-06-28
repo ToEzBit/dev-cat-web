@@ -23,7 +23,7 @@ function DevProfilePage() {
         >
           <div className="collapse-title text-xl font-medium">
             <div className="flex justify-center items-center">
-              <DevProfileCard  />
+              <DevProfileCard />
             </div>
           </div>
           <div className="collapse-content w-10/12x">

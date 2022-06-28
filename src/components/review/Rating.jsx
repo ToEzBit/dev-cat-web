@@ -1,6 +1,15 @@
 import React from 'react';
 
 function Rating({ setReviewRating, rate, setRate }) {
+ handleOnChange = (newRate) => {
+  if (setReviewRating) {
+    return setReviewRating(newRate)
+  }
+  if (setRate) {
+    return setRate(newRate)
+  }
+ }
+
   let ratingVariances;
   if (setReviewRating || setRate) {
     return (ratingVariances = (
