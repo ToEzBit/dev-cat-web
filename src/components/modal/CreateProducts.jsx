@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AddPackage from './AddPackage';
 
 function CreateProducts() {
-  const [openModal, setOpenModal] = useState(false);
   return (
     <div className="flex flex-col ">
       <div className="flex justify-end px-5 py-3">
@@ -20,7 +19,7 @@ function CreateProducts() {
               <div className="flex justify-start">
                 <label
                   className="block text-[#06033A] text-sm font-bold mb-2"
-                  forhtml="titleProject"
+                  htmlFor="titleProject"
                 >
                   Title Project
                 </label>
@@ -41,8 +40,8 @@ function CreateProducts() {
               <div className="flex flex-col pt-5">
                 <div className="flex justify-start">
                   <label
-                    className="block text-[#06033A]   text-sm font-bold mb-2 text-sm"
-                    forhtml="Information"
+                    className="block text-[#06033A] font-bold mb-2 text-sm"
+                    htmlFor="Information"
                   >
                     Information
                   </label>
@@ -63,7 +62,7 @@ function CreateProducts() {
               <div className="flex  w-full ">
                 <label
                   className="block text-[#706D9E] text-sm font-bold mb-2"
-                  forhtml="standardImage"
+                  htmlFor="standardImage"
                 >
                   standard image
                 </label>
@@ -106,7 +105,7 @@ function CreateProducts() {
                 <div className="flex  w-full ">
                   <label
                     className="block text-[#706D9E] text-sm font-bold mb-2"
-                    forhtml="thumbnailImage"
+                    htmlFor="thumbnailImage"
                   >
                     thumbnail image
                   </label>
@@ -150,7 +149,7 @@ function CreateProducts() {
                 <div className="flex  w-full ">
                   <label
                     className="block text-[#706D9E] text-sm font-bold mb-2"
-                    forhtml=" carouselImage"
+                    htmlFor=" carouselImage"
                   >
                     carousel image
                   </label>
@@ -199,7 +198,7 @@ function CreateProducts() {
             <div className="flex ">
               <label
                 className="block text-[#5D5FEF] text-sm font-bold mb-2 border border-[#9747FF]  rounded-lg w-6 p-2 "
-                forhtml="1"
+                htmlFor="1"
               >
                 1
               </label>
@@ -210,27 +209,23 @@ function CreateProducts() {
               </button> */}
               <button>
                 <label
-                  htmlFor="my-modal2"
+                  htmlFor="addPackage-modal"
                   className=" bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md  modal-button text-center "
-                  role={'button'}
-                  onClick={() => {
-                    setOpenModal(true);
-                  }}
+                  role="button"
                 >
                   ADD Package
                 </label>
               </button>
-              <input type="checkbox" id="my-modal2" className="modal-toggle" />
-
-              {openModal ? (
-                <>
-                  <div className="modal">
-                    <div className="modal-box">
-                      {openModal && <AddPackage setOpenModal={setOpenModal} />}
-                    </div>
-                  </div>
-                </>
-              ) : null}
+              <input
+                type="checkbox"
+                id="addPackage-modal"
+                className="modal-toggle"
+              />
+              <div className="modal">
+                <div className="modal-box">
+                  <AddPackage />
+                </div>
+              </div>
 
               <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
                 ADD
@@ -277,9 +272,9 @@ function CreateProducts() {
         {/* ====================================================================add TitleProject =============================================================================*/}
 
         <div className="flex flex-col  flex-auto text-[#5D5FEF] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg ">
-          <button className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 border border-[#E8E7FF] rounded shadow">
+          {/* <button className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 border border-[#E8E7FF] rounded shadow">
             +
-          </button>
+          </button> */}
         </div>
       </div>
       {/* ====================================================================button TitleProject =============================================================================*/}

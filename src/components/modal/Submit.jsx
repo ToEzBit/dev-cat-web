@@ -1,10 +1,12 @@
 import React from 'react';
 
-function Submit({ setOpenModal2 }) {
+function Submit() {
   return (
     <div className="max-w-screen-lg mx-auto">
       <div className="flex justify-end ">
-        <button onClick={() => setOpenModal2(false)}>X</button>
+        <div className="modal-action">
+          <label htmlFor="submit-modal">X</label>
+        </div>
       </div>
       <div className="flex flex-col   text-[#06033A] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg border border-[#7879F1]">
         <div className="flex flex-col py-5">
@@ -17,7 +19,7 @@ function Submit({ setOpenModal2 }) {
             <div className="flex justify-start">
               <label
                 className="block text-[#7879F1] text-sm font-bold mb-2"
-                forhtml="Link"
+                htmlFor="Link"
               >
                 Link
               </label>
@@ -31,7 +33,7 @@ function Submit({ setOpenModal2 }) {
             <div className="flex justify-start">
               <label
                 className="block text-[#7879F1] text-sm font-bold mb-2"
-                forhtml="Comment"
+                htmlFor="Comment"
               >
                 Comment
               </label>
@@ -45,10 +47,7 @@ function Submit({ setOpenModal2 }) {
           </div>
           {/* ==================================================================input detail============================================================= */}
           <div className="flex  justify-center rounded-lg ">
-            <button
-              className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 my-4 border border-[#E8E7FF] rounded-xl shadow"
-              onClick={() => setOpenModal2(false)}
-            >
+            <button className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 my-4 border border-[#E8E7FF] rounded-xl shadow">
               Submit
             </button>
           </div>

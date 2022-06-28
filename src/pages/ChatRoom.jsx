@@ -6,7 +6,6 @@ import SpecialRequirement from '../components/modal/SpecialRequirement';
 import Submit from '../components/modal/Submit';
 
 function ChatRoom() {
-  const [openModal, setOpenModal] = useState(false);
   const [openModal2, setOpenModal2] = useState(false);
 
   return (
@@ -29,8 +28,7 @@ function ChatRoom() {
                 />
               </div>
               <button className=" p-1 px-4 text-slate-400 rounded-lg bg-white">
-                {' '}
-                Sort{' '}
+                Sort
               </button>
             </div>
           </div>
@@ -39,28 +37,24 @@ function ChatRoom() {
           <div className="px-8 py-6 ">
             <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
               <label
-                htmlFor="my-modal"
+                htmlFor="specialRequirement-modal"
                 className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                role={'button'}
-                onClick={() => {
-                  setOpenModal(true);
-                }}
+                role="button"
               >
                 Special Requirement
               </label>
 
-              <input type="checkbox" id="my-modal" className="modal-toggle" />
-              {openModal ? (
-                <>
-                  <div className="modal">
-                    <div className="modal-box">
-                      {openModal && (
-                        <SpecialRequirement setOpenModal={setOpenModal} />
-                      )}
-                    </div>
-                  </div>
-                </>
-              ) : null}
+              <input
+                type="checkbox"
+                id="specialRequirement-modal"
+                className="modal-toggle"
+              />
+
+              <div className="modal">
+                <div className="modal-box">
+                  <SpecialRequirement />
+                </div>
+              </div>
 
               <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
                 <h5>John Doe</h5>
@@ -71,26 +65,24 @@ function ChatRoom() {
               </button> */}
               <button>
                 <label
-                  htmlFor="my-modal2"
+                  htmlFor="submit-modal"
                   className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                  role={'button'}
-                  onClick={() => {
-                    setOpenModal2(true);
-                  }}
+                  role="button"
                 >
                   SUBMIT
                 </label>
               </button>
-              <input type="checkbox" id="my-modal2" className="modal-toggle" />
-              {openModal2 ? (
-                <>
-                  <div className="modal2">
-                    <div className="modal-box">
-                      {openModal2 && <Submit setOpenModal2={setOpenModal2} />}
-                    </div>
-                  </div>
-                </>
-              ) : null}
+              <input
+                type="checkbox"
+                id="submit-modal"
+                className="modal-toggle"
+              />
+
+              <div className="modal">
+                <div className="modal-box">
+                  <Submit />
+                </div>
+              </div>
             </div>
           </div>
         </div>

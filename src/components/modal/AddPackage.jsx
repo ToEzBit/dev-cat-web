@@ -1,10 +1,14 @@
 import React from 'react';
 
-function AddPackage({ setOpenModal }) {
+function AddPackage({}) {
   return (
     <div className="max-w-screen-lg mx-auto">
       <div className="flex justify-end ">
-        <button onClick={() => setOpenModal(false)}>X</button>
+        <div className="modal-action">
+          <label role="button" htmlFor="addPackage-modal">
+            X
+          </label>
+        </div>
       </div>
       <div className="flex flex-col   text-[#06033A] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg border border-[#7879F1]">
         <div className="flex justify-around py-5">
@@ -88,10 +92,7 @@ function AddPackage({ setOpenModal }) {
           <div></div>
           {/* ==================================================================input detail============================================================= */}
           <div className="flex  justify-center rounded-lg ">
-            <button
-              className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 my-4 border border-[#E8E7FF] rounded-xl shadow"
-              onClick={() => setOpenModal(false)}
-            >
+            <button className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 my-4 border border-[#E8E7FF] rounded-xl shadow">
               Submit
             </button>
           </div>
