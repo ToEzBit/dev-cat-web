@@ -10,6 +10,7 @@ import RegisterPage from '../pages/RegisterPage';
 import ChangePasswordPage from '../pages/ChangePasswordPage';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import NewPasswordPage from '../pages/NewPasswordPage';
+import ProductPage from '../pages/ProductPage';
 
 export default function Router() {
   return (
