@@ -1,19 +1,18 @@
 import { useVisualElementContext } from 'framer-motion';
 import React from 'react';
 
-function PackageDetails({ el }) {
-  console.log(el);
+function PackageDetails({ product }) {
+  console.log(product);
   return (
     <table>
-      //ส่งเป็น Packageทั้งก้อน
       <colgroup>
-        {el.map((element, idx) => (
+        {product.map((element, idx) => (
           <col key={idx} className={element.title}></col>
         ))}
       </colgroup>
       <tr>
         <td></td>
-        {el.map((element, idx) => (
+        {product.map((element, idx) => (
           <th scope="col" key={idx}>
             <h6>{element.title}</h6>
             {element.info}
@@ -22,38 +21,48 @@ function PackageDetails({ el }) {
       </tr>
       <tr>
         <th scope="row">revision</th>
-        {el.map((element, idx) => (
+        {product.map((element, idx) => (
           <td key={idx}>{element.revision}</td>
         ))}
       </tr>
       <tr>
         <th scope="row">duration</th>
-        {el.map((element, idx) => (
+        {product.map((element, idx) => (
           <td key={idx}>{element.duration} days</td>
         ))}
       </tr>
       <tr>
-        {/* {el.PackageDetails ? (
-          <>
-            {el.PackageDetails.forEach(el)}
-            <th scope="row">{el.title}</th>
-          </>
-        ) : (
-          ''
-        )} */}
-        {/* {el.forEach((element) => {
-          return (
-           &&
-            element.PackageDetails.map((specialPackage) => (
-              <td>{specialPackage.value}</td>
-            ))
-          );
-        })} */}
+        <th scope="row">Number of Page</th>
+        {product.map((element, idx) => (
+          <td key={idx}>{element.numberOfPages}</td>
+        ))}
       </tr>
       <tr>
+        <th scope="row">responsiveDesign</th>
+        {product.map((element, idx) => (
+          <td key={idx}>{element.responsiveDesign}</td>
+        ))}
+      </tr>
+      <tr>
+        <th scope="row">source file</th>
+        {product.map((element, idx) => (
+          <td key={idx}>{element.sourceFile}</td>
+        ))}
+      </tr>
+      <tr>
+        <th scope="row">Content Upload </th>
+        {product.map((element, idx) => (
+          <td key={idx}>{element.contentUpload}</td>
+        ))}
+      </tr>
+
+      <tr>
         <th scope="row">price</th>
-        {el.map((element, idx) => (
-          <td key={idx}>{element.price} THB</td>
+        {product.map((element, idx) => (
+          <div className="flex flex-col">
+            <td key={idx}>{element.price} THB</td>
+            <button className="btn btn-info btn-xs">สนใจจ้าง</button>
+          </div>
         ))}
       </tr>
     </table>

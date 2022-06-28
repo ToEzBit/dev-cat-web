@@ -5,10 +5,12 @@ import Navbar from '../components/navbars/Navbar';
 import DevSkills from '../components/card/DevProfileCard/DevSkills';
 import Workcard from '../components/card/WorkCard';
 import Footer from '../components/footer/Footer';
-// import Reviews from './Reviews';
+import Review from '../components/review/Review';
+import { useEffect } from 'react';
 
 function DevProfilePage() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <div className="w-screen flex flex-col items-center">
       <div className="w-full">
@@ -21,7 +23,7 @@ function DevProfilePage() {
         >
           <div className="collapse-title text-xl font-medium">
             <div className="flex justify-center items-center">
-              <DevProfileCard />
+              <DevProfileCard  />
             </div>
           </div>
           <div className="collapse-content w-10/12x">
@@ -82,7 +84,7 @@ function DevProfilePage() {
           </div>
         </div>
       </div>
-      {/* <Reviews /> */}
+      <Review />
       <Footer />
     </div>
   );

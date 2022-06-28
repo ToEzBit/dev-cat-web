@@ -1,17 +1,31 @@
 import { useState } from 'react';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 import AnonymousProfilePic from '../../asset/image/AnonymousProfilePic.png';
-
-import { useFilter } from '../context/FilterContext';
 import Rating from './Rating';
 import { useEffect } from 'react';
+import { useProduct } from '../context/ProductContext';
 
 export default function CreateReview({ name, setName }) {
+  const { handleCreateProductReview } = useProduct();
   const [rate, setRate] = useState(0);
   const [message, setMessage] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
-  const { setReviewRating } = useFilter();
-  useEffect(() => console.log(isAnonymous), [isAnonymous]);
+  const [createReviewError, setCreateReviewError] = useState('');
+
+  const handleCreateReview = async (rate, message, isAnonymous) => {
+    if (!rate) {
+      setCreateReviewError(createReviewError.push('Rating is required. '));
+    }
+    if (!message) {
+      setCreateReviewError(
+        createReviewError.push('Review Message is required. '),
+      );
+    }
+    await handleCreateProductReview(rate, message, isAnonymous);
+    setRate(0);
+    setMessage('');
+  };
+
   return (
     <div className="w-full shadow-sm rounded-lg bg-white">
       <div className="w-full h-30 m-2 flex">
@@ -85,11 +99,17 @@ export default function CreateReview({ name, setName }) {
         name="productReview"
         className="w-full  border border-indigo-50"
         onChange={(e) => setMessage(e.target.value)}
+        value={message}
+        placeholder="Review this product..."
       ></textarea>
       <div className="w-full flex justify-end">
-        <button class="btn btn-outline btn-info btn-sm mx-2 mb-1">
+        <button
+          className="btn btn-outline btn-info btn-sm mx-2 mb-1"
+          onClick={() => handleCreateProductReview}
+        >
           Submit
         </button>
+        {createReviewError && <span>{createReviewError}</span>}
       </div>
     </div>
   );

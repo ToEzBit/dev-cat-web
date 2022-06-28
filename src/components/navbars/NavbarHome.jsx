@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 
 function NavbarHome() {
+  const { logout } = useContext(AuthContext);
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
@@ -127,7 +131,9 @@ function NavbarHome() {
                 <div>Settings</div>
               </li>
               <li>
-                <div>Logout</div>
+                <a href="/" onClick={logout}>
+                  Logout
+                </a>
               </li>
             </ul>
           </div>

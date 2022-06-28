@@ -5,6 +5,35 @@ import ReviewCard from './ReviewCard';
 
 export default function Reviews() {
   const { reviewRating, setReviewRating } = useFilter();
+
+  // const handleUpdateProductReview = async (newValue, id) => {
+  //   try {
+  //     const res = await updateProductReview(newValue, id);
+  //     const idx = devReview.findIndex((el) => el.id === id);
+  //     if (idx !== -1) {
+  //       const clonedDevReview = [...devReview];
+  //       clonedDevReview[idx] = { ...clonedDevReview[idx], ...newValue };
+  //       setDevReview(clonedDevReview);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // const handleRemoveProductReview = async (id) => {
+  //   try {
+  //     const res = await deleteProductReview(id);
+  //     const idx = devReview.findIndex((el) => el.id === id);
+  //     if (idx !== -1) {
+  //       const clonedDevReview = [...devReview];
+  //       clonedDevReview.splice(idx, 1);
+  //       setDevReview(clonedDevReview);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   const testData = [
     {
       userId: 1,

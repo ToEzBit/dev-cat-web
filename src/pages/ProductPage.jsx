@@ -3,8 +3,22 @@ import Carousel from '../components/carousel/Carousel';
 import Navbar from '../components/navbars/Navbar';
 import ProductDetails from '../components/products/ProductDetails';
 import PackageDetails from '../components/products/PackageDetails';
+import { getProductById } from '../api/product';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export default function ProductPage() {
+  const { productId } = useParams();
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const res = await getProductById();
+      setProduct(res);
+    };
+    fetchProduct();
+  }, []);
+
   const mockData = {
     product: {
       id: 1,
@@ -110,17 +124,6 @@ export default function ProductPage() {
     },
   };
 
-  //   const specialPackage = mockData.product.Packages;
-  //   const specailPackageGroupByTitle = specialPackage.reduce((acc, curr) => {
-  //     console.log(curr);
-  //     // console.log(curr.value);
-  //     if (acc[curr.title]) {
-  //       //   acc[curr.title];
-  //     }
-  //     return acc;
-  //   }, {});
-  //   console.log(specailPackageGroupByTitle);
-
   return (
     <div className="w-screen flex flex-col items-center">
       <div className="w-full">
@@ -128,8 +131,8 @@ export default function ProductPage() {
       </div>
       <div className="w-9/12 h-screen flex flex-col gap-2">
         <div className="flex justify-end gap-2">
-          <button class="btn btn-outline btn-info btn-sm">Edit</button>
-          <button class="btn btn-outline btn-info btn-sm">Delete</button>
+          <button className="btn btn-outline btn-info btn-sm">Edit</button>
+          <button className="btn btn-outline btn-info btn-sm">Delete</button>
         </div>
         <div className="grid grid-cols-4 grid-rows-4 w-full h-3/6">
           <div className="col-start-1 col-span-2 row-start-1 row-span-4 bg-slate-300">
@@ -142,18 +145,19 @@ export default function ProductPage() {
           <div className="col-start-4 row-start-4 bg-fuchsia-100"></div>
         </div>
         <div>
-          <ProductDetails />
+          <ProductDetails message={product.info} />
         </div>
         <div>
-          <div>
+          <div className="flex">
             <p>Package</p>
             <button class="btn btn-outline btn-info btn-sm">
               Edit Package
             </button>
-            {Object.values(mockData).map((el) => (
-              <PackageDetails kay={el} el={el.Packages} />
-            ))}
+            <PackageDetails product={product.Packages} />
           </div>
+        </div>
+        <div>
+          <Reviews />
         </div>
       </div>
     </div>

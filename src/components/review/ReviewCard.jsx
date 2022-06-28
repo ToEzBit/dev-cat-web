@@ -6,10 +6,18 @@ import { useFilter } from '../context/FilterContext';
 // import { FilterContext } from '../context/FilterContext';
 import Rating from './Rating';
 
-export default function ReviewCard({ name, message, rate }) {
+export default function ReviewCard({ id, name, message, rate }) {
   const { setReviewRating } = useFilter();
-  const [isReadOnlyMode, setIsReadOnlyMode] = useState(false);
-  const [newMessage, setNewMessage] = useState('');
+  const [isReadOnlyMode, setIsReadOnlyMode] = useState(true);
+  const [updateReviewError, setUpdateReviewError] = useFilter('')
+  const [newMessage, setNewMessage] = useState(message);
+
+  const handleUpdateReview = () => {
+    if (!newMessage) {
+      setUpdateReviewError('Nothing to update yet.')
+    }
+
+  }
   return (
     <div className="card card-compact h-30 w-full bg-base-100 shadow-xl">
       <div className="card-body">
@@ -84,11 +92,13 @@ export default function ReviewCard({ name, message, rate }) {
                     <Rating setReviewRating={setReviewRating} />
                   </div>
                 </div>
-                <input
+                <textarea
                   type="text"
                   id="newMessage"
                   name="newMessage"
-                  className="min-w-full max-w-full"
+                  value={newMessage}
+                  className="min-w-full max-w-full border border-indigo-50 rounded-md"
+                  onChange={(e) => setNewMessage(e.target.value)}
                 />
               </div>
             )}

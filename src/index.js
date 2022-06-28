@@ -4,18 +4,24 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import AuthContextProvider from './contexts/AuthContext.jsx';
 
 import FilterContextProvider from './components/context/FilterContext';
+import ProductContextProvider from './components/context/ProductContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <FilterContextProvider>
-        <App />
+        <AuthContextProvider>
+          <ProductContextProvider>
+            <App />
+          </ProductContextProvider>
+        </AuthContextProvider>
       </FilterContextProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
