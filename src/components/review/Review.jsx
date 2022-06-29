@@ -3,7 +3,7 @@ import CreateReview from './CreateReview';
 import Rating from './Rating';
 import ReviewCard from './ReviewCard';
 
-export default function Reviews({ reviews, setProductByIDRender }) {
+export default function Reviews({ setProductByIDRender, reviews, setReviews }) {
   const { reviewRating, setReviewRating } = useFilter();
 
   return (
@@ -22,12 +22,15 @@ export default function Reviews({ reviews, setProductByIDRender }) {
             return (
               <ReviewCard
                 key={el.id}
+                id={el.id}
                 userId={el.userId}
                 name={el.User.username}
                 message={el.message}
                 rate={el.rate}
                 profilePic={el.User.profileImage}
                 setProductByIDRender={setProductByIDRender}
+                reviews={reviews}
+                setReviews={setReviews}
               />
             );
           })}

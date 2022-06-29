@@ -1,21 +1,71 @@
 import { useState } from 'react';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 import { useFilter } from '../context/FilterContext';
-// import { FilterContext } from '../context/FilterContext';
 import Rating from './Rating';
+import { updateProductReview, deleteProductReview } from '../../api/product';
 
-export default function ReviewCard({ name, message, rate }) {
+export default function ReviewCard({
+  id,
+  name,
+  message,
+  rate,
+  reviews,
+  setReviews,
+  setProductByIDRender,
+}) {
   const [isReadOnlyMode, setIsReadOnlyMode] = useState(true);
   const [newRate, setNewRate] = useState(rate);
   const [newMessage, setNewMessage] = useState(message);
+  const [error, setError] = useState('');
 
-  // const handleUpdateReview = () => {
+  const handleUpdateReview = async () => {
+    setIsReadOnlyMode(!isReadOnlyMode);
+    if (newRate === rate || newMessage === newMessage) {
+      setError('Nothing to update yet.');
+    }
+    if (!id) {
+      setError('Product not found.');
+    }
 
-  // }
-
-  // const handleDeleteReview = () => {
-
-  // }
+    try {
+      const res = await updateProductReview(
+        {
+          message: newMessage,
+         rate: newRate,
+          // setNewIsAnonymous: setNewIsAnonymous,
+        },
+        id,
+      );
+      setProductByIDRender((prev) => !prev);
+      // const idx = reviews.findIndex((el) => el.id === id);
+      // if (idx !== -1) {
+      //   const clonedReviews = [...reviews];
+      //   clonedReviews[idx] = { ...clonedReviews[idx], ...newValue };
+      //   setReviews(clonedReviews);
+      // }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleDeleteReview = async () => {
+    if (!id) {
+      setError('Product not found.');
+    }
+    try {
+      console.log(id);
+      const res = await deleteProductReview(id);
+      // ========={which would be better for the perf?}=========
+      // setProductByIDRender((prev) => !prev);
+      const idx = reviews.findIndex((el) => el.id === id);
+      if (idx !== -1) {
+        const clonedReviews = [...reviews];
+        clonedReviews.splice(idx, 1);
+        setReviews(clonedReviews);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="card card-compact h-30 w-full bg-base-100 shadow-xl">
@@ -40,6 +90,9 @@ export default function ReviewCard({ name, message, rate }) {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         strokeWidth={2}
+                        onClick={() => {
+                          handleDeleteReview();
+                        }}
                       >
                         <path
                           strokeLinecap="round"
@@ -82,7 +135,7 @@ export default function ReviewCard({ name, message, rate }) {
                         className="h-4 w-4"
                         viewBox="0 0 20 20"
                         fill="currentColor"
-                        onClick={() => setIsReadOnlyMode(!isReadOnlyMode)}
+                        onClick={() => handleUpdateReview()}
                       >
                         <path
                           fillRule="evenodd"
