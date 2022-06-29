@@ -4,15 +4,23 @@ import Rating from './Rating';
 import ReviewCard from './ReviewCard';
 import DevProfileCard from '../card/DevProfileCard/DevProfileCard';
 
-function Review({ mode, reviews, setReviews, setProductByIDRender }) {
+function Review({ mode, reviews, setReviews, setProductByIDRender, dev }) {
   const { reviewRating, setReviewRating } = useFilter();
-
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
       {mode === 'DevPage' ? (
-        <div className="w-full flex justify-center bg-text-color-footer my-4">
+        <div className="w-full flex justify-center bg-text-color-footer py-10">
           <div className="w-3/5 ">
-            <DevProfileCard />
+            <div className="w-full">
+              <DevProfileCard
+                id={dev?.id}
+                email={dev?.email}
+                username={dev?.username}
+                firstName={dev?.firstName}
+                lastName={dev?.lastName}
+                profileImage={dev?.lastName}
+              />
+            </div>
           </div>
         </div>
       ) : (

@@ -5,11 +5,7 @@ import Navbar from '../components/navbars/Navbar';
 import DevSkills from '../components/card/DevProfileCard/DevSkills';
 import Workcard from '../components/card/WorkCard';
 import Footer from '../components/footer/Footer';
-<<<<<<< HEAD
 import Review from '../components/review/Review';
-=======
-import Reviews from '../components/review/Reviews';
->>>>>>> dev
 
 function DevProfilePage() {
   const [isCollapsed, setIsCollapsed] = useState(false);

@@ -2,6 +2,8 @@ import axios from '../config/axios';
 
 export const getProductById = async (productId) => {
   const res = await axios.get(`/products/${productId}`);
+  console.log(res);
+
   return res.data.product;
 };
 

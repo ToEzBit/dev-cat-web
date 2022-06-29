@@ -26,38 +26,23 @@ export default function ProductPage() {
     fetchProduct();
   }, [render]);
 
-  const specialPackage = {};
-
-  product?.Packages?.map((el, idx) =>
-    Object.entries(el).map((element, index) => {
-      if (element[0] == 'PackageDetails') {
-        element[1].map((ele, indx) => {
-          let title = ele.title;
-          let value = ele.value;
-          if (!specialPackage[title]) {
-            specialPackage[title] = [value];
-          } else if (specialPackage[title]) {
-            specialPackage[title].push(value);
-          }
-        });
-      }
-    }),
-  );
   return (
     <div className="w-screen flex flex-col items-center">
       <div className="w-full">
         <Navbar />
       </div>
-      <div className="w-10/12 h-screen flex flex-col gap-5">
+      <div className="w-8/12 py-4 flex flex-col gap-5">
         <div className="flex justify-end gap-2">
           <button className="btn btn-outline btn-info btn-sm">Edit</button>
           <button className="btn btn-outline btn-info btn-sm">Delete</button>
         </div>
-        <div className="w-full min-h-16">
-          <PhotoCollage photo={product.ProductImages} />
-        </div>
+        {Object.values(product).length > 0 && (
+          <div className="w-full">
+            <PhotoCollage photo={product?.ProductImages} />
+          </div>
+        )}
         <div className="w-full">
-          <ProductDetails message={product.info} />
+          <ProductDetails message={product?.info} />
         </div>
         <div>
           <div className="flex w-full justify-between">
@@ -70,19 +55,11 @@ export default function ProductPage() {
         <div>
           <PackageDetails product={product?.Packages} />
         </div>
-        <div className="w-full">
-          <DevProfileCard
-            id={product?.Dev?.id}
-            email={product?.Dev?.email}
-            username={product?.Dev?.username}
-            firstName={product?.Dev?.firstName}
-            lastName={product?.Dev?.lastName}
-            profileImage={product?.Dev?.lastName}
-          />
-        </div>
       </div>
       <div>
         <Review
+          mode="DevPage"
+          dev={product?.Dev}
           reviews={reviews}
           setReviews={setReviews}
           setProductByIDRender={setRender}

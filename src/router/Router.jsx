@@ -1,11 +1,7 @@
 import React from 'react';
 import { Navigate, Routes, Route } from 'react-router-dom';
 
-<<<<<<< HEAD
 import Review from '../components/review/Review';
-=======
-import Reviews from '../components/review/Reviews';
->>>>>>> dev
 import ChatRoom from '../pages/ChatRoom';
 import HomePage from '../pages/HomePage';
 import DevProfilePage from '../pages/DevProfilePage';
@@ -25,12 +21,6 @@ export default function Router() {
       <Route path="/result" element={<ResultPage />} />
       <Route path="/chatroom" element={<ChatRoom />} />
       <Route path="/create-product" element={<CreateProductPage />} />
-<<<<<<< HEAD
-      <Route path="/review" element={<Review />} />
-=======
-      <Route path="/product/:id" element={<ProductPage />} />
-      <Route path="/review" element={<Reviews />} />
->>>>>>> dev
       <Route path="/dev/profile/:id" element={<DevProfilePage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/login" element={<LoginPage />} />
