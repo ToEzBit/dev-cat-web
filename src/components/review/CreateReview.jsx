@@ -23,7 +23,6 @@ export default function CreateReview({ name, setProductByIDRender }) {
         setCreateReviewError('Review Message is required. '),
       );
     }
-    console.log(isAnonymous);
     await handleCreateProductReview({ rate, message, isAnonymous }, productId);
     setRate(0);
     setProductByIDRender((prev) => !prev);

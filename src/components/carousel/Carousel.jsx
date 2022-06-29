@@ -4,7 +4,6 @@ function Carousel({ photo }) {
   return (
     <div className="carousel w-full h-full ">
       {photo.map((el, idx) => {
-        console.log(el);
         return (
           <div id={`slide-${idx}`} className="carousel-item relative w-full">
             <img src={el.image} className="w-full object-cover" />
