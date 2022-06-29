@@ -23,6 +23,7 @@ export default function CreateReview({ name, setProductByIDRender }) {
         setCreateReviewError('Review Message is required. '),
       );
     }
+    console.log(isAnonymous);
     await handleCreateProductReview({ rate, message, isAnonymous }, productId);
     setRate(0);
     setProductByIDRender((prev) => !prev);
@@ -71,7 +72,7 @@ export default function CreateReview({ name, setProductByIDRender }) {
                   onClick={() => setIsAnonymous(!isAnonymous)}
                   className="flex gap-2 items-center"
                 >
-                  {name || 'test'}
+                  {name}
                   <button>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

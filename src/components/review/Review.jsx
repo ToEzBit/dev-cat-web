@@ -35,8 +35,11 @@ function Review({ mode, reviews, setReviews, setProductByIDRender, dev }) {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <CreateReview setProductByIDRender={setProductByIDRender} />
+          <CreateReview
+            setProductByIDRender={setProductByIDRender}
+          />
           {reviews?.map((el) => {
+            console.log(el);
             return (
               <ReviewCard
                 key={el.id}
@@ -45,6 +48,7 @@ function Review({ mode, reviews, setReviews, setProductByIDRender, dev }) {
                 name={el.User.username}
                 message={el.message}
                 rate={el.rate}
+                isAnonymous={el.isAnonymous}
                 profilePic={el.User.profileImage}
                 setProductByIDRender={setProductByIDRender}
                 reviews={reviews}
