@@ -1,7 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProfilePic from '../asset/image/ProfilePic.png';
 
 function EditProfilePage() {
+  const navigate = useNavigate();
+  const handleChangePassword = () => {
+    navigate('/change-password');
+  };
   return (
     <div className="max-w-screen-lg mx-auto">
       <div className="flex flex-col">
@@ -12,12 +17,15 @@ function EditProfilePage() {
         <div className="flex justify-center">
           <img src={ProfilePic} />
         </div>
+        {/* ========================================================= image Profile ======================================================*/}
+
         <div className="flex justify-center py-3">
           <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
             Edit Profile
           </button>
         </div>
-        <div cla>
+        {/* ========================================================= button edit Profile ======================================================*/}
+        <div>
           <div className="  py-3">
             <label className="block text-[#06033A]   text-sm font-bold mb-2 text-sm">
               Username
@@ -61,6 +69,7 @@ function EditProfilePage() {
               type="text"
               placeholder="Input Email"
             />
+            {/* ========================================================= input detail Profile ======================================================*/}
           </div>
           <div className="  py-3">
             <label className="block text-[#06033A]   text-sm font-bold mb-2 text-sm ">
@@ -68,10 +77,14 @@ function EditProfilePage() {
             </label>
           </div>
           <div className="pb-3">
-            <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md  ">
-              Reset Password
+            <button
+              className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md  "
+              onClick={handleChangePassword}
+            >
+              change Password
             </button>
           </div>
+          {/* ========================================================= change Password ======================================================*/}
           <div className="flex flex-col  flex-auto text-[#5D5FEF] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg ">
             <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
               Submit

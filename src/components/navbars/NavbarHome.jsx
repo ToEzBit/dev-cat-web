@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
@@ -124,7 +123,10 @@ function NavbarHome() {
               <li>
                 <div className="justify-between">
                   <Link to="/profile">Profile</Link>
-                  <span className="badge">New</span>
+
+                  <Link to="/profile">
+                    <span className="badge">New</span>
+                  </Link>
                 </div>
               </li>
               <li>
