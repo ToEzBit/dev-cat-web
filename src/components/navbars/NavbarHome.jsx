@@ -123,7 +123,7 @@ function NavbarHome() {
             >
               <li>
                 <div className="justify-between">
-                  Profile
+                  <Link to="/profile">Profile</Link>
                   <span className="badge">New</span>
                 </div>
               </li>
