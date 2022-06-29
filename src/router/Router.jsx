@@ -11,6 +11,7 @@ import ChangePasswordPage from '../pages/ChangePasswordPage';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import NewPasswordPage from '../pages/NewPasswordPage';
 import ProductPage from '../pages/ProductPage';
+import Main from '../pages/chatdev/Main';
 
 export default function Router() {
   return (
@@ -26,6 +27,7 @@ export default function Router() {
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/change-password" element={<ChangePasswordPage />} />
       <Route path="/new-password" element={<NewPasswordPage />} />
+      <Route path="/main-chatdev" element={<Main />} />
     </Routes>
   );
 }

@@ -10,15 +10,77 @@ import {
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  // console.log(user);
+  const navigate = useNavigate;
+
+  const fetchMe = async () => {
+    try {
+      const token = getAccessToken();
+      if (token) {
+        const resMe = await axios.get('/user/me');
+        setUser(resMe.data.user);
+      } else {
+        const resMe = await axios.get('/dev/me');
+        setUser(resMe.data.user);
+      }
+      setLoading(false);
+    } catch (err) {
+      removeAccessToken();
+      navigate('/login');
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+
+    fetchMe();
+  }, []);
+
+  // const login = async (emailOrPhone, password) => {
+  //   const res = await axios.post('/user/register', {
+  //     emailOrPhone,
+  //     password,
+  //   });
+  //   setAccessToken(res.data.token);
+  //   const resMe = await axios.get('users/me');
+  //   setUser(resMe.data.user);
+  //   return res.data.token;
+  // };
+
+  const registerUser = async (email, username, password, confirmPassword) => {
+    const res = await axios.post('auth/user/register', {
+      email,
+      username,
+      password,
+      confirmPassword,
+    });
+    setAccessToken(res.data.token);
+    const resMe = await axios.get('users/me');
+    setUser(resMe.data.user);
+  };
+
+  const registerDev = async (email, username, password, confirmPassword) => {
+    const res = await axios.post('auth/dev/register', {
+      email,
+      username,
+      password,
+      confirmPassword,
+    });
+    setAccessToken(res.data.token);
+    const resMe = await axios.get('dev/me');
+    setUser(resMe.data.user);
+  };
 
   const logout = () => {
     removeAccessToken();
     setUser(null);
   };
   return (
-    <AuthContext.Provider value={{ logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, registerUser, registerDev, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

@@ -1,6 +1,8 @@
+import { useContext } from 'react';
 import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { devRegister, userRegister } from '../../api/auth';
+import { AuthContext } from '../../contexts/AuthContext';
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -11,6 +13,8 @@ function RegisterForm() {
   const [checked, setChecked] = useState(false);
   const [tab, setTab] = useState(true);
   const [error, setError] = useState(false);
+
+  const { registerUser, registerDev } = useContext(AuthContext);
 
   const handleSubmitRegister = async (e) => {
     try {
@@ -34,9 +38,24 @@ function RegisterForm() {
       }
       if (tab) {
         await userRegister({ username, email, password, confirmPassword });
+        const regisAccessUser = await registerUser(
+          username,
+          email,
+          password,
+          confirmPassword,
+        );
+        console.log(regisAccessUser);
       } else {
         await devRegister({ username, email, password, confirmPassword });
+        const regisAccessDev = await registerDev(
+          username,
+          email,
+          password,
+          confirmPassword,
+        );
+        console.log(regisAccessDev);
       }
+
       navigate('/');
     } catch (err) {
       console.log(err);

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { devLogin, userLogin } from '../../api/auth';
 import { EyeIcon } from '@heroicons/react/solid';
 import { EyeOffIcon } from '@heroicons/react/solid';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 
 // protect route check if not have token cant get Chat Page
 // window.location.reload()
@@ -20,6 +22,8 @@ function LoginForm() {
   });
 
   const [passwordType, setPasswordType] = useState('password');
+
+  const { login, user } = useContext(AuthContext);
 
   const togglePassword = () => {
     if (passwordType === 'password') {
@@ -44,9 +48,11 @@ function LoginForm() {
       } else {
         await devLogin({ email, password });
       }
+      const loginAccess = await login(email, password);
       navigate('/');
     } catch (err) {
-      setApiError(err.response.data.message);
+      // setApiError(err.response.data.message);
+      console.log(err);
     }
   };
 
