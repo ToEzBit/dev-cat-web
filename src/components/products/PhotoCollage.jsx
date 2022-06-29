@@ -38,8 +38,8 @@ function PhotoCollage({ photo }) {
               className="object-cover object-bottom w-full h-full"
             />
           </div>
-          <button className="col-start-5 row-start-4 bg-fuchsia-100 flex justify-center items-center">
-            See more..
+          <button className="col-start-5 row-start-4 bg-slate-400 flex justify-center items-center backdrop-blur-sm hover:backdrop-blur-lg">
+            <div>See more..</div>
           </button>
         </>
       ) : (

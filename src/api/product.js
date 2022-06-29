@@ -2,8 +2,6 @@ import axios from '../config/axios';
 
 export const getProductById = async (productId) => {
   const res = await axios.get(`/products/${productId}`);
-  console.log(res);
-
   return res.data.product;
 };
 
@@ -25,6 +23,5 @@ export const updateProductReview = async (
 };
 
 export const deleteProductReview = async (id) => {
-  console.log(id);
   const res = await axios.delete(`/products/review/${id}`);
 };

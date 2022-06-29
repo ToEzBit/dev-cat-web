@@ -35,11 +35,8 @@ function Review({ mode, reviews, setReviews, setProductByIDRender, dev }) {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <CreateReview
-            setProductByIDRender={setProductByIDRender}
-          />
+          <CreateReview setProductByIDRender={setProductByIDRender} />
           {reviews?.map((el) => {
-            console.log(el);
             return (
               <ReviewCard
                 key={el.id}
