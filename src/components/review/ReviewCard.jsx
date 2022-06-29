@@ -31,18 +31,12 @@ export default function ReviewCard({
       const res = await updateProductReview(
         {
           message: newMessage,
-         rate: newRate,
+          rate: newRate,
           // setNewIsAnonymous: setNewIsAnonymous,
         },
         id,
       );
       setProductByIDRender((prev) => !prev);
-      // const idx = reviews.findIndex((el) => el.id === id);
-      // if (idx !== -1) {
-      //   const clonedReviews = [...reviews];
-      //   clonedReviews[idx] = { ...clonedReviews[idx], ...newValue };
-      //   setReviews(clonedReviews);
-      // }
     } catch (err) {
       console.log(err);
     }
@@ -52,16 +46,8 @@ export default function ReviewCard({
       setError('Product not found.');
     }
     try {
-      console.log(id);
       const res = await deleteProductReview(id);
-      // ========={which would be better for the perf?}=========
-      // setProductByIDRender((prev) => !prev);
-      const idx = reviews.findIndex((el) => el.id === id);
-      if (idx !== -1) {
-        const clonedReviews = [...reviews];
-        clonedReviews.splice(idx, 1);
-        setReviews(clonedReviews);
-      }
+      setProductByIDRender((prev) => !prev);
     } catch (err) {
       console.log(err);
     }

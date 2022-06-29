@@ -6,7 +6,6 @@ import DevSkills from '../components/card/DevProfileCard/DevSkills';
 import Workcard from '../components/card/WorkCard';
 import Footer from '../components/footer/Footer';
 import Review from '../components/review/Review';
-import { useEffect } from 'react';
 
 function DevProfilePage() {
   const [isCollapsed, setIsCollapsed] = useState(false);

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/navbars/Navbar';
 import { motion } from 'framer-motion';
 import ProfilePic from '../asset/image/ProfilePic.png';
+import SpecialRequirement from '../components/modal/SpecialRequirement';
+import Submit from '../components/modal/Submit';
 
 function ChatRoom() {
+  const [openModal2, setOpenModal2] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -24,8 +28,7 @@ function ChatRoom() {
                 />
               </div>
               <button className=" p-1 px-4 text-slate-400 rounded-lg bg-white">
-                {' '}
-                Sort{' '}
+                Sort
               </button>
             </div>
           </div>
@@ -33,16 +36,53 @@ function ChatRoom() {
         <div className=" col-span-2 border-x">
           <div className="px-8 py-6 ">
             <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
-              <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
+              <label
+                htmlFor="specialRequirement-modal"
+                className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                role="button"
+              >
                 Special Requirement
-              </button>
+              </label>
+
+              <input
+                type="checkbox"
+                id="specialRequirement-modal"
+                className="modal-toggle"
+              />
+
+              <div className="modal">
+                <div className="modal-box">
+                  <SpecialRequirement />
+                </div>
+              </div>
+
               <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
                 <h5>John Doe</h5>
                 <div>#01234567PP</div>
               </div>
-              <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
+              {/* <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
                 SUBMIT
+              </button> */}
+              <button>
+                <label
+                  htmlFor="submit-modal"
+                  className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                  role="button"
+                >
+                  SUBMIT
+                </label>
               </button>
+              <input
+                type="checkbox"
+                id="submit-modal"
+                className="modal-toggle"
+              />
+
+              <div className="modal">
+                <div className="modal-box">
+                  <Submit />
+                </div>
+              </div>
             </div>
           </div>
         </div>

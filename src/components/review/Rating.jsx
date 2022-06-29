@@ -21,31 +21,31 @@ function Rating({ setReviewRating, rate, setRate, setNewRate }) {
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400 h-4 w-4"
-          onChange={handleOnChange(1)}
+          onClick={() => handleOnChange(1)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={handleOnChange(2)}
+          onClick={() => handleOnChange(2)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={handleOnChange(3)}
+          onClick={() => handleOnChange(3)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={handleOnChange(4)}
+          onClick={() => handleOnChange(4)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={handleOnChange(5)}
+          onClick={() => handleOnChange(5)}
         />
       </div>
     ));

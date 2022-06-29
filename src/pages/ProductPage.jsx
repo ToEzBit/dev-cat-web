@@ -43,56 +43,12 @@ export default function ProductPage() {
       }
     }),
   );
-
-  //  const 1Packages = [
-  //       {
-  //         "id": 1,
-  //         "title": "product 1package 1",
-  //         "info": "<p>package info</p>",
-  //         "revision": 3,
-  //         "duration": 10,
-  //         "price": "1000",
-  //         "PackageDetails": [
-  //           {
-  //             "id": 1,
-  //             "title": "Responsive design",
-  //             "value": "1"
-  //           },
-  //           {
-  //             "id": 7,
-  //             "title": "Deploy",
-  //             "value": "1"
-  //           }
-  //         ]
-  //       },
-  //       {
-  //         "id": 4,
-  //         "title": "product 1 package 2",
-  //         "info": "<p>package info</p>",
-  //         "revision": 5,
-  //         "duration": 10,
-  //         "price": "5000",
-  //         "PackageDetails": [
-  //           {
-  //             "id": 4,
-  //             "title": "Responsive design",
-  //             "value": "0"
-  //           },
-  //           {
-  //             "id": 8,
-  //             "title": "Deploy",
-  //             "value": "0"
-  //           }
-  //         ]
-  //       }]
-
-  console.log(specialPackage);
   return (
     <div className="w-screen flex flex-col items-center">
       <div className="w-full">
         <Navbar />
       </div>
-      <div className="w-9/12 h-screen flex flex-col gap-2">
+      <div className="w-10/12 h-screen flex flex-col gap-5">
         <div className="flex justify-end gap-2">
           <button className="btn btn-outline btn-info btn-sm">Edit</button>
           <button className="btn btn-outline btn-info btn-sm">Delete</button>
@@ -110,12 +66,9 @@ export default function ProductPage() {
               Edit Package
             </button>
           </div>
-          <div className="w-full">
-            <PackageDetails
-              specialPackage={specialPackage}
-              product={product?.Packages}
-            />
-          </div>
+        </div>
+        <div>
+          <PackageDetails product={product?.Packages} />
         </div>
         <div className="w-full">
           <DevProfileCard

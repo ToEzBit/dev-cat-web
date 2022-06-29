@@ -29,16 +29,12 @@ import React from 'react';
       </div>
       <div className="flex justify-center py-2 gap-2 absolute mx-auto w-4/5">
         <a href="#item1" className="btn btn-xs">
-          1
         </a>
         <a href="#item2" className="btn btn-xs">
-          2
         </a>
         <a href="#item3" className="btn btn-xs">
-          3
         </a>
         <a href="#item4" className="btn btn-xs">
-          4
         </a>
       </div>
     </div>

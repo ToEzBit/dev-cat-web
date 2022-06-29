@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate, Routes, Route } from 'react-router-dom';
-import Reviews from '../components/review/Review';
+
+import Review from '../components/review/Review';
 import ChatRoom from '../pages/ChatRoom';
 import HomePage from '../pages/HomePage';
 import DevProfilePage from '../pages/DevProfilePage';
@@ -11,6 +12,7 @@ import ChangePasswordPage from '../pages/ChangePasswordPage';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import NewPasswordPage from '../pages/NewPasswordPage';
 import ProductPage from '../pages/ProductPage';
+import CreateProductPage from '../pages/CreateProductPage';
 
 export default function Router() {
   return (
@@ -18,6 +20,8 @@ export default function Router() {
       <Route path="/" element={<HomePage />} />
       <Route path="/result" element={<ResultPage />} />
       <Route path="/chatroom" element={<ChatRoom />} />
+      <Route path="/create-product" element={<CreateProductPage />} />
+      <Route path="/review" element={<Review />} />
       <Route path="/dev/profile/:id" element={<DevProfilePage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/login" element={<LoginPage />} />

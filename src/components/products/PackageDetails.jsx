@@ -51,11 +51,11 @@ function PackageDetails({ product }) {
         <tr>
           <th scope="row">Additional details</th>
 
-          {product?.map((element, idx) => (
-            <td>
+          {product?.map((element, index) => (
+            <td key={index}>
               <ul className="flex flex-col justify-end">
-                {element.PackageDetails.map((el) => (
-                  <li>
+                {element.PackageDetails.map((el, idx) => (
+                  <li key={idx}>
                     {el.title}: {el.value}
                   </li>
                 ))}

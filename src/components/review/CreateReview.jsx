@@ -26,7 +26,6 @@ export default function CreateReview({ name, setProductByIDRender }) {
     await handleCreateProductReview({ rate, message, isAnonymous }, productId);
     setRate(0);
     setProductByIDRender((prev) => !prev);
-
     setMessage('');
   };
 
@@ -107,14 +106,15 @@ export default function CreateReview({ name, setProductByIDRender }) {
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Review this product..."
       ></textarea>
-      <div className="w-full flex justify-end">
+      <div className="w-full flex justify-end items-center">
+        {createReviewError && <span>{createReviewError}</span>}
+
         <button
           className="btn btn-outline btn-info btn-sm mx-2 mb-1"
           onClick={() => handleCreateReview()}
         >
           Submit
         </button>
-        {createReviewError && <span>{createReviewError}</span>}
       </div>
     </div>
   );
