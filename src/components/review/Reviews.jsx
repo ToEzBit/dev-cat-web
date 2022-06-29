@@ -2,9 +2,11 @@ import { useFilter } from '../context/FilterContext';
 import Rating from './Rating';
 import ReviewCard from './ReviewCard';
 import DevProfileCard from '../card/DevProfileCard/DevProfileCard';
+import { useState } from 'react';
 
 function Review({ mode }) {
   const { reviewRating, setReviewRating } = useFilter();
+  const [selectedRate, setSelectedRate] = useState();
   const testData = [
     {
       userId: 1,
@@ -21,6 +23,8 @@ function Review({ mode }) {
       rate: '1',
     },
   ];
+  console.log(reviewRating);
+
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
       {mode === 'DevPage' ? (
