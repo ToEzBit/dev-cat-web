@@ -6,7 +6,7 @@ import PackageDetails from '../components/products/PackageDetails';
 import { getProductById } from '../api/product';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Reviews from '../components/review/Review';
+import Review from '../components/review/Review';
 import Footer from '../components/footer/Footer';
 import DevProfileCard from '../components/card/DevProfileCard/DevProfileCard';
 import PhotoCollage from '../components/products/PhotoCollage';
@@ -82,7 +82,7 @@ export default function ProductPage() {
         </div>
       </div>
       <div>
-        <Reviews
+        <Review
           reviews={reviews}
           setReviews={setReviews}
           setProductByIDRender={setRender}
