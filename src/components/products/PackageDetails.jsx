@@ -1,6 +1,8 @@
 import React from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function PackageDetails({ product }) {
+  let navigate = useNavigate();
   return (
     <table className="table w-full text-center">
       <colgroup>
@@ -70,7 +72,12 @@ function PackageDetails({ product }) {
             <td key={idx}>
               <div className="flex flex-col items-center gap-2">
                 <div>{element.price} THB </div>
-                <button className="btn btn-info btn-xs w-1/2">สนใจจ้าง</button>
+                <button
+                  className="btn btn-info btn-xs w-1/2"
+                  onClick={() => navigate('/chatroom')}
+                >
+                  สนใจจ้าง
+                </button>
               </div>
             </td>
           ))}
