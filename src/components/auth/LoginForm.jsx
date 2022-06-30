@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { devLogin, userLogin } from '../../api/auth';
 import { EyeIcon } from '@heroicons/react/solid';
 import { EyeOffIcon } from '@heroicons/react/solid';
-
-// protect route check if not have token cant get Chat Page
-// window.location.reload()
+import { useAuth } from '../../contexts/AuthContext';
+import axios from '../../config/axios';
 
 function LoginForm() {
+  const { setRole, setDev, setUser } = useAuth();
   const [tab, setTab] = useState(true);
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
@@ -41,8 +41,14 @@ function LoginForm() {
 
       if (tab) {
         await userLogin({ email, password });
+        setRole('user');
+        const res = await axios.get('/user/me');
+        setUser(res?.data?.user);
       } else {
         await devLogin({ email, password });
+        setRole('dev');
+        const res = await axios.get('/dev/me');
+        setDev(res?.data?.dev);
       }
       navigate('/');
     } catch (err) {

@@ -8,9 +8,11 @@ import { useState, useEffect } from 'react';
 import Review from '../components/review/Review';
 import Footer from '../components/footer/Footer';
 import PhotoCollage from '../components/products/PhotoCollage';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function ProductPage() {
   const { productId } = useParams();
+  const { user, dev, role } = useAuth();
   const [render, setRender] = useState(false);
   const [product, setProduct] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -23,6 +25,8 @@ export default function ProductPage() {
     };
     fetchProduct();
   }, [render]);
+
+  console.log(user?.id);
 
   return (
     <div className="w-screen flex flex-col items-center">
