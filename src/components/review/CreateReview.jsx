@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 export default function CreateReview({ name, setProductByIDRender }) {
   const { productId } = useParams();
   const { handleCreateProductReview } = useProduct();
-  const [rate, setRate] = useState(0);
+  const [rate, setRate] = useState(4);
   const [message, setMessage] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [createReviewError, setCreateReviewError] = useState('');
@@ -24,7 +24,7 @@ export default function CreateReview({ name, setProductByIDRender }) {
       );
     }
     await handleCreateProductReview({ rate, message, isAnonymous }, productId);
-    setRate(0);
+    setRate(5);
     setProductByIDRender((prev) => !prev);
     setMessage('');
   };

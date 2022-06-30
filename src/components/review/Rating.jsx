@@ -39,6 +39,7 @@ function Rating({ setReviewRating, rate, setRate, setNewRate }) {
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
+          defaultChecked
           onClick={() => handleOnChange(4)}
         />
         <input
