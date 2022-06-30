@@ -1,4 +1,4 @@
-import { useFilter } from '../context/FilterContext';
+import { useFilter } from '../../contexts/FilterContext';
 import CreateReview from './CreateReview';
 import Rating from './Rating';
 import ReviewCard from './ReviewCard';

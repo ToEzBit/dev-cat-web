@@ -6,8 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './contexts/AuthContext.jsx';
 
-import FilterContextProvider from './components/context/FilterContext';
-import ProductContextProvider from './components/context/ProductContext';
+import FilterContextProvider from './contexts/FilterContext';
+import ProductContextProvider from './contexts/ProductContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

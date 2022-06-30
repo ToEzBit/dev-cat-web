@@ -2,8 +2,7 @@ import { useState } from 'react';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 import AnonymousProfilePic from '../../asset/image/AnonymousProfilePic.png';
 import Rating from './Rating';
-import { useEffect } from 'react';
-import { useProduct } from '../context/ProductContext';
+import { useProduct } from '../../contexts/ProductContext';
 import { useParams } from 'react-router-dom';
 
 export default function CreateReview({ name, setProductByIDRender }) {
@@ -35,7 +34,10 @@ export default function CreateReview({ name, setProductByIDRender }) {
         <div className="flex justify-between">
           <div className=" flex justify-start gap-3 items-center ">
             <div className="w-10">
-              <img src={isAnonymous ? AnonymousProfilePic : ProfilePic} />
+              <img
+                src={isAnonymous ? AnonymousProfilePic : ProfilePic}
+                alt=""
+              />
             </div>
             <div>
               {isAnonymous ? (

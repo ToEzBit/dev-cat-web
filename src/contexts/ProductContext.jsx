@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { createProductReview, updateProductReview } from '../../api/product';
+import { createContext, useContext } from 'react';
+import { createProductReview } from '../api/product';
 
 const ProductContext = createContext();
 function ProductContextProvider({ children }) {

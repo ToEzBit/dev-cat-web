@@ -1,5 +1,4 @@
 import React from 'react';
-import Carousel from '../components/carousel/Carousel';
 import Navbar from '../components/navbars/Navbar';
 import ProductDetails from '../components/products/ProductDetails';
 import PackageDetails from '../components/products/PackageDetails';
@@ -8,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Review from '../components/review/Review';
 import Footer from '../components/footer/Footer';
-import DevProfileCard from '../components/card/DevProfileCard/DevProfileCard';
 import PhotoCollage from '../components/products/PhotoCollage';
 
 export default function ProductPage() {
