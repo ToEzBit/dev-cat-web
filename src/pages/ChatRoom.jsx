@@ -10,21 +10,56 @@ import Message from '../components/chat/Message';
 import Quotation from '../components/chat/deal/Quotation';
 import Confirmation from '../components/chat/deal/Confirmation';
 import InputChat from '../components/chat/InputChat';
+import { io } from 'socket.io-client';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  //socket io
+  const socket = useRef();
   //inputChat
-  const [newMessages, setNewMessages] = useState([]);
+  const [newMessages, setNewMessages] = useState('');
+  const [arrivalMessage, setArrivalMessage] = useState([]);
   const scrollRef = useRef();
-
+  //Online user
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   // const arrayConversations = [];
   // arrayConversations.push(conversations);
 
   const ctx = useAuth();
   // console.log(ctx.user);
+
+  useEffect(() => {
+    socket.current = io('ws://localhost:8900');
+    socket.current.on('getMessage', (data) => {
+      // console.log(data);
+      setArrivalMessage({
+        sender: data.senderId,
+        message: data.message,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log(currentChat?.senderId);
+    arrivalMessage &&
+      currentChat?.senderId &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  // console.log(messages);
+  console.log(arrivalMessage);
+  useEffect(() => {
+    socket.current.emit('addUser', ctx?.user?.id);
+    socket.current.on('getUsers', (users) => {
+      setOnlineUsers(users);
+    });
+  }, [ctx?.user]);
+
+  console.log(onlineUsers);
 
   useEffect(() => {
     setLoading(true);
@@ -41,6 +76,9 @@ function ChatRoom() {
     setLoading(false);
   }, [ctx?.user?.id]);
 
+  const arrayConandOnline = [...conversations, ...onlineUsers];
+  console.log(arrayConandOnline);
+
   useEffect(() => {
     const getMessages = async () => {
       try {
@@ -52,8 +90,6 @@ function ChatRoom() {
     };
     getMessages();
   }, [currentChat]);
-  console.log('Array check message');
-  console.log(messages[0]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,6 +98,31 @@ function ChatRoom() {
       message: newMessages,
       conversationId: currentChat.id,
     };
+
+    // let receiverId;
+    // if (currentChat.receiverId === ctx.user.id) {
+    //   receiverId = currentChat.senderId;
+    // } else {
+    //   receiverId = currentChat.receiverId;
+    // }
+    // console.log(ctx.user.id);
+    // console.log(receiverId);
+    // console.log(currentChat?.senderId);
+
+    // console.log(currentChat.Chats);
+    const receiverId =
+      currentChat.senderId == ctx.user.id
+        ? currentChat.receiverId
+        : currentChat.senderId;
+    // console.log(currentChat);
+
+    // console.log(receiverId);
+    socket.current.emit('sendMessage', {
+      senderId: ctx?.user.id,
+      receiverId,
+      message: newMessages,
+    });
+    // console.log(receiverId);
 
     try {
       const res = await axios.post('/messages', message);

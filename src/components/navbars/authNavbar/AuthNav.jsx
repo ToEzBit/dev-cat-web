@@ -6,7 +6,7 @@ import ProfilePic from '../../../asset/image/ProfilePic.png';
 function AuthNav() {
   const { user, logout } = useContext(AuthContext);
 
-  console.log(user);
+  // console.log(user);
   return (
     <>
       {user ? (

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import ChatContainer from './ChatContainer';
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
-import ScrollableFeed from 'react-scrollable-feed';
 import { useCallback } from 'react';
 
 function Chat({
@@ -199,66 +198,66 @@ function Chat({
         {selectedUser.userId && (
           <div className="w-full relative h-full flex flex-col col-span-3 chat-window">
             <ChatHeader profile={profile} user={selectedUser} />
-            <ScrollableFeed>
-              <div className=" flex flex-col items-center gap-2 mt-2 ">
-                {messages.map((message, index) => {
-                  return message.type === 'userStatus' ? (
+
+            <div className=" flex flex-col items-center gap-2 mt-2 ">
+              {messages.map((message, index) => {
+                return message.type === 'userStatus' ? (
+                  <div
+                    className="p-1 text-xs rounded-lg bg-emerald-300 px-2 text-white shadow-md"
+                    key={index}
+                  >
+                    <span>
+                      {message.userId === user.userId
+                        ? 'You have Joined!'
+                        : `${message.username} has Joined!`}
+                    </span>
+                  </div>
+                ) : (
+                  <div
+                    key={index}
+                    className={
+                      message.userId === user.userId
+                        ? ' ml-auto  p-4'
+                        : ' mr-auto  p-4'
+                    }
+                  >
                     <div
-                      className="p-1 text-xs rounded-lg bg-emerald-300 px-2 text-white shadow-md"
-                      key={index}
-                    >
-                      <span>
-                        {message.userId === user.userId
-                          ? 'You have Joined!'
-                          : `${message.username} has Joined!`}
-                      </span>
-                    </div>
-                  ) : (
-                    <div
-                      key={index}
                       className={
                         message.userId === user.userId
-                          ? ' ml-auto  p-4'
-                          : ' mr-auto  p-4'
+                          ? ' flex gap-4 items-center flex-row-reverse'
+                          : ' flex gap-4 items-center '
                       }
                     >
-                      <div
-                        className={
-                          message.userId === user.userId
-                            ? ' flex gap-4 items-center flex-row-reverse'
-                            : ' flex gap-4 items-center '
-                        }
-                      >
-                        <div className=" ">
-                          {/* <div>
+                      <div className=" ">
+                        {/* <div>
                                         {" "}
                                         {user.username === user.userId
                                             ? "You"
                                             : user.username}
                                     </div> */}
-                          {/* <img
+                        {/* <img
                                                         src={profile}
                                                         className="rounded-full w-12"
                                                         alt={message.username}
                                                         title={message.username}
                                                     /> */}
-                        </div>
-                        <div className="flex flex-col">
-                          {/* <div className=" font-bold">
+                      </div>
+                      <div className="flex flex-col">
+                        {/* <div className=" font-bold">
                                                         {message.userId ===
                                                         user.userId
                                                             ? "You"
                                                             : message.username}
                                                     </div> */}
-                          {message.message}
-                          <div className=" text-xs">12:00 AM</div>
-                        </div>
+                        {message.message}
+                        <div className=" text-xs">12:00 AM</div>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-            </ScrollableFeed>
+                  </div>
+                );
+              })}
+            </div>
+
             <div className="info mx-auto p-4" id="ontyping"></div>
             {typing ? <div className="info mx-auto p-4">{}tying...</div> : ''}
             {console.log(typing)}
