@@ -8,3 +8,7 @@ export const createProduct = async (input) => {
 export const addProductPackage = async (id, input) => {
   await axios.post(`/products/${id}/package`, input);
 };
+
+export const addProductImage = async (id, input) => {
+  await axios.post(`/products/${id}/image`, input);
+};

@@ -78,62 +78,6 @@ function AddPackage({
     }
   };
 
-  // useEffect(() => {
-  //   const handleSubmit = () => {
-  //     setErrTitle();
-  //     setErrInfo();
-  //     setErrPrice();
-  //     setErrDuration();
-  //     setErrRevision();
-
-  //     if (packageTitle === '') {
-  //       setErrTitle('Title is required');
-  //       return;
-  //     }
-  //     if (packageInfo === '') {
-  //       setErrInfo('Info is required');
-  //       return;
-  //     }
-  //     if (packagePrice === '') {
-  //       setErrPrice('Price is required');
-  //       return;
-  //     }
-  //     if (packageDuration === '') {
-  //       setErrDuration('Duration is required');
-  //       return;
-  //     }
-  //     if (packageRevision === '') {
-  //       setErrRevision('Revision is required');
-  //       return;
-  //     }
-
-  //     alert('Package added successfully');
-  //   };
-  //   handleSubmit();
-  // }, [clicked]);
-
-  // const handleAddPackage = () => {
-  //   if (errTitle || errInfo || errPrice || errDuration || errRevision) {
-  //     console.log(errTitle);
-  //     // setPackageArr([
-  //     //   ...packageArr,
-  //     //   {
-  //     //     title: packageTitle,
-  //     //     info: packageInfo,
-  //     //     price: packagePrice,
-  //     //     duration: packageDuration,
-  //     //     revision: packageRevision,
-  //     //   },
-  //     // ]);
-  //     setPackageTitle('');
-  //     setPackageInfo('');
-  //     setPackagePrice('');
-  //     setPackageDuration('');
-  //     setPackageRevision('');
-  //     alert('Package added successfully');
-  //   }
-  // };
-
   return (
     <div className="max-w-screen-lg mx-auto">
       <div className="flex justify-end ">
@@ -249,8 +193,7 @@ function AddPackage({
               <label
                 className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 my-4 border border-[#E8E7FF] rounded-xl shadow"
                 onClick={handleSubmit}
-                // onClick={() => setClicked(!clicked)}
-                // htmlFor="addPackage-modal"
+                htmlFor="addPackage-modal"
                 role="button"
               >
                 Submit
