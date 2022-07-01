@@ -10,6 +10,8 @@ import { useEffect } from 'react';
 import { getAllProducts } from '../api/product';
 
 function ResultPage() {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [products, setProducts] = useState([]);
   const [LowerBoundPrice, setLowerBoundPrice] = useState(100);
   const [upperBoundPrice, setUpperBoundPrice] = useState(1000);
@@ -70,6 +72,14 @@ function ResultPage() {
     filteredRating.reverse();
   }
 
+  // let pageLimit = 20;
+  let pageLimit = 2;
+  const pageNumber = Math.ceil(products.length / pageLimit);
+  const limitPages = products.slice(
+    (currentPage - 1) * pageLimit,
+    currentPage * pageLimit,
+  );
+
   return (
     <div className="flex flex-col gap-30 w-screen">
       <Navbar />
@@ -123,7 +133,11 @@ function ResultPage() {
             ))}
           </div>
         </div>
-        <Pagination />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageNumber={pageNumber}
+        />
         <Footer />
       </div>
     </div>
