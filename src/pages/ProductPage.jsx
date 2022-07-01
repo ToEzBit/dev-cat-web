@@ -26,7 +26,6 @@ export default function ProductPage() {
     fetchProduct();
   }, [render]);
 
-
   return (
     <div className="w-screen flex flex-col items-center">
       <div className="w-full">

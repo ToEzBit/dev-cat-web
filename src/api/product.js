@@ -24,3 +24,16 @@ export const updateProductReview = async (
 export const deleteProductReview = async (id) => {
   const res = await axios.delete(`/products/review/${id}`);
 };
+
+export const createProduct = async (input) => {
+  const res = await axios.post('/products', input);
+  return res.data.createdProduct;
+};
+
+export const addProductPackage = async (id, input) => {
+  await axios.post(`/products/${id}/package`, input);
+};
+
+export const addProductImage = async (id, input) => {
+  await axios.post(`/products/${id}/image`, input);
+};
