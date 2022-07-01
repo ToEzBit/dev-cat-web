@@ -6,7 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './contexts/AuthContext.jsx';
 
-import FilterContextProvider from './components/context/FilterContext';
+import FilterContextProvider from './contexts/FilterContext';
+import ProductContextProvider from './contexts/ProductContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +15,9 @@ root.render(
     <BrowserRouter>
       <FilterContextProvider>
         <AuthContextProvider>
-          <App />
+          <ProductContextProvider>
+            <App />
+          </ProductContextProvider>
         </AuthContextProvider>
       </FilterContextProvider>
     </BrowserRouter>

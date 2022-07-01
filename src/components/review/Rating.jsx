@@ -1,39 +1,52 @@
 import React from 'react';
 
-function Rating({ setReviewRating, rate }) {
+function Rating({ setReviewRating, rate, setRate, setNewRate }) {
+  const handleOnChange = (newRate) => {
+    if (setReviewRating) {
+      return setReviewRating(newRate);
+    }
+    if (setRate) {
+      return setRate(newRate);
+    }
+    if (setNewRate) {
+      return setNewRate(newRate);
+    }
+  };
+
   let ratingVariances;
-  if (setReviewRating) {
+  if (setReviewRating || setRate || setNewRate) {
     return (ratingVariances = (
       <div className="rating flex gap-1 mx-1">
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400 h-4 w-4"
-          onChange={() => setReviewRating(1)}
+          onClick={() => handleOnChange(1)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(2)}
+          onClick={() => handleOnChange(2)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(3)}
+          onClick={() => handleOnChange(3)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(4)}
+          defaultChecked
+          onClick={() => handleOnChange(4)}
         />
         <input
           type="radio"
           name="rating-2"
           className="mask mask-star-2 bg-orange-400  h-4 w-4"
-          onChange={() => setReviewRating(5)}
+          onClick={() => handleOnChange(5)}
         />
       </div>
     ));
