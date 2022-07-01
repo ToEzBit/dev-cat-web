@@ -29,7 +29,6 @@ export default function Router() {
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/change-password" element={<ChangePasswordPage />} />
       <Route path="/new-password" element={<NewPasswordPage />} />
-      <Route path="/checkout" element={<CheckoutPage />} />
     </Routes>
   );
 }
