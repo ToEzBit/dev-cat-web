@@ -14,10 +14,14 @@ import Alltype3 from '../asset/image/Alltype3.png';
 import Alltype4 from '../asset/image/Alltype4.png';
 import Alltype5 from '../asset/image/Alltype5.png';
 import { motion } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
 
 function HomePage() {
+  const ctx = useAuth();
   return (
     <>
+      {console.log(ctx?.user?.id)}
+
       <motion.div
         className="relative flex flex-col  gap-20"
         initial={{ opacity: 0 }}
