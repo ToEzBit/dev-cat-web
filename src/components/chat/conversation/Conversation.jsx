@@ -4,11 +4,12 @@ import { useState } from 'react';
 import ProfilePic from '../../../asset/image/ProfilePic.png';
 import { format } from 'timeago.js';
 
-function Conversation({ conversation, currentUser, updatedAt }) {
+function Conversation({ conversation, currentUser, updatedAt, online }) {
   const [user, setUser] = useState(null);
+  const [read, setRead] = useState(false);
 
-  console.log(user);
-  //   console.log(conversation.receiverId);
+  // console.log(online.socketId);
+  console.log(conversation);
 
   useEffect(() => {
     const friendId =
@@ -28,6 +29,18 @@ function Conversation({ conversation, currentUser, updatedAt }) {
     getUser();
   }, [currentUser, conversation]);
 
+  useEffect(() => {
+    conversation.Chats.map((e) => {
+      if (e.read === false) {
+        if (e.sender !== currentUser.id) {
+          setRead(true);
+        }
+      } else {
+        return;
+      }
+    });
+  });
+
   //   console.log(user.user);
 
   return (
@@ -45,11 +58,12 @@ function Conversation({ conversation, currentUser, updatedAt }) {
         <div>
           <div className="text-xs ">{format(updatedAt)}</div>
         </div>
-        {/* {userOnline == currentUser.id ? (
-          <div className="absolute border-white rounded-full w-4 h-4 bg-red-500 right-0 m-1 top-0"></div>
-        ) : (
+        {online ? (
           <div className="absolute border-white rounded-full w-4 h-4 bg-emerald-500 right-0 m-1 top-0"></div>
-        )} */}
+        ) : (
+          <div className="absolute border-white rounded-full w-4 h-4 bg-red-500 right-0 m-1 top-0"></div>
+        )}
+        {read ? <div>UNREAD</div> : <div>READ</div>}
       </div>
     </div>
   );

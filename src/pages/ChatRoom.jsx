@@ -16,6 +16,7 @@ function ChatRoom() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  // const [notification, setNotification] = useState(false);
   //socket io
   const socket = useRef();
   //inputChat
@@ -24,12 +25,12 @@ function ChatRoom() {
   const scrollRef = useRef();
   //Online user
   const [onlineUsers, setOnlineUsers] = useState([]);
+  //notification
+  const [notification, setNotification] = useState(false);
+
   const [loading, setLoading] = useState(false);
-  // const arrayConversations = [];
-  // arrayConversations.push(conversations);
 
   const ctx = useAuth();
-  // console.log(ctx.user);
 
   useEffect(() => {
     socket.current = io('ws://localhost:8900');
@@ -43,15 +44,14 @@ function ChatRoom() {
     });
   }, []);
 
+  console.log(conversations);
+
   useEffect(() => {
-    console.log(currentChat?.senderId);
     arrivalMessage &&
       currentChat?.senderId &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  // console.log(messages);
-  console.log(arrivalMessage);
   useEffect(() => {
     socket.current.emit('addUser', ctx?.user?.id);
     socket.current.on('getUsers', (users) => {
@@ -59,14 +59,12 @@ function ChatRoom() {
     });
   }, [ctx?.user]);
 
-  console.log(onlineUsers);
-
   useEffect(() => {
     setLoading(true);
     const getConversations = async () => {
       try {
         const res = await axios.get('/conversations/' + ctx.user.id);
-        const arrayConversations = [...conversations, ...res.data];
+        const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
         console.log(err);
@@ -75,9 +73,6 @@ function ChatRoom() {
     getConversations();
     setLoading(false);
   }, [ctx?.user?.id]);
-
-  const arrayConandOnline = [...conversations, ...onlineUsers];
-  console.log(arrayConandOnline);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -99,30 +94,16 @@ function ChatRoom() {
       conversationId: currentChat.id,
     };
 
-    // let receiverId;
-    // if (currentChat.receiverId === ctx.user.id) {
-    //   receiverId = currentChat.senderId;
-    // } else {
-    //   receiverId = currentChat.receiverId;
-    // }
-    // console.log(ctx.user.id);
-    // console.log(receiverId);
-    // console.log(currentChat?.senderId);
-
-    // console.log(currentChat.Chats);
     const receiverId =
       currentChat.senderId == ctx.user.id
         ? currentChat.receiverId
         : currentChat.senderId;
-    // console.log(currentChat);
 
-    // console.log(receiverId);
     socket.current.emit('sendMessage', {
       senderId: ctx?.user.id,
       receiverId,
       message: newMessages,
     });
-    // console.log(receiverId);
 
     try {
       const res = await axios.post('/messages', message);
@@ -202,15 +183,27 @@ function ChatRoom() {
 
             <div className="  col-span-1 flex flex-col  overflow-auto pt-4  h-[1080px]">
               {/* --------------- History Chat -------------- */}
-              {conversations.map((c, index) => (
-                <div key={index} onClick={() => setCurrentChat(c)}>
-                  <Conversation
-                    conversation={c}
-                    currentUser={ctx.user}
-                    updatedAt={c.updatedAt}
-                  />
-                </div>
-              ))}
+              {conversations.map((c, index) => {
+                let online = false;
+                onlineUsers.map((el) => {
+                  if (el.userId == c.receiverId) {
+                    return (online = true);
+                  } else {
+                    return;
+                  }
+                });
+
+                return (
+                  <div key={index} onClick={() => setCurrentChat(c)}>
+                    <Conversation
+                      online={online}
+                      conversation={c}
+                      currentUser={ctx.user}
+                      updatedAt={c.updatedAt}
+                    />
+                  </div>
+                );
+              })}
             </div>
 
             {/* ============================================ Chat Center  ===================================================== */}
