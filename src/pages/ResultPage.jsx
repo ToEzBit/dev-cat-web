@@ -15,12 +15,13 @@ function ResultPage() {
   const [upperBoundPrice, setUpperBoundPrice] = useState(1000);
   const [rating, setRating] = useState(5);
   const [duration, setDuration] = useState('');
-  const [order, setOrder] = useState('');
+  const [order, setOrder] = useState(true);
 
   useEffect(() => {
     const run = async () => {
       const res = await getAllProducts();
       const fetchProducts = res.data.products;
+      console.log(fetchProducts);
       setProducts(fetchProducts);
     };
     try {
@@ -30,11 +31,44 @@ function ResultPage() {
     }
   }, []);
 
-  products.reduce((acc, curr) => {
-    const { id, Packages } = curr;
+  const productArr = products.reduce((acc, curr) => {
+    const { id, title, Packages, ProductReviews } = curr;
+    // console.log({ id, title, Packages, ProductReviews });
+    const priceArr = Packages.map((el) => +el.price);
+    // console.log(priceArr);
+    const maxPrice = Math.max(...priceArr);
+    // console.log(maxPrice);
+    const minPrice = Math.min(...priceArr);
+    // console.log(minPrice);
+    let avgReview = null;
+    // console.log(ProductReviews);
+    if (ProductReviews.length) {
+      const reviewArr = ProductReviews.map((el) => +el.rate);
+      avgReview = Math.round(
+        reviewArr.reduce((a, b) => a + b, 0) / reviewArr.length,
+      );
+    }
+
+    return [...acc, { id, title, maxPrice, minPrice, avgReview }];
   }, []);
 
-  let filteredProduct;
+  const filteredPrice = productArr.filter(
+    (el) => el.minPrice > LowerBoundPrice && el.maxPrice < upperBoundPrice,
+  );
+
+  const filteredRating = filteredPrice.filter((el) => {
+    if (!el.avgReview) {
+      return false;
+    }
+    return el.avgReview >= rating;
+  });
+
+  if (order) {
+    filteredRating.sort();
+  } else {
+    filteredRating.sort();
+    filteredRating.reverse();
+  }
 
   return (
     <div className="flex flex-col gap-30 w-screen">
@@ -84,7 +118,7 @@ function ResultPage() {
           </div>
           <div className="grid grid-cols-4 gap-x-2 gap-y-3">
             // all.filter((el)=> el.rate= rate && el.)
-            {[...Array(12).keys()].map((el, idx) => (
+            {filteredRating.map((el, idx) => (
               <Workcard key={idx} />
             ))}
           </div>
