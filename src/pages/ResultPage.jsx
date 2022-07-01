@@ -10,12 +10,21 @@ import { useEffect } from 'react';
 import { getAllProducts } from '../api/product';
 
 function ResultPage() {
+  const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [LowerBoundPrice, setLowerBoundPrice] = useState(100);
   const [upperBoundPrice, setUpperBoundPrice] = useState(1000);
   const [rating, setRating] = useState(5);
   const [duration, setDuration] = useState('');
   const [order, setOrder] = useState('');
+
+  // let pageLimit = 20;
+  let pageLimit = 2;
+  const pageNumber = Math.ceil(products.length / pageLimit);
+  const limitPages = products.slice(
+    (currentPage - 1) * pageLimit,
+    currentPage * pageLimit,
+  );
 
   useEffect(() => {
     const run = async () => {
@@ -28,10 +37,6 @@ function ResultPage() {
     } catch (err) {
       console.log(err);
     }
-  }, []);
-
-  products.reduce((acc, curr) => {
-    const { id, Packages } = curr;
   }, []);
 
   let filteredProduct;
@@ -83,13 +88,16 @@ function ResultPage() {
             </p>
           </div>
           <div className="grid grid-cols-4 gap-x-2 gap-y-3">
-            // all.filter((el)=> el.rate= rate && el.)
             {[...Array(12).keys()].map((el, idx) => (
               <Workcard key={idx} />
             ))}
           </div>
         </div>
-        <Pagination />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageNumber={pageNumber}
+        />
         <Footer />
       </div>
     </div>
