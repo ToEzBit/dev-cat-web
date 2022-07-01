@@ -26,7 +26,7 @@ function ChatRoom() {
   //Online user
   const [onlineUsers, setOnlineUsers] = useState([]);
   //notification
-  const [notification, setNotification] = useState(false);
+  // const [notification, setNotification] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
