@@ -228,9 +228,7 @@ function ChatRoom() {
                       <h5>John Doe</h5>
                       <div>#01234567PP</div>
                     </div>
-                    {/* <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
-                SUBMIT
-              </button> */}
+
                     <button>
                       <label
                         htmlFor="submit-modal"
