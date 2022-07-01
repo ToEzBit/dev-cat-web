@@ -19,6 +19,7 @@ export default function ReviewCardEditMode({
   isReadOnlyMode,
   anonymousName,
   setProductByIDRender,
+  userId,
 }) {
   const [error, setError] = useState('');
   const [newRate, setNewRate] = useState(rate);

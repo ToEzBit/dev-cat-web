@@ -3,6 +3,7 @@ import ReviewCardReadOnly from './ReviewCardReadOnly';
 import ReviewCardEditMode from './ReviewCardEditMode';
 
 export default function ReviewCard({
+  userId,
   id,
   name,
   message,
@@ -21,6 +22,7 @@ export default function ReviewCard({
       <div className="card-body">
         {isReadOnlyMode ? (
           <ReviewCardReadOnly
+            userId={userId}
             id={id}
             name={name}
             message={message}

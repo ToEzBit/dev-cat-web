@@ -3,8 +3,16 @@ import CreateReview from './CreateReview';
 import Rating from './Rating';
 import ReviewCard from './ReviewCard';
 import DevProfileCard from '../card/DevProfileCard/DevProfileCard';
+import { getAccessToken } from '../../services/localStorage';
 
-function Review({ mode, reviews, setReviews, setProductByIDRender, dev }) {
+function Review({
+  mode,
+  reviews,
+  setReviews,
+  setProductByIDRender,
+  productDev,
+}) {
+  const token = getAccessToken();
   const { reviewRating, setReviewRating } = useFilter();
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
@@ -13,12 +21,12 @@ function Review({ mode, reviews, setReviews, setProductByIDRender, dev }) {
           <div className="w-3/5 ">
             <div className="w-full">
               <DevProfileCard
-                id={dev?.id}
-                email={dev?.email}
-                username={dev?.username}
-                firstName={dev?.firstName}
-                lastName={dev?.lastName}
-                profileImage={dev?.lastName}
+                id={productDev?.id}
+                email={productDev?.email}
+                username={productDev?.username}
+                firstName={productDev?.firstName}
+                lastName={productDev?.lastName}
+                profileImage={productDev?.profileImage}
               />
             </div>
           </div>
