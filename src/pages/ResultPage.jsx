@@ -6,13 +6,35 @@ import FilterResultPageDropDown from '../components/filter/FilterResultPageDropD
 import Footer from '../components/footer/Footer';
 import CarouselSecondary from '../components/carousel/CarouselSecondary';
 import Pagination from '../components/pagination/Pagination';
+import { useEffect } from 'react';
+import { getAllProducts } from '../api/product';
 
 function ResultPage() {
+  const [products, setProducts] = useState([]);
   const [LowerBoundPrice, setLowerBoundPrice] = useState(100);
   const [upperBoundPrice, setUpperBoundPrice] = useState(1000);
   const [rating, setRating] = useState(5);
   const [duration, setDuration] = useState('');
   const [order, setOrder] = useState('');
+
+  useEffect(() => {
+    const run = async () => {
+      const res = await getAllProducts();
+      const fetchProducts = res.data.products;
+      setProducts(fetchProducts);
+    };
+    try {
+      run();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  products.reduce((acc, curr) => {
+    const { id, Packages } = curr;
+  }, []);
+
+  let filteredProduct;
 
   return (
     <div className="flex flex-col gap-30 w-screen">
@@ -61,6 +83,7 @@ function ResultPage() {
             </p>
           </div>
           <div className="grid grid-cols-4 gap-x-2 gap-y-3">
+            // all.filter((el)=> el.rate= rate && el.)
             {[...Array(12).keys()].map((el, idx) => (
               <Workcard key={idx} />
             ))}
