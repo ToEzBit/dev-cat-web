@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Confirmation() {
+function Confirmation({ message, currentUser }) {
   return (
     <div>
       <div className="w-full ">
@@ -8,11 +8,16 @@ function Confirmation() {
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-8 border p-8 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
               <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
-                <h5>John Doe</h5>
-                <div>#01234567PP</div>
+                <h5>{currentUser?.username}</h5>
+                <div>{message?.createdAt}</div>
               </div>
               <div className="flex flex-col items-center">
-                <div className="text-chat underline font-bold">VIEW WORKS</div>
+                <a
+                  href={message.message}
+                  className="text-chat underline font-bold"
+                >
+                  VIEW WORKS
+                </a>
                 <div className="text-chat-quotation text-[8px]">
                   click this link to view your work
                 </div>

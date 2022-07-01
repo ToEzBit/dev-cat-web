@@ -1,6 +1,49 @@
 import React from 'react';
+import axios from '../../config/axios';
+import { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 
-function Submit() {
+function Submit({
+  setMessages,
+  messages,
+  currentChat,
+  newMessages,
+  socket,
+  setNewMessages,
+}) {
+  const [link, setLink] = useState('');
+  const [comment, setComment] = useState('');
+
+  const ctx = useAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const message = {
+      sender: ctx.user.id,
+      message: link,
+      conversationId: currentChat.id,
+    };
+
+    const receiverId =
+      currentChat.senderId == ctx.user.id
+        ? currentChat.receiverId
+        : currentChat.senderId;
+
+    socket.current.emit('sendMessage', {
+      senderId: ctx?.user.id,
+      receiverId,
+      message: link,
+    });
+
+    try {
+      const res = await axios.post('/messages', message);
+      setMessages([...messages, res.data]);
+      setNewMessages('');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="max-w-screen-lg mx-auto">
       <div className="flex justify-end ">
@@ -28,7 +71,9 @@ function Submit() {
               className="flex   p-2 my-1 w-full text-[#706D9E] text-center rounded-lg border border-[#E8E7FF] sm:text-xs "
               id="username"
               type="text"
+              value={link}
               placeholder="Input your Link"
+              onChange={(e) => setLink(e.target.value)}
             />
             <div className="flex justify-start">
               <label
@@ -43,11 +88,16 @@ function Submit() {
               rows="4"
               className="block p-7 mt-1 mb-3 w-full text-[#706D9E] text-center  rounded-lg border border-[#E8E7FF] sm:text-xs  "
               placeholder="Write comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
             />
           </div>
           {/* ==================================================================input detail============================================================= */}
           <div className="flex  justify-center rounded-lg ">
-            <button className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 my-4 border border-[#E8E7FF] rounded-xl shadow">
+            <button
+              onClick={handleSubmit}
+              className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 my-4 border border-[#E8E7FF] rounded-xl shadow"
+            >
               Submit
             </button>
           </div>
