@@ -3,10 +3,7 @@ import ReviewCardReadOnly from './ReviewCardReadOnly';
 import ReviewCardEditMode from './ReviewCardEditMode';
 
 export default function ReviewCard({
-<<<<<<< HEAD
   userId,
-=======
->>>>>>> dev
   id,
   name,
   message,
