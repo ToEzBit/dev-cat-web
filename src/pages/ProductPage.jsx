@@ -12,7 +12,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 export default function ProductPage() {
   const { productId } = useParams();
-  const { user, dev, role } = useAuth();
+  const { user, dev } = useAuth();
   const [render, setRender] = useState(false);
   const [product, setProduct] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -26,7 +26,6 @@ export default function ProductPage() {
     fetchProduct();
   }, [render]);
 
-  console.log(user?.id);
 
   return (
     <div className="w-screen flex flex-col items-center">
@@ -34,10 +33,15 @@ export default function ProductPage() {
         <Navbar />
       </div>
       <div className="w-8/12 py-4 flex flex-col gap-5">
-        <div className="flex justify-end gap-2">
-          <button className="btn btn-outline btn-info btn-sm">Edit</button>
-          <button className="btn btn-outline btn-info btn-sm">Delete</button>
-        </div>
+        {dev && dev.id === product.dev.id ? (
+          <div className="flex justify-end gap-2">
+            <button className="btn btn-outline btn-info btn-sm">Edit</button>
+            <button className="btn btn-outline btn-info btn-sm">Delete</button>
+          </div>
+        ) : (
+          <></>
+        )}
+
         {Object.values(product).length > 0 && (
           <div className="w-full">
             <PhotoCollage photo={product?.ProductImages} />
@@ -49,9 +53,13 @@ export default function ProductPage() {
         <div>
           <div className="flex w-full justify-between">
             <p>Package</p>
-            <button className="btn btn-outline btn-info btn-sm">
-              Edit Package
-            </button>
+            {dev && dev.id === product.dev.id ? (
+              <button className="btn btn-outline btn-info btn-sm">
+                Edit Package
+              </button>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
         <div>
@@ -61,7 +69,7 @@ export default function ProductPage() {
       <div>
         <Review
           mode="DevPage"
-          dev={product?.Dev}
+          productDev={product?.Dev}
           reviews={reviews}
           setReviews={setReviews}
           setProductByIDRender={setRender}

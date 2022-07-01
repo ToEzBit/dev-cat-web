@@ -41,12 +41,10 @@ function LoginForm() {
 
       if (tab) {
         await userLogin({ email, password });
-        setRole('user');
         const res = await axios.get('/user/me');
         setUser(res?.data?.user);
       } else {
         await devLogin({ email, password });
-        setRole('dev');
         const res = await axios.get('/dev/me');
         setDev(res?.data?.dev);
       }

@@ -13,6 +13,7 @@ import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import NewPasswordPage from '../pages/NewPasswordPage';
 import ProductPage from '../pages/ProductPage';
 import CreateProductPage from '../pages/CreateProductPage';
+import CheckoutPage from '../orders/CheckoutPage';
 
 export default function Router() {
   return (
@@ -28,6 +29,7 @@ export default function Router() {
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/change-password" element={<ChangePasswordPage />} />
       <Route path="/new-password" element={<NewPasswordPage />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
     </Routes>
   );
 }

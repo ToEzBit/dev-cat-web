@@ -35,21 +35,6 @@ function PackageDetails({ product }) {
           ))}
         </tr>
 
-        {/* product?.Packages?.map((el, idx) =>
-    Object.entries(el).map((element, index) => {
-      if (element[0] == 'PackageDetails') {
-        element[1].map((ele, indx) => {
-          let title = ele.title;
-          let value = ele.value;
-          if (!specialPackage[title]) {
-            specialPackage[title] = [value];
-          } else if (specialPackage[title]) {
-            specialPackage[title].push(value);
-          }
-        });
-      }
-    }),
-  ); */}
         <tr>
           <th scope="row">Additional details</th>
 
