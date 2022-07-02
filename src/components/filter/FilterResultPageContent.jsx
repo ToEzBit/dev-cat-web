@@ -141,6 +141,8 @@ function FilterResultPageContent({
       </div>
     </div>
   );
+
+  
   let content;
   switch (title) {
     case 'Price':
