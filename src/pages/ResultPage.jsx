@@ -13,11 +13,10 @@ function ResultPage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [products, setProducts] = useState([]);
-  const [LowerBoundPrice, setLowerBoundPrice] = useState(100);
-  const [upperBoundPrice, setUpperBoundPrice] = useState(1000);
-  const [rating, setRating] = useState(5);
-  const [duration, setDuration] = useState('');
-  const [order, setOrder] = useState(true);
+  const [LowerBoundPrice, setLowerBoundPrice] = useState(1);
+  const [upperBoundPrice, setUpperBoundPrice] = useState(100000);
+  const [rating, setRating] = useState(null);
+  const [order, setOrder] = useState(false);
 
   useEffect(() => {
     const run = async () => {
@@ -49,10 +48,12 @@ function ResultPage() {
       avgReview = Math.round(
         reviewArr.reduce((a, b) => a + b, 0) / reviewArr.length,
       );
-    }
+    } else avgReview = '0';
 
     return [...acc, { id, title, maxPrice, minPrice, avgReview }];
   }, []);
+
+  console.log(productArr);
 
   const filteredPrice = productArr.filter(
     (el) => el.minPrice > LowerBoundPrice && el.maxPrice < upperBoundPrice,
@@ -73,9 +74,9 @@ function ResultPage() {
   }
 
   // let pageLimit = 20;
-  let pageLimit = 2;
-  const pageNumber = Math.ceil(products.length / pageLimit);
-  const limitPages = products.slice(
+  let pageLimit = 5;
+  const pageNumber = Math.ceil(filteredRating.length / pageLimit);
+  const limitPages = filteredRating.slice(
     (currentPage - 1) * pageLimit,
     currentPage * pageLimit,
   );
@@ -112,10 +113,6 @@ function ResultPage() {
                 setUpperBoundPrice={setUpperBoundPrice}
               />
               <FilterResultPageDropDown title="Rating" setRating={setRating} />
-              <FilterResultPageDropDown
-                title="Duration"
-                setDuration={setDuration}
-              />
               <FilterResultPageDropDown title="Order by" setOrder={setOrder} />
             </div>
           </div>
@@ -123,12 +120,11 @@ function ResultPage() {
           {/* ============ end of filter bar =============== */}
           <div className="flex justify-between w-full">
             <p>
-              <span>124</span> services available
+              <span>{filteredRating.length}</span> services available
             </p>
           </div>
-          <div className="grid grid-cols-4 gap-x-2 gap-y-3">
-            // all.filter((el)=> el.rate= rate && el.)
-            {filteredRating.map((el, idx) => (
+          <div className="grid grid-cols-4 gap-x-2 gap-y-3 justify-start">
+            {limitPages.map((el, idx) => (
               <Workcard key={idx} />
             ))}
           </div>
