@@ -22,8 +22,8 @@ function Review({ mode }) {
       rate: '1',
     },
   ];
-  console.log(reviewRating);
-  // console.log(testData[0].rate);
+  // console.log(reviewRating);
+
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
       {mode === 'DevPage' ? (
@@ -44,17 +44,19 @@ function Review({ mode }) {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          {testData.map((el) => {
-            return (
-              <ReviewCard
-                key={el.id}
-                userId={el.userId}
-                name={el.name}
-                message={el.message}
-                rate={el.rate}
-              />
-            );
-          })}
+          {testData
+            .filter((e) => e)
+            .map((el) => {
+              return (
+                <ReviewCard
+                  key={el.id}
+                  userId={el.userId}
+                  name={el.name}
+                  message={el.message}
+                  rate={el.rate}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
