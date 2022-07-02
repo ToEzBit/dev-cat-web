@@ -226,25 +226,29 @@ function CreateProducts() {
           <div className="flex flex-col ">
             <div className="flex flex-row  justify-end  ">
               <div>
-                <button>
-                  <label
-                    htmlFor="addPackage-modal"
-                    className=" bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md  modal-button text-center "
-                    role="button"
-                  >
-                    ADD Package
-                  </label>
-                </button>
-                <input
-                  type="checkbox"
-                  id="addPackage-modal"
-                  className="modal-toggle"
-                />
-                <div className="modal">
-                  <div className="modal-box">
-                    <AddPackage packageObj={packageObj} />
-                  </div>
-                </div>
+                {packageArr.length >= 3 ? null : (
+                  <>
+                    <button>
+                      <label
+                        htmlFor="addPackage-modal"
+                        className=" bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md  modal-button text-center "
+                        role="button"
+                      >
+                        ADD Package
+                      </label>
+                    </button>
+                    <input
+                      type="checkbox"
+                      id="addPackage-modal"
+                      className="modal-toggle"
+                    />
+                    <div className="modal">
+                      <div className="modal-box">
+                        <AddPackage packageObj={packageObj} />
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 {/* <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
                 ADD
@@ -254,7 +258,7 @@ function CreateProducts() {
               </button> */}
               </div>
             </div>
-            {packageArr.map((el, idx) => (
+            {packageArr?.map((el, idx) => (
               <Package
                 key={idx}
                 title={el.title}
