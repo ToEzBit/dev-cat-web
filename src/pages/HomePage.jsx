@@ -5,7 +5,7 @@ import Cards from '../components/card/Cards';
 import Carousel from '../components/carousel/Carousel';
 import Footer from '../components/footer/Footer';
 import NavbarHome from '../components/navbars/NavbarHome';
-import Workcard from '../components/workcard/Workcard';
+import Workcard from '../components/card/WorkCard';
 import phone from '../asset/image/Phone.png';
 import laptop from '../asset/image/Laptop.png';
 import AlltypeHome from '../asset/image/AlltypeHome.png';

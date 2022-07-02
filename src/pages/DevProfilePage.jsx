@@ -3,12 +3,13 @@ import { useState } from 'react';
 import DevProfileCard from '../components/card/DevProfileCard/DevProfileCard';
 import Navbar from '../components/navbars/Navbar';
 import DevSkills from '../components/card/DevProfileCard/DevSkills';
-import Workcard from '../components/workcard/Workcard';
+import Workcard from '../components/card/WorkCard';
 import Footer from '../components/footer/Footer';
-import Reviews from '../components/review/Reviews';
+import Review from '../components/review/Review';
 
 function DevProfilePage() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <div className="w-screen flex flex-col items-center">
       <div className="w-full">
@@ -82,7 +83,7 @@ function DevProfilePage() {
           </div>
         </div>
       </div>
-      <Reviews />
+      <Review />
       <Footer />
     </div>
   );

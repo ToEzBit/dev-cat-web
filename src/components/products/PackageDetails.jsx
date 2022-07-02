@@ -1,18 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function PackageDetails({ el }) {
+function PackageDetails({ product }) {
+  let navigate = useNavigate();
   return (
     <table className="table w-full text-center">
+      <colgroup>
+        {product?.map((element, idx) => (
+          <col key={idx} className={element.title}></col>
+        ))}
+      </colgroup>
       <thead>
-        <colgroup>
-          {el.map((element, idx) => (
-            <col key={idx} className={element.title}></col>
-          ))}
-        </colgroup>
         <tr>
           <td></td>
-          {el.map((element, idx) => (
-            <th key={idx} scope="col">
+          {product?.map((element, idx) => (
+            <th scope="col" key={idx}>
               <h6>{element.title}</h6>
               {element.info}
             </th>
@@ -22,23 +24,46 @@ function PackageDetails({ el }) {
       <tbody>
         <tr>
           <th scope="row">revision</th>
-          {el.map((element, idx) => (
+          {product?.map((element, idx) => (
             <td key={idx}>{element.revision}</td>
           ))}
         </tr>
         <tr>
           <th scope="row">duration</th>
-          {el.map((element, idx) => (
+          {product?.map((element, idx) => (
             <td key={idx}>{element.duration} days</td>
           ))}
         </tr>
-        <tr></tr>
+
+        <tr>
+          <th scope="row">Additional details</th>
+
+          {product?.map((element, index) => (
+            <td key={index}>
+              <ul className="flex flex-col justify-end">
+                {element.PackageDetails.map((el, idx) => (
+                  <li key={idx}>
+                    {el.title}: {el.value}
+                  </li>
+                ))}
+              </ul>
+            </td>
+          ))}
+        </tr>
+
         <tr>
           <th scope="row">price</th>
-          {el.map((element, idx) => (
-            <td key={idx} className="text-blue-700">
-              <div>{element.price} THB</div>
-              <button className="btn btn-info btn-xs">More Info</button>
+          {product?.map((element, idx) => (
+            <td key={idx}>
+              <div className="flex flex-col items-center gap-2">
+                <div>{element.price} THB </div>
+                <button
+                  className="btn btn-info btn-xs w-1/2"
+                  onClick={() => navigate('/chatroom')}
+                >
+                  สนใจจ้าง
+                </button>
+              </div>
             </td>
           ))}
         </tr>
