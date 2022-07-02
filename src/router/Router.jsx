@@ -11,11 +11,8 @@ import ChangePasswordPage from '../pages/ChangePasswordPage';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import NewPasswordPage from '../pages/NewPasswordPage';
 import ProductPage from '../pages/ProductPage';
-<<<<<<< HEAD
 import EditProfilePage from '../pages/EditProfilePage';
-=======
 import CreateProductPage from '../pages/CreateProductPage';
->>>>>>> dev
 
 export default function Router() {
   return (

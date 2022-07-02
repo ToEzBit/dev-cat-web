@@ -14,7 +14,6 @@ function Review({
 }) {
   const token = getAccessToken();
   const { reviewRating, setReviewRating } = useFilter();
-<<<<<<< HEAD:src/components/review/Reviews.jsx
 
   const testData = [
     {
@@ -34,8 +33,6 @@ function Review({
   ];
   // console.log(reviewRating);
 
-=======
->>>>>>> dev:src/components/review/Review.jsx
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
       {mode === 'DevPage' ? (
@@ -65,7 +62,6 @@ function Review({
           </div>
         </div>
         <div className="flex flex-col gap-2">
-<<<<<<< HEAD:src/components/review/Reviews.jsx
           {testData
             .filter((e) => e)
             .map((el) => {
@@ -79,7 +75,6 @@ function Review({
                 />
               );
             })}
-=======
           <CreateReview setProductByIDRender={setProductByIDRender} />
           {reviews?.map((el) => {
             return (
@@ -98,7 +93,6 @@ function Review({
               />
             );
           })}
->>>>>>> dev:src/components/review/Review.jsx
         </div>
       </div>
     </div>
