@@ -38,6 +38,7 @@ function RegisterForm() {
         await devRegister({ username, email, password, confirmPassword });
       }
       navigate('/');
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
