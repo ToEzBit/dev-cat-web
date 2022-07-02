@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useContext } from 'react';
 import { motion } from 'framer-motion';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 
 function NavbarHome() {
-  const { logout, user, dev } = useContext(AuthContext);
+  const { logout, user, dev } = useAuth();
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
@@ -133,9 +132,9 @@ function NavbarHome() {
                     <div>Settings</div>
                   </li>
                   <li>
-                    <a href="/" onClick={logout}>
+                    <Link to="/" onClick={logout}>
                       Logout
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
