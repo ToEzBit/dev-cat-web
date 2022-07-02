@@ -354,7 +354,7 @@ function ChatRoom() {
               {/* --------------- History Chat -------------- */}
               {/* <div className="flex flex-col gap-8 justify-center items-center overflow-auto p-8"> */}
 
-              <div className="text-base p-4 w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
+              <div className="text-base w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
                 Lorem Ipsum has been the industry's standard dummy text ever
                 since the 1500s, Lorem Ipsum has been the industry's standard
                 dummy text ever since the 1500s
