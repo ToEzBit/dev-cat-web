@@ -31,7 +31,7 @@ function AuthContextProvider({ children }) {
         }
       } catch (err) {
         removeAccessToken();
-        console.log(err);
+        // console.log(err);
       }
     };
     fetchMe();

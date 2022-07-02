@@ -46,9 +46,9 @@ function ChatRoom() {
     });
   }, []);
 
-  console.log(ctx?.user?.id);
-  console.log(conversations);
-  console.log(onlineUsers);
+  // console.log(ctx?.user?.id);
+  // console.log(conversations);
+  // console.log(onlineUsers);
 
   useEffect(() => {
     arrivalMessage &&
@@ -71,7 +71,7 @@ function ChatRoom() {
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getConversations();
@@ -84,7 +84,7 @@ function ChatRoom() {
         const res = await axios.get('/messages/' + currentChat.id);
         setMessages(res.data);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getMessages();
@@ -114,7 +114,7 @@ function ChatRoom() {
       setMessages([...messages, res.data]);
       setNewMessages('');
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
