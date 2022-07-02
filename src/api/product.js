@@ -37,3 +37,5 @@ export const addProductPackage = async (id, input) => {
 export const addProductImage = async (id, input) => {
   await axios.post(`/products/${id}/image`, input);
 };
+
+export const getAllProducts = () => axios.get('/products');
