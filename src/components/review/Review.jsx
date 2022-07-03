@@ -15,24 +15,6 @@ function Review({
   const token = getAccessToken();
   const { reviewRating, setReviewRating } = useFilter();
 
-  const testData = [
-    {
-      userId: 1,
-      id: 1,
-      name: 'John Doe',
-      message: 'test',
-      rate: '4',
-    },
-    {
-      userId: 3,
-      id: 2,
-      name: 'John Doe2',
-      message: 'test2',
-      rate: '1',
-    },
-  ];
-  // console.log(reviewRating);
-
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
       {mode === 'DevPage' ? (
@@ -62,19 +44,6 @@ function Review({
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          {testData
-            .filter((e) => e)
-            .map((el) => {
-              return (
-                <ReviewCard
-                  key={el.id}
-                  userId={el.userId}
-                  name={el.name}
-                  message={el.message}
-                  rate={el.rate}
-                />
-              );
-            })}
           <CreateReview setProductByIDRender={setProductByIDRender} />
           {reviews?.map((el) => {
             return (
