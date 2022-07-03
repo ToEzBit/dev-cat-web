@@ -1,5 +1,5 @@
 import React from 'react';
-import BGHome from '../asset/image/BGhome.png';
+import BGHome from '../asset/image/BGhome.jpeg';
 import Cathome from '../asset/image/Cathome.png';
 import Cards from '../components/card/Cards';
 import Carousel from '../components/carousel/Carousel';
@@ -15,12 +15,14 @@ import Alltype4 from '../asset/image/Alltype4.png';
 import Alltype5 from '../asset/image/Alltype5.png';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
+// import { useProduct } from '../contexts/ProductContext';
 
 function HomePage() {
   const ctx = useAuth();
+  // const pro = useProduct();
   return (
     <>
-      {console.log(ctx?.user?.id)}
+      {console.log(ctx?.user)}
 
       <motion.div
         className="relative flex flex-col  gap-20"
@@ -155,53 +157,7 @@ function HomePage() {
               Freelancers who have passed quality screening for more than 50,
             </div>
           </div>
-          {/* <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-4 gap-8 ">
-              {' '}
-              <div className="flex gap-4 p-4">
-                <h1 className="">"</h1>
-                <div>
-                  <h4>"Quality Developer"</h4>
-                  <div>
-                    developer through selection And verify your identity with
-                    Devwork can check
-                  </div>
-                </div>
-                <h1 className="">"</h1>
-              </div>{' '}
-              <div className="flex gap-4 p-4">
-                <h1 className="">"</h1>
-                <div>
-                  <h4>Quality Developer</h4>
-                  <div>
-                    developer through selection And verify your identity with
-                  </div>
-                </div>
-                <h1 className="">"</h1>
-              </div>{' '}
-              <div className="flex gap-4 p-4">
-                <h1 className="">"</h1>
-                <div>
-                  <h4>Quality Developer</h4>
-                  <div>
-                    developer through selection And verify your identity with
-                  </div>
-                </div>
-                <h1 className="">"</h1>
-              </div>{' '}
-              <div className="flex gap-4 p-4">
-                <h1 className="">"</h1>
-                <div>
-                  <h4>Quality Developer</h4>
-                  <div>
-                    developer through selection And verify your identity with
-                    Devwork can check
-                  </div>
-                </div>
-                <h1 className="">"</h1>
-              </div>{' '}
-            </div>
-          </div> */}
+
           <div className="flex flex-col gap-16">
             <div className=" flex flex-col gap-8">
               <div className=" flex justify-between w-full text-center">

@@ -13,6 +13,7 @@ import InputChat from '../components/chat/InputChat';
 import { io } from 'socket.io-client';
 import Submit from '../components/modal/Submit';
 import SpecialRequirement from '../components/modal/SpecialRequirement';
+import SendImage from '../components/chat/conversation/SendImage';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -33,6 +34,7 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
+  console.log(messages);
 
   useEffect(() => {
     socket.current = io('ws://localhost:8900');
@@ -252,6 +254,7 @@ function ChatRoom() {
             </div>
 
             {/* ============================================ Chat Center  ===================================================== */}
+            {console.log(messages)}
             <div className="border-x col-span-2 relative">
               {currentChat ? (
                 <>
@@ -263,7 +266,22 @@ function ChatRoom() {
                       let i = m?.message?.match(
                         /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/g,
                       );
-                      if (i) {
+                      let p = m?.message?.match(
+                        /([/|.|\w|\s|-])(?:jpg|gif|png)/g,
+                      );
+                      if (p) {
+                        return (
+                          <div key={index} className="" ref={scrollRef}>
+                            <SendImage
+                              loading={loading}
+                              message={m}
+                              own={m.sender === ctx.user.id}
+                              currentUser={ctx.user}
+                              ProfilePic={ProfilePic}
+                            />
+                          </div>
+                        );
+                      } else if (i) {
                         return (
                           <div key={index} className="" ref={scrollRef}>
                             <Confirmation
@@ -302,14 +320,19 @@ function ChatRoom() {
                     <Quotation ProfilePic={ProfilePic} />
                     {/* --------------- dev Confirm Chat -------------- */}
                     {/* <Confirmation /> */}
-
                     {/* --------------- input Chat center -------------- */}
                   </div>
                   <div className="absolute bottom-0 w-full bg-white py-2">
                     <InputChat
+                      setMessages={setMessages}
+                      messages={messages}
+                      currentChat={currentChat}
+                      socket={socket}
                       newMessages={newMessages}
                       setNewMessages={setNewMessages}
                       handleSubmit={handleSubmit}
+                      loading={loading}
+                      setLoading={setLoading}
                     />
                   </div>
                 </>
@@ -320,6 +343,7 @@ function ChatRoom() {
                 </div>
               )}
             </div>
+
             {/* ============================================ Chat Right  ===================================================== */}
             <div className=" col-span-1 flex flex-col  overflow-auto p-4 h-full  gap-4">
               {/* <div className="px-8 py-6 border-y ">
