@@ -13,10 +13,7 @@ import InputChat from '../components/chat/InputChat';
 import { io } from 'socket.io-client';
 import Submit from '../components/modal/Submit';
 import SpecialRequirement from '../components/modal/SpecialRequirement';
-<<<<<<< HEAD
 import SendImage from '../components/chat/conversation/SendImage';
-=======
->>>>>>> dev
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -37,10 +34,7 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-<<<<<<< HEAD
   console.log(messages);
-=======
->>>>>>> dev
 
   useEffect(() => {
     socket.current = io('ws://localhost:8900');
@@ -54,13 +48,6 @@ function ChatRoom() {
     });
   }, []);
 
-<<<<<<< HEAD
-=======
-  // console.log(ctx?.user?.id);
-  // console.log(conversations);
-  // console.log(onlineUsers);
-
->>>>>>> dev
   useEffect(() => {
     arrivalMessage &&
       currentChat?.senderId &&
@@ -78,19 +65,11 @@ function ChatRoom() {
     setLoading(true);
     const getConversations = async () => {
       try {
-<<<<<<< HEAD
         const res = await axios.get('/conversations/' + ctx?.user?.id);
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
         console.log(err);
-=======
-        const res = await axios.get('/conversations/' + ctx.user.id);
-        const arrayConversations = [...res.data];
-        setConversations(arrayConversations);
-      } catch (err) {
-        // console.log(err);
->>>>>>> dev
       }
     };
     getConversations();
@@ -100,17 +79,10 @@ function ChatRoom() {
   useEffect(() => {
     const getMessages = async () => {
       try {
-<<<<<<< HEAD
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
       } catch (err) {
         console.log(err);
-=======
-        const res = await axios.get('/messages/' + currentChat.id);
-        setMessages(res.data);
-      } catch (err) {
-        // console.log(err);
->>>>>>> dev
       }
     };
     getMessages();
@@ -140,11 +112,7 @@ function ChatRoom() {
       setMessages([...messages, res.data]);
       setNewMessages('');
     } catch (err) {
-<<<<<<< HEAD
       console.log(err);
-=======
-      // console.log(err);
->>>>>>> dev
     }
   };
 
@@ -167,7 +135,6 @@ function ChatRoom() {
           <div className=" w-screen h-[20vh]  ">
             <Navbar />
             {/* ============================================ Nav Chat  ===================================================== */}
-<<<<<<< HEAD
             <div className="grid grid-cols-4 border items-baseline  ">
               <div className="col-span-1">
                 <div className="px-8 py-6 ">
@@ -225,127 +192,17 @@ function ChatRoom() {
                     <input
                       type="checkbox"
                       id="submit-modal"
-=======
-            {/* <div className="grid grid-cols-4 border items-baseline ">
-            <div className="col-span-1">
-              <div className="px-8 py-6 ">
-                <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
-                  <div className="form-control col-span-2 ">
-                    <input
-                      type="text"
-                      placeholder="Search"
-                      className=" h-8 input   input-bordered   shadow-2xl shadow-bg-home-content"
-                    />
-                  </div>
-                  <button className=" p-1 px-4 text-slate-400 rounded-lg bg-white">
-                    {' '}
-                    Sort{' '}
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className=" col-span-2 border-x">
-              <div className="px-8 py-6 ">
-                <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
-                  <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
-                    Special Requirement
-                  </button>
-                  <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
-                    <h5>John Doe</h5>
-                    <div>#01234567PP</div>
-                  </div>
-                  <button className="border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content">
-                    SUBMIT
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-span-1">
-              <div className="px-8 py-6  ">
-                <div className="grid grid-cols-2 justify-center gap-4 w-full items-center">
-                  <div className="">
-                    <div>Order Status</div>
-                  </div>
-                  <div className="text-xs font-bold  text-chat rounded-lg text-end bg-white">
-                    ORDER DETAIL
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-            <div className="grid grid-cols-4 border items-baseline  ">
-              <div className="col-span-1">
-                <div className="px-8 py-6 ">
-                  <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
-                    <div className="form-control col-span-2 ">
-                      <input
-                        type="text"
-                        placeholder="Search"
-                        className=" h-8 input   input-bordered   shadow-2xl shadow-bg-home-content"
-                      />
-                    </div>
-                    <button className=" p-1 px-4 text-slate-400 rounded-lg bg-white">
-                      Sort
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className=" col-span-2 border-x">
-                <div className="px-8 py-6 ">
-                  <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
-                    <label
-                      htmlFor="specialRequirement-modal"
-                      className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                      role="button"
-                    >
-                      Special Requirement
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      id="specialRequirement-modal"
->>>>>>> dev
                       className="modal-toggle"
                     />
 
                     <div className="modal">
                       <div className="modal-box">
-<<<<<<< HEAD
                         <Submit
                           setMessages={setMessages}
                           messages={messages}
                           currentChat={currentChat}
                           socket={socket}
                         />
-=======
-                        <SpecialRequirement />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
-                      <h5>John Doe</h5>
-                      <div>#01234567PP</div>
-                    </div>
-
-                    <button>
-                      <label
-                        htmlFor="submit-modal"
-                        className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                        role="button"
-                      >
-                        SUBMIT
-                      </label>
-                    </button>
-                    <input
-                      type="checkbox"
-                      id="submit-modal"
-                      className="modal-toggle"
-                    />
-
-                    <div className="modal">
-                      <div className="modal-box">
-                        <Submit />
->>>>>>> dev
                       </div>
                     </div>
                   </div>
@@ -397,10 +254,7 @@ function ChatRoom() {
             </div>
 
             {/* ============================================ Chat Center  ===================================================== */}
-<<<<<<< HEAD
             {console.log(messages)}
-=======
->>>>>>> dev
             <div className="border-x col-span-2 relative">
               {currentChat ? (
                 <>
@@ -408,7 +262,6 @@ function ChatRoom() {
 
                   {/* --------------- dev center Chat -------------- */}
                   <div className="px-12 py-8 flex flex-col gap-8  overflow-auto max-h-[80vh] pb-14">
-<<<<<<< HEAD
                     {messages?.map((m, index) => {
                       let i = m?.message?.match(
                         /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/g,
@@ -453,9 +306,6 @@ function ChatRoom() {
                     })}
 
                     {/* <div>{messages?.map((m, index) => (
-=======
-                    {messages?.map((m, index) => (
->>>>>>> dev
                       <div className="" ref={scrollRef}>
                         <Message
                           key={index}
@@ -465,25 +315,15 @@ function ChatRoom() {
                           currentUser={ctx.user}
                         />
                       </div>
-<<<<<<< HEAD
                     ))}</div> */}
                     {/* --------------- dev Quotation Chat -------------- */}
                     <Quotation ProfilePic={ProfilePic} />
                     {/* --------------- dev Confirm Chat -------------- */}
                     {/* <Confirmation /> */}
-=======
-                    ))}
-                    {/* --------------- dev Quotation Chat -------------- */}
-                    <Quotation ProfilePic={ProfilePic} />
-                    {/* --------------- dev Confirm Chat -------------- */}
-                    <Confirmation />
-
->>>>>>> dev
                     {/* --------------- input Chat center -------------- */}
                   </div>
                   <div className="absolute bottom-0 w-full bg-white py-2">
                     <InputChat
-<<<<<<< HEAD
                       setMessages={setMessages}
                       messages={messages}
                       currentChat={currentChat}
@@ -493,11 +333,6 @@ function ChatRoom() {
                       handleSubmit={handleSubmit}
                       loading={loading}
                       setLoading={setLoading}
-=======
-                      newMessages={newMessages}
-                      setNewMessages={setNewMessages}
-                      handleSubmit={handleSubmit}
->>>>>>> dev
                     />
                   </div>
                 </>
@@ -508,10 +343,6 @@ function ChatRoom() {
                 </div>
               )}
             </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
             {/* ============================================ Chat Right  ===================================================== */}
             <div className=" col-span-1 flex flex-col  overflow-auto p-4 h-full  gap-4">
               {/* <div className="px-8 py-6 border-y ">
@@ -528,11 +359,7 @@ function ChatRoom() {
               {/* --------------- History Chat -------------- */}
               {/* <div className="flex flex-col gap-8 justify-center items-center overflow-auto p-8"> */}
 
-<<<<<<< HEAD
               <div className="text-base p-4 w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
-=======
-              <div className="text-base w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
->>>>>>> dev
                 Lorem Ipsum has been the industry's standard dummy text ever
                 since the 1500s, Lorem Ipsum has been the industry's standard
                 dummy text ever since the 1500s
