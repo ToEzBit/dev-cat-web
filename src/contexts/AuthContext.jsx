@@ -6,7 +6,6 @@ import {
   removeAccessToken,
   setAccessToken,
 } from '../services/localStorage';
-import { devLogin, userLogin } from '../api/auth';
 import jwt_decode from 'jwt-decode';
 
 const AuthContext = createContext();
@@ -14,7 +13,29 @@ const AuthContext = createContext();
 function AuthContextProvider({ children }) {
   const [dev, setDev] = useState(null);
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      try {
+        const token = getAccessToken();
+        if (token) {
+          const decoded = jwt_decode(token);
+          if (decoded.role === 'user') {
+            const res = await axios.get('/user/me');
+            setUser(res.data.user);
+          }
+          if (decoded.role === 'dev') {
+            const res = await axios.get('/dev/me');
+            setDev(res.data.dev);
+          }
+        }
+      } catch (err) {
+        removeAccessToken();
+        console.log(err);
+      }
+    };
+    fetchMe();
+  }, []);
 
   useEffect(() => {
     const fetchMe = async () => {

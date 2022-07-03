@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate, Routes, Route } from 'react-router-dom';
 
-import Review from '../components/review/Review';
 import ChatRoom from '../pages/ChatRoom';
 import HomePage from '../pages/HomePage';
 import DevProfilePage from '../pages/DevProfilePage';
@@ -12,6 +11,7 @@ import ChangePasswordPage from '../pages/ChangePasswordPage';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import NewPasswordPage from '../pages/NewPasswordPage';
 import ProductPage from '../pages/ProductPage';
+import EditProfilePage from '../pages/EditProfilePage';
 import CreateProductPage from '../pages/CreateProductPage';
 import CheckoutPage from '../pages/CheckoutPage';
 
@@ -30,6 +30,7 @@ export default function Router() {
       <Route path="/change-password" element={<ChangePasswordPage />} />
       <Route path="/new-password" element={<NewPasswordPage />} />
       <Route path="/checkout-page/*" element={<CheckoutPage />} />
+      <Route path="/profile" element={<EditProfilePage />} />
     </Routes>
   );
 }

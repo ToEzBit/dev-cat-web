@@ -114,7 +114,7 @@ function FilterResultPageContent({
         >
           Z - A
         </button>
-        <button
+        {/* <button
           className="btn btn-ghost w-full"
           onClick={() => setOrder('test')}
         >
@@ -137,10 +137,12 @@ function FilterResultPageContent({
           onClick={() => setOrder('test')}
         >
           Starting price, lowest first
-        </button>
+        </button> */}
       </div>
     </div>
   );
+
+  
   let content;
   switch (title) {
     case 'Price':

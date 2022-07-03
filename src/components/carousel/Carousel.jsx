@@ -5,7 +5,11 @@ function Carousel({ photo }) {
     <div className="carousel w-full h-full ">
       {photo?.map((el, idx) => {
         return (
-          <div id={`slide-${idx}`} className="carousel-item relative w-full">
+          <div
+            id={`slide-${idx}`}
+            key={idx}
+            className="carousel-item relative w-full"
+          >
             <img src={el.image} className="w-full object-cover" />
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
               <a

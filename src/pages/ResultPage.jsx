@@ -22,7 +22,6 @@ function ResultPage() {
     const run = async () => {
       const res = await getAllProducts();
       const fetchProducts = res.data.products;
-      console.log(fetchProducts);
       setProducts(fetchProducts);
     };
     try {
