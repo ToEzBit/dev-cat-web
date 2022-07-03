@@ -36,6 +36,7 @@ function AddPackage({
       setErrInfo('Info is required');
     }
     if (packagePrice === '') {
+      console.log('first');
       setErrPrice('Price is required');
     }
     if (packageDuration === '') {
@@ -51,7 +52,7 @@ function AddPackage({
       !packageDuration ||
       !packageRevision
     ) {
-      throw new Error('Validation error');
+      throw new Error('Please in put all the fields');
     }
   };
 
@@ -74,7 +75,7 @@ function AddPackage({
       setPackageDuration('');
       setPackageRevision('');
     } catch (err) {
-      // console.log(err);
+      alert(err.message);
     }
   };
 
@@ -88,10 +89,6 @@ function AddPackage({
         </div>
       </div>
       <div className="flex flex-col   text-[#06033A] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg border border-[#7879F1]">
-        <div className="flex justify-around py-5">
-          <label>John Doe</label>
-          <label>Package :</label>
-        </div>
         {/* ==============================================================detailUser=============================================================== */}
         <div>
           <div className="flex flex-col">
@@ -121,12 +118,11 @@ function AddPackage({
                 Info
               </label>
             </div>
-            <input
+            <textarea
               className={`flex   p-2 my-1 w-full text-[#706D9E] text-center rounded-lg border sm:text-xs  ${
                 errInfo ? 'border-red-500' : 'border-[#E8E7FF]'
               } `}
               id="Description"
-              type="text"
               placeholder={errInfo ? errInfo : 'Input Info'}
               value={packageInfo}
               onChange={(e) => setPackageInfo(e.target.value)}
@@ -144,7 +140,7 @@ function AddPackage({
                 errPrice ? 'border-red-500' : 'border-[#E8E7FF]'
               } `}
               id="Price"
-              type="text"
+              type="number"
               placeholder={errPrice ? errPrice : 'Input Price'}
               value={packagePrice}
               onChange={(e) => setPackagePrice(e.target.value)}
@@ -162,7 +158,7 @@ function AddPackage({
                 errDuration ? 'border-red-500' : 'border-[#E8E7FF]'
               } `}
               id="Duration"
-              type="text"
+              type="number"
               placeholder={errDuration ? errDuration : 'Input Work Duration'}
               value={packageDuration}
               onChange={(e) => setPackageDuration(e.target.value)}
@@ -180,7 +176,7 @@ function AddPackage({
                 errRevision ? 'border-red-500' : 'border-[#E8E7FF]'
               } `}
               id="Revision"
-              type="text"
+              type="number"
               placeholder={errRevision ? errRevision : 'Input errRevision'}
               value={packageRevision}
               onChange={(e) => setPackageRevision(e.target.value)}
