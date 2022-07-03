@@ -14,6 +14,7 @@ function Review({
 }) {
   const token = getAccessToken();
   const { reviewRating, setReviewRating } = useFilter();
+
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
       {mode === 'DevPage' ? (
