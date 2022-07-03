@@ -1,5 +1,6 @@
 html {
   font-size: calc(60% + 0.8vmin);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -48,4 +49,40 @@ code {
   p {
     @apply text-base;
   }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn1 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.card-left-false {
+  /* transform: translateY(cal(50%)); */
+  animation: ease-in fadeIn 1s;
+  /* transition: 500ms; */
+}
+
+.card-left-true {
+  animation: ease-in fadeIn1 1s;
+  /* transition: 500ms; */
+}
+
+.card-right-false {
+  animation: ease-in fadeIn 1s;
+  /* transition: 500ms; */
+}
+.card-right-true {
+  animation: ease-in fadeIn1 1s;
+  /* transition: 500ms; */
 }

@@ -1,8 +1,10 @@
-import { createContext, useContext } from 'react';
-import { createProductReview } from '../api/product';
+import { useState } from 'react';
+import { createContext, useContext, useEffect } from 'react';
+import { createProductReview, getAllProducts } from '../api/product';
 
 const ProductContext = createContext();
 function ProductContextProvider({ children }) {
+  const [products, setProducts] = useState([]);
   const handleCreateProductReview = async (input, productId) => {
     try {
       const res = await createProductReview(input, productId);
@@ -12,8 +14,21 @@ function ProductContextProvider({ children }) {
     }
   };
 
+  useEffect(() => {
+    const run = async () => {
+      const res = await getAllProducts();
+      const fetchProducts = res.data.products;
+      setProducts(fetchProducts);
+    };
+    try {
+      run();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   return (
-    <ProductContext.Provider value={{ handleCreateProductReview }}>
+    <ProductContext.Provider value={{ products, handleCreateProductReview }}>
       {children}
     </ProductContext.Provider>
   );

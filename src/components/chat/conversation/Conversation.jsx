@@ -8,7 +8,7 @@ function Conversation({ conversation, currentUser, updatedAt, online }) {
   const [read, setRead] = useState(false);
 
   // console.log(online.socketId);
-  // console.log(conversation);
+  console.log(conversation);
 
   useEffect(() => {
     const friendId =
