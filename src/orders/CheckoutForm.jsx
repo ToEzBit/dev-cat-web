@@ -4,7 +4,7 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import { orderPayment } from '../../api/order';
+import { orderPayment } from '../api/order';
 import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutForm({ orderId = 2 }) {

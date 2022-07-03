@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import { createPaymentIntent } from '../api';
+import { createPaymentIntent } from "../api/order";
 
 import CheckoutForm from '../orders/CheckoutForm';
 
