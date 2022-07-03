@@ -14,6 +14,7 @@ import ProductPage from '../pages/ProductPage';
 import EditProfilePage from '../pages/EditProfilePage';
 import CreateProductPage from '../pages/CreateProductPage';
 import CheckoutPage from '../pages/CheckoutPage';
+import CreateOrder from '../components/chat/deal/CreateOrder';
 
 export default function Router() {
   return (
@@ -31,6 +32,7 @@ export default function Router() {
       <Route path="/new-password" element={<NewPasswordPage />} />
       <Route path="/checkout-page/*" element={<CheckoutPage />} />
       <Route path="/profile" element={<EditProfilePage />} />
+      <Route path="/test-create-order" element={<CreateOrder />} />
     </Routes>
   );
 }
