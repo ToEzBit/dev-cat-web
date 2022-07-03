@@ -7,7 +7,7 @@ import {
 import { orderPayment } from '../api/order';
 import { useNavigate } from 'react-router-dom';
 
-export default function CheckoutForm({ orderId = 2 }) {
+export default function CheckoutForm({ orderId }) {
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
@@ -15,7 +15,7 @@ export default function CheckoutForm({ orderId = 2 }) {
   const [message, setMessage] = useState(null);
 
   const paymentConfirmed = async (id) => {
-    // const res = await orderPayment({ transactionId: id }, orderId);
+    const res = await orderPayment({ transactionId: id }, +orderId);
     navigate('/');
   };
 

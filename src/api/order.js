@@ -2,7 +2,7 @@ import axios from '../config/axios';
 
 //input: userId, productId, packageId
 export const createOrder = async (input) => {
-  const res = await axios.post('/orders/create-order', input);
+  const res = await axios.post('/orders/', input);
   return res;
 };
 
@@ -31,7 +31,7 @@ export const orderPayment = async (input, orderId) => {
 };
 
 //user's side
-export const OrderIsCompleted = async (orderId) => {
+export const orderIsCompleted = async (orderId) => {
   await axios.patch(`/orders/${orderId}/complete/user`);
 };
 
@@ -39,4 +39,8 @@ export const OrderIsCompleted = async (orderId) => {
 //input: reviewDetail
 export const orderNeedsRevision = async (input, orderId) => {
   await axios.patch(`/orders/${orderId}/review`, input);
+};
+
+export const getUserOder = async () => {
+  await axios.get('/users/orders');
 };

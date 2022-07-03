@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../contexts/AuthContext';
 import { getAllDevProducts, getProductById } from '../../../api/product';
 import { createOrder } from '../../../api/order';
+import { useOrder } from '../../../contexts/OrderContext';
 
 export default function CreateOrder({ userId }) {
+  const { setOrderId } = useOrder();
   const { dev } = useAuth();
   const [devProducts, setDevProducts] = useState(null);
   const [devPackages, setDevPackages] = useState(null);
@@ -43,7 +45,7 @@ export default function CreateOrder({ userId }) {
       packageId: selectedPackage.id,
       userId: 2,
     });
-    console.log(res);
+    setOrderId(res?.data?.createdOrder?.id);
     //ใส่ลอจิคให้มันขึ้นแชท ให้ลูกค้ากดจ่ายเงิน/ดูรายละเอียดได้
   };
 

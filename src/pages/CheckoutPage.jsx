@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import { createPaymentIntent } from "../api/order";
+import { createPaymentIntent } from '../api/order';
 
 import CheckoutForm from '../orders/CheckoutForm';
 
@@ -10,14 +10,14 @@ const stripePromise = loadStripe(
   'pk_test_51LGO25J0De5S2BwxtNSp0yGpXK7bRGe475uYsBdLccGVPbf7zDtQMTSHHUBQLoGJMRphPubYQf7deuIyVtls5Dw900ZacHe3vj',
 );
 
-export default function CheckoutPage({ productId }) {
+export default function CheckoutPage({ orderId }) {
   const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
     // from chatroom > click pay now > load this page and run this function
     // Create PaymentIntent as soon as the page loads
     const getClientSecret = async () => {
-      const res = await createPaymentIntent(productId);
+      const res = await createPaymentIntent(orderId);
       setClientSecret(res?.data?.clientSecret);
     };
     getClientSecret();
@@ -32,11 +32,11 @@ export default function CheckoutPage({ productId }) {
   };
 
   return (
-    <div className="max-w-screen min-w-screen flex justify-center h-screen items-center">
+    <div className="w-full h-full flex justify-center items-center">
       <div className="w-1/2 h-1/2">
         {clientSecret && (
           <Elements options={options} stripe={stripePromise} key={clientSecret}>
-            <CheckoutForm clientSecret={clientSecret} />
+            <CheckoutForm clientSecret={clientSecret} orderId={orderId} />
           </Elements>
         )}
       </div>

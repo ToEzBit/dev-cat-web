@@ -4,7 +4,12 @@ import { createPaymentIntent } from '../api/order';
 
 const OrderContext = createContext();
 function OrderContextProvider({ children }) {
-  return <OrderContext.Provider value={{}}>{children}</OrderContext.Provider>;
+  const [orderId, setOrderId] = useState(0);
+  return (
+    <OrderContext.Provider value={{ setOrderId, orderId }}>
+      {children}
+    </OrderContext.Provider>
+  );
 }
 
 const useOrder = () => {
