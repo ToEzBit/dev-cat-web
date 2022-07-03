@@ -99,13 +99,13 @@ function LoginForm() {
           <p>LOGIN</p>
 
           <div className="flex flex-col w-full border-opacity-50">
-            <input
+            {/* <input
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full max-w-xs"
             />
 
-            <div className="divider text-gray-400">OR</div>
+            <div className="divider text-gray-400">OR</div> */}
 
             {error ? <p className="text-red-500">email is required</p> : null}
             <input
