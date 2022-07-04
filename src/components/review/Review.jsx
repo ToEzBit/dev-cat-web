@@ -45,8 +45,7 @@ function Review({
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          ////รอtest
-          {myOrder &&
+          {myOrder.length > 0 &&
             myOrder?.map((el, idx) => {
               el.Product.id === productId && (
                 <CreateReview setProductByIDRender={setProductByIDRender} />

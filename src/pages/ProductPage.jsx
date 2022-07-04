@@ -17,6 +17,10 @@ export default function ProductPage() {
   const [product, setProduct] = useState({});
   const [reviews, setReviews] = useState([]);
 
+  console.log(dev); //
+
+  console.log(product);
+
   useEffect(() => {
     const fetchProduct = async () => {
       const res = await getProductById(productId);
@@ -32,7 +36,7 @@ export default function ProductPage() {
         <Navbar />
       </div>
       <div className="w-8/12 py-4 flex flex-col gap-5">
-        {dev && dev.id === product.dev.id ? (
+        {dev && dev.id === product?.Dev?.id ? (
           <div className="flex justify-end gap-2">
             <button className="btn btn-outline btn-info btn-sm">Edit</button>
             <button className="btn btn-outline btn-info btn-sm">Delete</button>
@@ -52,7 +56,7 @@ export default function ProductPage() {
         <div>
           <div className="flex w-full justify-between">
             <p>Package</p>
-            {dev && dev.id === product.dev.id ? (
+            {dev && dev.id === product.Dev.id ? (
               <button className="btn btn-outline btn-info btn-sm">
                 Edit Package
               </button>

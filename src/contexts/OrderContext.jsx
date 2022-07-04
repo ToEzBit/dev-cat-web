@@ -7,7 +7,7 @@ const OrderContext = createContext();
 function OrderContextProvider({ children }) {
   const { user } = useAuth();
   const [orderId, setOrderId] = useState(0);
-  const [myOrder, setMyOrder] = useState({});
+  const [myOrder, setMyOrder] = useState([]);
 
   useEffect(() => {
     const getMyOrder = async () => {
