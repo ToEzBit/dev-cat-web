@@ -28,3 +28,13 @@ export const devRegister = async (input) => {
 export const logout = async () => {
   removeAccessToken();
 };
+
+export const sendVerificationEmail = async (input) => {
+  const res = await axios.post(`/mail/forget-password`, input);
+  return res;
+};
+
+export const changePasswordByEmail = async (input) => {
+  const res = await axios.post(`/mail/check-email-key`, input);
+  return res;
+};
