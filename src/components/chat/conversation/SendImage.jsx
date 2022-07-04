@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from '../../../config/axios';
 import { useAuth } from '../../../contexts/AuthContext';
 
-function SendImage({ ProfilePic, own, message }) {
+function SendImage({ ProfilePic, own, message, array }) {
+  const [user, setUser] = useState(null);
   const ctx = useAuth();
+
+  useEffect(() => {
+    const friendId = array.filter((e) => {
+      return e.sender !== ctx.user.id;
+    });
+
+    const getUser = async () => {
+      try {
+        const res = await axios('/user/' + friendId[0].sender);
+        setUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [array, ctx.user.id]);
+
   return (
     <div>
       {' '}
@@ -29,7 +48,7 @@ function SendImage({ ProfilePic, own, message }) {
           <div className="flex p-4 items-center gap-4">
             <div className="avatar ">
               <div className="w-14 rounded-full ">
-                <img src={ctx.user.profileImage || ProfilePic} alt="" />
+                <img src={user?.user?.profileImage || ProfilePic} alt="" />
               </div>
             </div>
             <div className="flex flex-col gap-2">
