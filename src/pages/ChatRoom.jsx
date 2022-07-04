@@ -19,6 +19,7 @@ function ChatRoom() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [friendId, setFriendId] = useState(null);
   // const [notification, setNotification] = useState(false);
   //socket io
   const socket = useRef();
@@ -34,12 +35,14 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  console.log(conversations);
+  // console.log(conversations);
+
+  // const receiverId = currentChat.Chats.find((sender) => console.log(sender));
+  // console.log(receiverId);
 
   useEffect(() => {
     socket.current = io('ws://localhost:8900');
     socket.current.on('getMessage', (data) => {
-      // console.log(data);
       setArrivalMessage({
         sender: data.senderId,
         message: data.message,
@@ -47,12 +50,30 @@ function ChatRoom() {
       });
     });
   }, []);
+  console.log(currentChat?.Chats);
+
+  // const isInclude = currentChat?.Chats.some((el) => {
+  //   return el.sender === arrivalMessage.sender;
+  // });
+
+  // console.log(arrivalMessage);
+  // console.log(currentChat?.Chats[0].sender === arrivalMessage.sender);
+  // console.log(currentChat?.Chats[currentChat?.Chats.length - 1]);
 
   useEffect(() => {
+    const isInclude = currentChat?.Chats.some((el) => {
+      return el.sender === arrivalMessage.sender;
+    });
     arrivalMessage &&
-      currentChat?.senderId &&
+      isInclude &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
+
+  // useEffect(() => {
+  //   arrivalMessage &&
+  //     currentChat?.senderId &&
+  //     setMessages((prev) => [...prev, arrivalMessage]);
+  // }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
     socket.current.emit('addUser', ctx?.user?.id);
@@ -96,10 +117,14 @@ function ChatRoom() {
       conversationId: currentChat.id,
     };
 
+    // const receiverId = currentChat.Chats.find(
+    //   (el) => el.sender !== ctx.user.id,
+    // );
+    // console.log(receiverId);
     const receiverId =
-      currentChat.senderId == ctx.user.id
-        ? currentChat.receiverId
-        : currentChat.senderId;
+      currentChat.senderId !== ctx.user.id
+        ? currentChat.senderId
+        : currentChat.receiverId;
 
     socket.current.emit('sendMessage', {
       senderId: ctx?.user.id,
@@ -254,7 +279,7 @@ function ChatRoom() {
             </div>
 
             {/* ============================================ Chat Center  ===================================================== */}
-            {console.log(messages)}
+            {/* {console.log(messages)} */}
             <div className="border-x col-span-2 relative">
               {currentChat ? (
                 <>
@@ -273,6 +298,7 @@ function ChatRoom() {
                         return (
                           <div key={index} className="" ref={scrollRef}>
                             <SendImage
+                              array={messages}
                               loading={loading}
                               message={m}
                               own={m.sender === ctx.user.id}
@@ -285,6 +311,7 @@ function ChatRoom() {
                         return (
                           <div key={index} className="" ref={scrollRef}>
                             <Confirmation
+                              array={messages}
                               message={m}
                               own={m.sender === ctx.user.id}
                               currentUser={ctx.user}
@@ -295,6 +322,7 @@ function ChatRoom() {
                         return (
                           <div key={index} className="" ref={scrollRef}>
                             <Message
+                              array={messages}
                               ProfilePic={ProfilePic}
                               message={m}
                               own={m.sender === ctx.user.id}
