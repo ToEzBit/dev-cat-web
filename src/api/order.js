@@ -2,14 +2,15 @@ import axios from '../config/axios';
 
 //input: userId, productId, packageId
 export const createOrder = async (input) => {
-  const res = await axios.post('/orders/', input);
+  const res = await axios.post('/orders/create-order', input);
   return res;
 };
 
 //input: orderId, userId
-export const createPaymentIntent = async (input) =>
-  await axios.post('/orders/create-payment', input);
-
+export const createPaymentIntent = async (input) => {
+  const res = await axios.post('/orders/create-payment', input);
+  return res;
+};
 //input title, detail, price, duration
 export const createSpecialRequirement = async (input) => {
   await axios.post('/orders/special-requirement', input);
@@ -42,5 +43,6 @@ export const orderNeedsRevision = async (input, orderId) => {
 };
 
 export const getUserOder = async () => {
-  await axios.get('/users/orders');
+  const res = await axios.get('/user/orders');
+  return res.data.orders;
 };

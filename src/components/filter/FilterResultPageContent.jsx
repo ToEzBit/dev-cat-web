@@ -100,11 +100,11 @@ function FilterResultPageContent({
     <div className="flex flex-col items-center justify-center gap-2 w-4/5 mx-auto my-2">
       <div className="w-full">
         {/* <button
-         className="btn btn-ghost w-full"
-         onClick={() => setOrder('test')}
-       >
-         relevance
-       </button> */}
+          className="btn btn-ghost w-full"
+          onClick={() => setOrder('test')}
+        >
+          relevance
+        </button> */}
         <button className="btn btn-ghost w-full" onClick={() => setOrder(true)}>
           A - Z
         </button>
