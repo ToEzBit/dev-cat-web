@@ -20,11 +20,10 @@ function CarouselHome() {
   const [animationToggle, setAnimationToggle] = useState(false);
   const [disable, setDisable] = useState(false);
 
-  console.log(carouselIndex);
   const ref = useRef();
 
   return (
-    <div class="  relative max-w-screen-lg mx-auto h-96 ">
+    <div className="  relative max-w-screen-lg mx-auto h-96 ">
       <img
         // data-aos="fade-right"
         src={carousel[carouselIndex]}
@@ -44,7 +43,7 @@ function CarouselHome() {
               setAnimationToggle(!animationToggle);
             }
           }}
-          class="btn btn-circle"
+          className="btn btn-circle"
         >
           ❮
         </button>
@@ -60,7 +59,7 @@ function CarouselHome() {
               setAnimationToggle(!animationToggle);
             }
           }}
-          class=" btn btn-circle"
+          className=" btn btn-circle"
         >
           ❯
         </button>
