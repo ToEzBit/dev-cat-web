@@ -34,7 +34,7 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  console.log(messages);
+  console.log(conversations);
 
   useEffect(() => {
     socket.current = io('ws://103.74.253.125:8080');

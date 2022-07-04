@@ -3,7 +3,10 @@ import React from 'react';
 function Cards({ pic, type, bgpic, className }) {
   return (
     <div
-      className={className || 'card w-[28rem] bg-base-100 shadow-xl image-full'}
+      className={
+        className ||
+        'card w-[28rem] bg-base-100 shadow-xl image-full  hover:scale-110 duration-300 group'
+      }
     >
       <figure>
         <img src={bgpic} alt="Shoes" />
