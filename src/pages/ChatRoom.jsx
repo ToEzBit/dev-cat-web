@@ -37,7 +37,7 @@ function ChatRoom() {
   console.log(messages);
 
   useEffect(() => {
-    socket.current = io('ws://localhost:8900');
+    socket.current = io('ws://103.74.253.125:8080');
     socket.current.on('getMessage', (data) => {
       // console.log(data);
       setArrivalMessage({
