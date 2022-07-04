@@ -10,11 +10,11 @@ function NavbarHome() {
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
       <div className="max-w-screen-2xl mx-auto flex justify-center ">
-        <div className="form-control absolute pt-4 hidden md:block">
+        <div className="form-control absolute pt-5 hidden md:block">
           <input
             type="text"
             placeholder="Search"
-            className="w-96 h-8 input  input-bordered   shadow-2xl shadow-green-900"
+            className="w-96 h-7 input  opacity-50 hover:opacity-100 focus:text-chat placeholder:italic placeholder:text-chat-quotation   opacity-64   input-bordered   shadow-2xl shadow-green-900"
           />
         </div>
       </div>
@@ -147,7 +147,7 @@ function NavbarHome() {
               >
                 <Link
                   to="/login"
-                  className="text-white text-2xl font-extrabold mx-4 hover:text-text-btn"
+                  className="text-white text-base font-extrabold mx-4 hover:text-text-btn"
                 >
                   Login
                 </Link>
@@ -158,7 +158,7 @@ function NavbarHome() {
               >
                 <Link
                   to="/register"
-                  className="text-white text-2xl font-extrabold mx-4 hover:text-text-btn"
+                  className="text-white text-base font-extrabold mx-4 hover:text-text-btn"
                 >
                   Register
                 </Link>

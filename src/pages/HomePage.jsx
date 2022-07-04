@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BGHome from '../asset/image/BGhome.jpeg';
 import Cathome from '../asset/image/Cathome.png';
 import Cards from '../components/card/Cards';
@@ -14,9 +14,43 @@ import Alltype3 from '../asset/image/Alltype3.png';
 import Alltype4 from '../asset/image/Alltype4.png';
 import Alltype5 from '../asset/image/Alltype5.png';
 import { motion } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
+import { useProduct } from '../contexts/ProductContext';
+import CarouselHome from '../components/carousel/CarouselHome';
+// import { useProduct } from '../contexts/ProductContext';
+
 function HomePage() {
+  const ctx = useAuth();
+  const pro = useProduct();
+
+  const productArr = pro.products.reduce((acc, curr) => {
+    const { id, title, Packages, ProductReviews, category, Dev } = curr;
+    // console.log({ id, title, Packages, ProductReviews });
+    const priceArr = Packages.map((el) => +el.price);
+    // console.log(priceArr);
+    const maxPrice = Math.max(...priceArr);
+    // console.log(maxPrice);
+    const minPrice = Math.min(...priceArr);
+    // console.log(minPrice);
+    let avgReview = null;
+    // console.log(ProductReviews);
+    if (ProductReviews.length) {
+      const reviewArr = ProductReviews.map((el) => +el.rate);
+      avgReview = Math.round(
+        reviewArr.reduce((a, b) => a + b, 0) / reviewArr.length,
+      );
+    } else avgReview = '0';
+
+    return [
+      ...acc,
+      { id, category, title, maxPrice, Dev, minPrice, avgReview },
+    ];
+  }, []);
+
   return (
     <>
+      {/* {console.log('term', pro.products)} */}
+
       <motion.div
         className="relative flex flex-col  gap-20"
         initial={{ opacity: 0 }}
@@ -99,7 +133,7 @@ function HomePage() {
             </div>
           </div>
         </div>
-        <div className=" max-w-screen-xl items-center mx-auto   px-32 flex flex-col gap-16 mt-16">
+        <div className=" max-w-screen-lg items-center mx-auto flex flex-col gap-16 mt-16">
           <div className="flex flex-col gap-4">
             <div className="grid grid-cols-3 gap-8 ">
               {' '}
@@ -108,8 +142,8 @@ function HomePage() {
                 <div>
                   {/* <h2>Quality Developer</h2> */}
                   <div>
-                    developer through selection And verify your identity with
-                    Devwork can check
+                    Your money will be protected from developer starting work to
+                    getting a satisfactory job.
                   </div>
                 </div>
               </div>
@@ -128,8 +162,8 @@ function HomePage() {
                 <div>
                   {/* <h2>Quality Developer</h2> */}
                   <div>
-                    developer through selection And verify your identity with
-                    Devwork can check
+                    There is a wide range of freelancers available to more than
+                    150,000 people
                   </div>
                 </div>
               </div>
@@ -137,7 +171,7 @@ function HomePage() {
           </div>
           <div id="section1"></div>
           <div className="flex flex-col gap-4 text-center">
-            <h1>Devwork, one of the best quality developer</h1>
+            <h1>Devcats, one of the best quality developer</h1>
             <div>
               They also have the freedom to choose employment from time to time.
               Able to compare prices and quality of freelance work that are
@@ -151,13 +185,13 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-16">
+          <div className="  flex flex-col gap-16">
             <div className=" flex flex-col gap-8">
-              <div className=" flex justify-between w-full text-center">
+              <div className=" flex gap-4 justify-between w-full text-center ">
                 <Cards pic={phone} bgpic={phone} type={'Mobile Application'} />
                 <Cards pic={laptop} bgpic={laptop} type={'Website Developer'} />
               </div>
-              <div className="hover: card bg-base-100 shadow-xl image-full">
+              <div className=" hover:scale-110 duration-300 group card bg-base-100 shadow-xl image-full">
                 <figure className="gap-8">
                   <img
                     src={Alltype2}
@@ -213,7 +247,7 @@ function HomePage() {
               <h5 className="text-text-normal">Popular works</h5>
 
               <div className="h-[24rem]">
-                <Carousel className="" />
+                <CarouselHome />
               </div>
               {/* <div className=" flex flex-col gap-4">
               <h4 className="text-text-orange">
@@ -239,19 +273,33 @@ function HomePage() {
             <div className="flex flex-col gap-4">
               <h5 className="">Popular Desktop</h5>
               <div className="grid gap-4 grid-cols-4">
-                <Workcard />
-                <Workcard />
-                <Workcard />
-                <Workcard />
+                {productArr
+                  .map((e, index) => {
+                    if (e?.category === 'web') {
+                      return (
+                        <div key={index}>
+                          <Workcard workcard={e} />
+                        </div>
+                      );
+                    }
+                  })
+                  .slice(0, 5)}
               </div>
             </div>
             <div className="flex flex-col gap-4">
               <h5>Popular Mobile</h5>
               <div className="grid gap-4 grid-cols-4">
-                <Workcard />
-                <Workcard />
-                <Workcard />
-                <Workcard />
+                {productArr
+                  .map((e, index) => {
+                    if (e?.category === 'mobile') {
+                      return (
+                        <div key={index}>
+                          <Workcard workcard={e} />
+                        </div>
+                      );
+                    }
+                  })
+                  .slice(0, 5)}
               </div>
             </div>
           </div>
@@ -259,25 +307,25 @@ function HomePage() {
         {/* ================================== Why use Devwork? ===================================== */}
         <div className="max-w-screen-lg mx-auto flex flex-col gap-24">
           <div className="flex flex-col gap-4">
-            <h5>Why use Devwork?</h5>
+            <h5>Why use Devcats?</h5>
             <div className="grid grid-cols-3 gap-8 ">
               {' '}
               <div>
-                <h5>Quality Developer</h5>
+                <h5>Pay via Devcats</h5>
                 <div>
                   developer through selection And verify your identity with
                   Devwork can check
                 </div>
               </div>
               <div>
-                <h5>Quality Developer</h5>
+                <h5>Discuss the details</h5>
                 <div>
                   developer through selection And verify your identity with
                   Devwork can check
                 </div>
               </div>
               <div>
-                <h5>Quality Developer</h5>
+                <h5>Approval and Review</h5>
                 <div>
                   developer through selection And verify your identity with
                   Devwork can check
@@ -286,7 +334,7 @@ function HomePage() {
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <h5>Devwork, one of the best quality developer</h5>
+            <h5>Devcats, one of the best quality developer</h5>
             <div>
               They also have the freedom to choose employment from time to time.
               Able to compare prices and quality of freelance work that are
