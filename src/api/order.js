@@ -8,7 +8,8 @@ export const createOrder = async (input) => {
 
 //input: orderId, userId
 export const createPaymentIntent = async (input) => {
-  await axios.post('/orders/create-payment', input);
+  const res = await axios.post('/orders/create-payment', input);
+  return res;
 };
 //input title, detail, price, duration
 export const createSpecialRequirement = async (input) => {
