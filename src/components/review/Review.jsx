@@ -4,6 +4,7 @@ import Rating from './Rating';
 import ReviewCard from './ReviewCard';
 import DevProfileCard from '../card/DevProfileCard/DevProfileCard';
 import { getAccessToken } from '../../services/localStorage';
+import { useOrder } from '../../contexts/OrderContext';
 
 function Review({
   mode,
@@ -11,13 +12,13 @@ function Review({
   setReviews,
   setProductByIDRender,
   productDev,
+  productId,
 }) {
-  const token = getAccessToken();
+  const { myOrder } = useOrder();
   const { reviewRating, setReviewRating } = useFilter();
-
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
-      {mode === 'DevPage' ? (
+      {mode === 'ProductPage' ? (
         <div className="w-full flex justify-center bg-text-color-footer py-10">
           <div className="w-3/5 ">
             <div className="w-full">
@@ -44,7 +45,12 @@ function Review({
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <CreateReview setProductByIDRender={setProductByIDRender} />
+          {myOrder.length > 0 &&
+            myOrder?.map((el, idx) => {
+              el.Product.id === productId && (
+                <CreateReview setProductByIDRender={setProductByIDRender} />
+              );
+            })}
           {reviews?.map((el) => {
             return (
               <ReviewCard

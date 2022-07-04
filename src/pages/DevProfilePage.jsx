@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import DevProfileCard from '../components/card/DevProfileCard/DevProfileCard';
 import Navbar from '../components/navbars/Navbar';
@@ -8,7 +9,13 @@ import Footer from '../components/footer/Footer';
 import Review from '../components/review/Review';
 
 function DevProfilePage() {
+  // const {dev}  = use
+  const [devProfile, setDevProfile] = useState({});
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    const getDevProfile = async () => {};
+  }, []);
 
   return (
     <div className="w-screen flex flex-col items-center">

@@ -1,4 +1,5 @@
-function DevSkills({ workExperience, language, programming, certificate }) {
+function DevSkills({ mode }) {
+  
   return (
     <div className="grid grid-cols-4">
       <ul className="col-start-2 col-span-3 mx-7">

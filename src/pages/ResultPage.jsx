@@ -73,7 +73,7 @@ function ResultPage() {
   }
 
   // let pageLimit = 20;
-  let pageLimit = 4;
+  let pageLimit = 5;
   const pageNumber = Math.ceil(filteredRating.length / pageLimit);
   const limitPages = filteredRating.slice(
     (currentPage - 1) * pageLimit,

@@ -21,6 +21,13 @@ export const updateProductReview = async (
   return res.data.updatedReview;
 };
 
+export const getAllProducts = async () => await axios.get('/products');
+
+export const getAllDevProducts = async (devId) => {
+  const res = await axios.get(`/products/dev/${devId}`);
+  return res.data.products;
+};
+
 export const deleteProductReview = async (id) => {
   const res = await axios.delete(`/products/review/${id}`);
 };
@@ -37,5 +44,3 @@ export const addProductPackage = async (id, input) => {
 export const addProductImage = async (id, input) => {
   await axios.post(`/products/${id}/image`, input);
 };
-
-export const getAllProducts = () => axios.get('/products');

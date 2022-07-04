@@ -1,6 +1,20 @@
 import React from 'react';
+import { orderIsCompleted, orderNeedsRevision } from '../../../api/order';
+import { useOrder } from '../../../contexts/OrderContext';
 
 function Confirmation({ message, currentUser }) {
+  const { orderId } = useOrder();
+  //fetch userId
+
+  const handleComplete = async () => {
+    await orderIsCompleted(orderId);
+  };
+
+  const handleRevision = async (input) => {
+    //navigate to หน้าเขียนรีวิว
+    await orderNeedsRevision({ reviewDetail: input }, orderId);
+  };
+
   return (
     <div>
       <div className="w-full ">
@@ -23,10 +37,16 @@ function Confirmation({ message, currentUser }) {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 ">
-                <button className="border p-2 rounded-lg border-bg-home-content">
+                <button
+                  className="border p-2 rounded-lg border-bg-home-content"
+                  onClick={() => handleComplete()}
+                >
                   Agree
                 </button>
-                <button className="border p-2 px-4 rounded-lg border-bg-home-content">
+                <button
+                  className="border p-2 px-4 rounded-lg border-bg-home-content"
+                  onClick={() => handleRevision()}
+                >
                   Required Edit
                 </button>
               </div>
