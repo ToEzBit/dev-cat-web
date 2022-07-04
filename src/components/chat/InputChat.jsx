@@ -44,18 +44,18 @@ function InputChat({
   const handleSubmitImage = async (e) => {
     e.preventDefault();
     const message = {
-      sender: ctx.user.id,
+      sender: ctx.clientChat.id,
       message: getImage,
       conversationId: currentChat.id,
     };
 
     const receiverId =
-      currentChat.senderId == ctx.user.id
+      currentChat.senderId == ctx.clientChat.id
         ? currentChat.receiverId
         : currentChat.senderId;
 
     socket.current.emit('sendMessage', {
-      senderId: ctx?.user.id,
+      senderId: ctx?.clientChat.id,
       receiverId,
       message: getImage,
     });
@@ -85,18 +85,18 @@ function InputChat({
 
       if (getImage) {
         const message = {
-          sender: ctx.user.id,
+          sender: ctx.clientChat.id,
           message: getImage,
           conversationId: currentChat.id,
         };
 
         const receiverId =
-          currentChat.senderId == ctx.user.id
+          currentChat.senderId == ctx.clientChat.id
             ? currentChat.receiverId
             : currentChat.senderId;
 
         socket.current.emit('sendMessage', {
-          senderId: ctx?.user.id,
+          senderId: ctx?.clientChat.id,
           receiverId,
           message: getImage,
         });

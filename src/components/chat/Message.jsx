@@ -8,25 +8,20 @@ function Message({ ProfilePic, own, message, array }) {
   const [user, setUser] = useState(null);
 
   const ctx = useAuth();
-  console.log(user);
 
   useEffect(() => {
     const friendId = array.find((e) => {
       return e.sender !== ctx.clientChat.id;
     });
-    // console.log(friendId.sender);
 
     const getUser = async () => {
       try {
         if (friendId.sender % 2 == 0) {
-          console.log('check user');
           const res = await axios.get('/user/' + friendId.sender);
           setUser(res.data.user);
           // setClientChat(res?.data?.user);
         } else {
-          console.log('check dev');
           const resDev = await axios.get('/dev/' + friendId.sender);
-          console.log(resDev);
           setUser(resDev.data.dev);
         }
       } catch (err) {
