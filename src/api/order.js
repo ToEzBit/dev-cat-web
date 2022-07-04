@@ -2,7 +2,7 @@ import axios from '../config/axios';
 
 //input: userId, productId, packageId
 export const createOrder = async (input) => {
-  const res = await axios.post('/orders/', input);
+  const res = await axios.post('/orders/create-order', input);
   return res;
 };
 

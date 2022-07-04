@@ -14,7 +14,7 @@ export default function CreateOrder({ userId }) {
 
   useEffect(() => {
     const getDevProducts = async () => {
-      const res = await getAllDevProducts(1);
+      const res = await getAllDevProducts(dev?.id);
       setDevProducts(res);
     };
     getDevProducts();
@@ -76,7 +76,7 @@ export default function CreateOrder({ userId }) {
         </div>
 
         <div className="dropdown">
-          <label tabIndex="0" class="btn btn-outline btn-info m-1">
+          <label tabIndex="0" className="btn btn-outline btn-info m-1">
             Select Package: {selectedPackage ? selectedPackage.title : ''}
           </label>
           <ul
