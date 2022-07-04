@@ -14,6 +14,7 @@ import { io } from 'socket.io-client';
 import Submit from '../components/modal/Submit';
 import SpecialRequirement from '../components/modal/SpecialRequirement';
 import SendImage from '../components/chat/conversation/SendImage';
+import Step from '../components/chat/step/Step';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -366,40 +367,8 @@ function ChatRoom() {
               </div>
 
               {/* --------------- steps work -------------- */}
-              <div className="flex flex-col gap-4">
-                <div>
-                  <div className="text-base font-bold text-chat">
-                    ORDER CREATED
-                  </div>
-                  <div className=" text-sm ">8 July 2022 start diccuss </div>
-                </div>
-                <div>
-                  <div className="text-base text-chat-quotation  font-bold">
-                    PAID
-                  </div>
-                  <div className=" text-sm text-chat-quotation ">
-                    10 July 2022{' '}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-base text-chat-quotation  font-bold">
-                    IN PROCESS
-                  </div>
-                  {/* <div className=" text-sm ">8 July 2022 start diccuss </div> */}
-                </div>
-                <div>
-                  <div className="text-base text-chat-quotation  font-bold">
-                    REVIEW
-                  </div>
-                  {/* <div className=" text-sm ">8 July 2022 start diccuss </div> */}
-                </div>
-                <div>
-                  <div className="text-base text-chat-quotation  font-bold">
-                    COMPLETE
-                  </div>
-                  {/* <div className=" text-sm ">8 July 2022 start diccuss </div> */}
-                </div>
-              </div>
+              <Step />
+             
 
               {/* --------------- Dev profile -------------- */}
 

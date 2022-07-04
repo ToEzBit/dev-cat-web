@@ -22,7 +22,7 @@ function AuthContextProvider({ children }) {
           const decoded = jwt_decode(token);
           if (decoded.role === 'user') {
             const res = await axios.get('/user/me');
-            setUser(res.data.user);
+            setUser(res?.data?.user);
           }
           if (decoded.role === 'dev') {
             const res = await axios.get('/dev/me');

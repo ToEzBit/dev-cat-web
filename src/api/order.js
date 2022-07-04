@@ -42,5 +42,6 @@ export const orderNeedsRevision = async (input, orderId) => {
 };
 
 export const getUserOder = async () => {
-  await axios.get('/users/orders');
+  const res = await axios.get('/user/orders');
+  return res.data.orders;
 };

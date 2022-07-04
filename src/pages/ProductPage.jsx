@@ -67,7 +67,8 @@ export default function ProductPage() {
       </div>
       <div>
         <Review
-          mode="DevPage"
+          productId={productId}
+          mode="ProductPage"
           productDev={product?.Dev}
           reviews={reviews}
           setReviews={setReviews}

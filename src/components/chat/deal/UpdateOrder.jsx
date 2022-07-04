@@ -20,7 +20,6 @@ export default function UpdateOrder() {
     }
   };
 
-
   //จริงๆลูกค้าก็ควรกดcancelได้?
   handleCancel = async () => {
     await updateOrderStatus({status: cancelled}, orderId)
