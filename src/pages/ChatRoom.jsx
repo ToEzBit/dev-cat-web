@@ -41,7 +41,7 @@ function ChatRoom() {
   // console.log(receiverId);
 
   useEffect(() => {
-    socket.current = io('ws://localhost:8900');
+    socket.current = io('ws://103.74.253.125:8080');
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -185,7 +185,7 @@ function ChatRoom() {
                       className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
                       role="button"
                     >
-                      Special Requirement
+                      Create Order
                     </label>
 
                     <input

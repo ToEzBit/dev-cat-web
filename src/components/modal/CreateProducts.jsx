@@ -10,6 +10,7 @@ import {
   addProductPackage,
   createProduct,
 } from '../../api/product';
+import RichTextEditor from '../jodit/JoditDraft';
 
 function CreateProducts() {
   const navigate = useNavigate();
@@ -130,10 +131,11 @@ function CreateProducts() {
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Input Title Project"
                 />
-                <div className="dropdown dropdown-hover flex justify-start my-4">
+
+                <div className="dropdown dropdown-active flex justify-start my-4">
                   <label
                     tabIndex="0"
-                    className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4  border border-[#9747FF] hover:border-transparent rounded-xl shadow-md"
+                    className="bg-transparent active:bg-[#E8E7FF] text-[#5D5FEF] font-semibold active:text-[#06033A] py-2 px-4  border border-[#9747FF] active:border-transparent rounded-xl shadow-md"
                   >
                     {category}
                   </label>
@@ -149,6 +151,7 @@ function CreateProducts() {
                     </li>
                   </ul>
                 </div>
+
                 <div className="flex flex-col pt-5">
                   <div className="flex justify-start">
                     <label
@@ -158,14 +161,21 @@ function CreateProducts() {
                       Information
                     </label>
                   </div>
-                  <textarea
+                  <div className="prose text-left  max-w-none">
+                    <RichTextEditor
+                      initialValue=""
+                      getValue={setInfo}
+                    ></RichTextEditor>
+                    <td dangerouslySetInnerHTML={{ __html: info }}></td>
+                  </div>
+                  {/* <textarea
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-md text-[#706D9E]    rounded-xl border border-[#9747FF] py-8 "
                     placeholder="Input Information"
                     value={info}
                     onChange={(e) => setInfo(e.target.value)}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
