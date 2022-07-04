@@ -17,7 +17,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useProduct } from '../contexts/ProductContext';
 import CarouselHome from '../components/carousel/CarouselHome';
-import CarouselSwiper from '../components/carousel/CarouselSwiper';
+
 // import { useProduct } from '../contexts/ProductContext';
 
 function HomePage() {
@@ -250,7 +250,6 @@ function HomePage() {
               <h5 className="text-text-normal">Popular works</h5>
 
               <div className="h-[24rem]">
-                {/* <CarouselSwiper /> */}
                 <CarouselHome />
               </div>
               {/* <div className=" flex flex-col gap-4">

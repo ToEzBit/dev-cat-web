@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 
 function NavbarHome() {
-  const { logout, user, dev } = useAuth();
+  const ctx = useAuth();
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
@@ -64,7 +64,7 @@ function NavbarHome() {
 
         {/* =========================================  left side  =============================================== */}
         <div className="flex-none gap-2 items-center">
-          {user || dev ? (
+          {ctx.clientChat ? (
             <>
               {/* =================  left side MSG ==================== */}
               <div className="navbar-end">
@@ -115,7 +115,10 @@ function NavbarHome() {
               <div className="dropdown dropdown-end">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-12 rounded-full">
-                    <img src={ProfilePic} />
+                    <img
+                      src={ctx.clientChat.profileImage || ProfilePic}
+                      alt=""
+                    />
                   </div>
                 </label>
                 <ul
@@ -132,7 +135,7 @@ function NavbarHome() {
                     <div>Settings</div>
                   </li>
                   <li>
-                    <Link to="/" onClick={logout}>
+                    <Link to="/" onClick={ctx.logout}>
                       Logout
                     </Link>
                   </li>
