@@ -44,7 +44,7 @@ function Conversation({ conversation, currentUser, updatedAt, online }) {
 
   return (
     <div className="flex flex-col justify-center items-center px-8 py-2">
-      <div className="w-full relative border hover:opacity-70 rounded-lg p-4 shadow-lg active:bg-indigo-100 active:opacity-10 active:shadow-lg cursor-pointer  duration-300  shadow-bg-home-content flex items-center gap-4">
+      <div className="w-full relative border hover:opacity-70 rounded-lg p-4 shadow-lg  active:opacity-50 active:shadow-lg cursor-pointer  duration-300  shadow-bg-home-content flex items-center gap-4">
         <div className="avatar ">
           <div className="w-12 rounded-full ">
             <img src={user?.user?.profileImage || ProfilePic} alt="" />
