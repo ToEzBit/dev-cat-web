@@ -7,9 +7,9 @@ export const createOrder = async (input) => {
 };
 
 //input: orderId, userId
-export const createPaymentIntent = async (input) =>
+export const createPaymentIntent = async (input) => {
   await axios.post('/orders/create-payment', input);
-
+};
 //input title, detail, price, duration
 export const createSpecialRequirement = async (input) => {
   await axios.post('/orders/special-requirement', input);
