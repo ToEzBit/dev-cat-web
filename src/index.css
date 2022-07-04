@@ -69,20 +69,20 @@ code {
 
 .card-left-false {
   /* transform: translateY(cal(50%)); */
-  animation: ease-in fadeIn 1s;
+  animation: ease-in fadeIn 0.5s;
   /* transition: 500ms; */
 }
 
 .card-left-true {
-  animation: ease-in fadeIn1 1s;
+  animation: ease-in fadeIn1 0.5s;
   /* transition: 500ms; */
 }
 
 .card-right-false {
-  animation: ease-in fadeIn 1s;
+  animation: ease-in fadeIn 0.5s;
   /* transition: 500ms; */
 }
 .card-right-true {
-  animation: ease-in fadeIn1 1s;
+  animation: ease-in fadeIn1 0.5s;
   /* transition: 500ms; */
 }
