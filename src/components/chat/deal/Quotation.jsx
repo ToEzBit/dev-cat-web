@@ -8,7 +8,8 @@ import CheckoutPage from '../../../pages/CheckoutPage';
 function Quotation({ ProfilePic, own, message, array }) {
   const { orderId } = useOrder();
   const [isClicked, setIsClicked] = useState(false);
-  const [order, setOrder] = useState('');
+  const [order, setOrder] = useState([]);
+
   // const navigate = useNavigate();
   //  const handleClick = () => {
   const [user, setUser] = useState(null);
@@ -51,6 +52,8 @@ function Quotation({ ProfilePic, own, message, array }) {
           setOrder(res.data.order);
         } else {
           const resDev = await axios.get('/dev/order/' + ret);
+          // console.log(ret);
+
           setOrder(resDev.data.order);
         }
       } catch (err) {
@@ -58,9 +61,12 @@ function Quotation({ ProfilePic, own, message, array }) {
       }
     };
     getOrder();
-    // setGetOrderId(order);
-  }, [array, ctx.clientChat.id, ret]);
 
+    // setGetOrderId(order);
+  }, [ret, ctx.clientChat.id]);
+  // console.log(order);
+
+  // console.log(order);
   //  }
   //fetchOrder เฉพาะไอดี
   return (
@@ -73,7 +79,7 @@ function Quotation({ ProfilePic, own, message, array }) {
                 <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content bg-chat  text-white rounded-lg  border-stroke">
                   <div className="flex justify-between items-baseline px-4">
                     <h5>{message.message}</h5>
-                    <div>3,000 BAHT</div>
+                    <div>{order.packagePrice}BAHT</div>
                   </div>
                   <div className="text-white">
                     Quick quiz is the easiest way to make quizzes FREE

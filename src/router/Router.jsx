@@ -24,6 +24,7 @@ export default function Router() {
       <Route path="/" element={<HomePage />} />
       <Route path="/result" element={<ResultPage />} />
       <Route path="/chatroom" element={<ChatRoom />} />
+      <Route path="/chatroom/:roomId" element={<ChatRoom />} />
       <Route path="/create-product" element={<CreateProductPage />} />
       <Route path="/dev/profile/:id" element={<DevProfilePage />} />
       <Route path="/product/:productId" element={<ProductPage />} />

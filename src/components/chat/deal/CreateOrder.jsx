@@ -18,16 +18,16 @@ export default function CreateOrder({
   const [devPackages, setDevPackages] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedPackage, setSelectedPackage] = useState(null);
-  const [newMessageOrder, setNewMessageOrder] = useState(null);
+  const [newMessageOrder, setNewMessageOrder] = useState('');
 
-  function useRegex(input) {
-    let regex = /order: /i;
-    return regex.test(input);
-  }
+  // function useRegex(input) {
+  //   let regex = /order: /i;
+  //   return regex.test(input);
+  // }
 
   useEffect(() => {
     const getDevProducts = async () => {
-      const res = await getAllDevProducts(ctx.dev?.id);
+      const res = await getAllDevProducts(ctx.dev.id);
       setDevProducts(res);
     };
     getDevProducts();
@@ -48,19 +48,27 @@ export default function CreateOrder({
     };
     getPackage();
   }, [selectedProduct]);
+  console.log(newMessageOrder);
 
   const handleCreateOrder = async () => {
     const productId = selectedProduct.id;
     const packageId = selectedPackage.id;
 
+    const receiverId =
+      currentChat.senderId === ctx.clientChat.id
+        ? currentChat.receiverId
+        : currentChat.senderId;
+
     const res = await createOrder({
       productId: selectedProduct.id,
       packageId: selectedPackage.id,
-      userId: 2,
+      userId: receiverId,
     });
     setOrderId(res?.data?.createdOrder?.id);
+    console.log(orderId);
     setNewMessageOrder('order: ' + res?.data?.createdOrder?.id);
     //ใส่ลอจิคให้มันขึ้นแชท ให้ลูกค้ากดจ่ายเงิน/ดูรายละเอียดได้
+    console.log(newMessageOrder);
 
     const message = {
       sender: ctx.clientChat.id,
@@ -69,13 +77,9 @@ export default function CreateOrder({
     };
 
     console.log(message);
-    const receiverId =
-      currentChat.senderId === ctx.clientChat.id
-        ? currentChat.receiverId
-        : currentChat.senderId;
 
     socket.current.emit('sendMessage', {
-      senderId: ctx?.clientChat.id,
+      senderId: ctx?.clientChat?.id,
       receiverId,
       message: newMessageOrder,
     });

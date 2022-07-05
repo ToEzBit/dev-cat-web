@@ -38,7 +38,7 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  console.log(getOrderId.orders);
+  // console.log(getOrderId?.orders);
 
   useEffect(() => {
     const getOrder = async () => {
@@ -273,6 +273,7 @@ function ChatRoom() {
 
                 return (
                   <div key={index} onClick={() => setCurrentChat(c)}>
+                    {console.log(c)}
                     <Conversation
                       online={online}
                       conversation={c}
@@ -300,7 +301,7 @@ function ChatRoom() {
                       let p = m?.message?.match(
                         /([/|.|\w|\s|-])(?:jpg|gif|png)/g,
                       );
-                      let u = m?.message?.match(/order: /i);
+                      let u = m?.message?.match(/order:/i);
                       if (u) {
                         return (
                           <div key={index} className="" ref={scrollRef}>
