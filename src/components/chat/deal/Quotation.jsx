@@ -74,7 +74,6 @@ function Quotation({
     await updateOrderStatus({ status: 'cancelled' }, +ret);
   };
 
-  console.log(currentQuotation[0].id);
   // console.log(selectedOrder);
 
   return (

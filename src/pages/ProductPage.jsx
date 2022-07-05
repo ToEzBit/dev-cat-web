@@ -17,9 +17,9 @@ export default function ProductPage() {
   const [product, setProduct] = useState({});
   const [reviews, setReviews] = useState([]);
 
-  console.log(dev); //
+  // console.log(dev); //
 
-  console.log(product);
+  // console.log(product);
 
   useEffect(() => {
     const fetchProduct = async () => {
