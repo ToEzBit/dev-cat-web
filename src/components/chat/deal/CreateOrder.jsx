@@ -18,12 +18,6 @@ export default function CreateOrder({
   const [devPackages, setDevPackages] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedPackage, setSelectedPackage] = useState(null);
-  const [newMessageOrder, setNewMessageOrder] = useState(null);
-
-  function useRegex(input) {
-    let regex = /order: /i;
-    return regex.test(input);
-  }
 
   useEffect(() => {
     const getDevProducts = async () => {
@@ -49,44 +43,42 @@ export default function CreateOrder({
     getPackage();
   }, [selectedProduct]);
 
-//   console.log(ctx?.clientChat);
+  //   console.log(ctx?.clientChat);
 
   const handleCreateOrder = async () => {
     const productId = selectedProduct.id;
     const packageId = selectedPackage.id;
 
     const receiverId =
-      currentChat.senderId === ctx.clientChat.id
-        ? currentChat.receiverId
-        : currentChat.senderId;
+      currentChat?.senderId === ctx?.clientChat?.id
+        ? currentChat?.receiverId
+        : currentChat?.senderId;
 
     const res = await createOrder({
       productId: selectedProduct.id,
       packageId: selectedPackage.id,
       userId: receiverId,
     });
+
     setOrderId(res?.data?.createdOrder?.id);
-    setNewMessageOrder('order: ' + res?.data?.createdOrder?.id);
+    const createdOrderId = res?.data?.createdOrder?.id;
 
     const message = {
       sender: ctx.clientChat.id,
-      message: newMessageOrder,
+      message: `order: ${res?.data?.createdOrder?.id}`,
       conversationId: currentChat.id,
     };
-
-    console.log(message);
 
     socket.current.emit('sendMessage', {
       senderId: ctx?.clientChat.id,
       receiverId,
-      message: newMessageOrder,
+      message: `order:${res?.data?.createdOrder?.id}`,
     });
 
     try {
       const res = await axios.post('/messages', message);
       setMessages([...messages, res.data]);
       setNewMessages('');
-      setNewMessageOrder('');
       setOrderId('');
     } catch (err) {
       console.log(err);

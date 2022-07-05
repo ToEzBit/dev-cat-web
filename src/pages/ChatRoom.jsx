@@ -44,16 +44,14 @@ function ChatRoom() {
   useEffect(() => {
     const getOrder = async () => {
       try {
-        if (ctx.clientChat.id % 2 === 0) {
+        if (ctx?.clientChat.id % 2 === 0) {
           // setClientChat(res?.data?.user);
           const res = await axios.get('/user/orders/');
-          setGetOrderId(res?.data);
-          console.log(res?.data);
+          setGetOrderId(res?.data?.orders);
           // console.log(getOrderId);
         } else {
           const resDev = await axios.get('/dev/orders/');
-          setGetOrderId(resDev?.data);
-          console.log(resDev?.data);
+          setGetOrderId(resDev?.data?.orders);
         }
       } catch (err) {
         console.log(err);
@@ -109,6 +107,7 @@ function ChatRoom() {
       try {
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
+        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -317,6 +316,7 @@ function ChatRoom() {
                               ProfilePic={ProfilePic}
                               setSelectedOrder={setSelectedOrder}
                               selectedOrder={selectedOrder}
+                              getOrderId={getOrderId}
                             />
                           </div>
                         );
