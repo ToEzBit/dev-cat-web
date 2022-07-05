@@ -35,7 +35,6 @@ function Quotation({ ProfilePic, own, message, array }) {
         } else {
           const resDev = await axios.get('/dev/' + friendId[0].sender);
           setUser(resDev.data.dev);
-          console.log(resDev);
         }
       } catch (err) {
         console.log(err);
@@ -43,8 +42,6 @@ function Quotation({ ProfilePic, own, message, array }) {
     };
     getUser();
   }, [array, ctx.clientChat.id]);
-
-  console.log('/user/order/' + ret);
 
   useEffect(() => {
     const getOrder = async () => {
@@ -62,6 +59,7 @@ function Quotation({ ProfilePic, own, message, array }) {
       }
     };
     getOrder();
+    // setGetOrderId(order);
   }, [array, ctx.clientChat.id, ret]);
 
   return (
