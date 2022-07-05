@@ -1,81 +1,12 @@
 import React from 'react';
 
 export default function Step() {
-  //   let step = [];
+  let step = [];
 
-  //     const "order" = {
-  //       "id": 5,
-  //       "totalRevision": 3,
-  //       "currentRevision": 3,
-  //       "packagePrice": "1000",
-  //       "totalSpacialRequirementPrice": "7000",
-  //       "totalPrice": "8000",
-  //       "startDate": "2022-06-26T11:01:28.000Z",
-  //       "totalDuration": 12,
-  //       "endDate": "2022-07-07T11:01:28.000Z",
-  //       "status": "completed",
-  //       "paymentStatus": "paymentReceived",
-  //       "createdAt": "2022-06-26T07:38:24.000Z",
-  //       "updatedAt": "2022-06-26T13:12:27.000Z",
-  //       "devId": 1,
-  //       "userId": 1,
-  //       "Product": {
-  //         "id": 1,
-  //         "title": "test update product2",
-  //         "category": "mobile"
-  //       },
-  //       "Package": {
-  //         "id": 4,
-  //         "title": "product 1 package 2",
-  //         "revision": 5,
-  //         "duration": 10,
-  //         "price": "5000"
-  //       },
-  //       "ProofPayments": [
-  //         {
-  //           "id": 2,
-  //           "spacialRequire": true,
-  //           "transactionId": "Omise TransactionId",
-  //           "createdAt": "2022-06-26T12:22:15.000Z",
-  //           "updatedAt": "2022-06-26T12:22:15.000Z"
-  //         },
-  //         {
-  //           "id": 3,
-  //           "spacialRequire": true,
-  //           "transactionId": "Omise TransactionId",
-  //           "createdAt": "2022-06-26T13:12:27.000Z",
-  //           "updatedAt": "2022-06-26T13:12:27.000Z"
-  //         }
-  //       ],
-  //       "OrderReviews": [
-  //         {
-  //           "id": 1,
-  //           "countRevision": 1,
-  //           "reviewDetail": "errrrrrrrrrrrrrrrrrrrrrr",
-  //           "createdAt": "2022-06-26T13:06:24.000Z",
-  //           "updatedAt": "2022-06-26T13:06:24.000Z"
-  //         },
-  //         {
-  //           "id": 2,
-  //           "countRevision": 2,
-  //           "reviewDetail": "errrrrrrrrrrrrrrrrrrrrrr",
-  //           "createdAt": "2022-06-26T13:06:56.000Z",
-  //           "updatedAt": "2022-06-26T13:06:56.000Z"
-  //         },
-  //         {
-  //           "id": 3,
-  //           "countRevision": 3,
-  //           "reviewDetail": "errrrrrrrrrrrrrrrrrrrrrr",
-  //           "createdAt": "2022-06-26T13:07:41.000Z",
-  //           "updatedAt": "2022-06-26T13:07:41.000Z"
-  //         }
-  //       ]
-  //     }
-
-  //   1. create Order order.createAt (payment = awaitingPayment)
-  //   2. Paid ProofPayment[0].createAt (payment = Received &&  status === pending)
-  //   3. on process (order.startDate) (if startdate => on progress)
-  //   4. Deadline (order.Enddate) (ใส่ไว้ก่อน เป็น enddate) completed (status = complete )
+  // createOrder = 1
+  // paid = 2
+  // start working = 3
+  // submit = 4
 
   // for (let i = 0; i <)
 
