@@ -5,7 +5,7 @@ function WorkCard({ workcard }) {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
-  console.log(workcard);
+  // console.log(workcard);
   return (
     <div>
       <div className="hover:-translate-y-1 hover:scale-110 duration-300 group">

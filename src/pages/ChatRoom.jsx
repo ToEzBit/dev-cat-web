@@ -23,6 +23,8 @@ function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [friendId, setFriendId] = useState(null);
   const [getOrderId, setGetOrderId] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState('');
+  const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   // const [notification, setNotification] = useState(false);
   //socket io
   const socket = useRef();
@@ -34,22 +36,37 @@ function ChatRoom() {
   const [onlineUsers, setOnlineUsers] = useState([]);
   //notification
   // const [notification, setNotification] = useState(false);
+  const [currentChatroom, setCurrentChatroom] = useState(undefined);
 
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  console.log(getOrderId.orders);
+  // console.log(getOrderId);
 
   useEffect(() => {
     const getOrder = async () => {
       try {
-        if (ctx.clientChat.id % 2 === 0) {
+        const res = await axios.get('/user/order/' + selectedOrder);
+        setSelectedOrder(res.data.orders);
+        console.log(selectedOrder);
+      } catch (err) {
+        console.log(err);
+      }
+      getOrder();
+    };
+  }, [selectedOrder]);
+
+  useEffect(() => {
+    const getOrder = async () => {
+      try {
+        if (ctx?.clientChat.id % 2 === 0) {
           // setClientChat(res?.data?.user);
           const res = await axios.get('/user/orders/');
-          setGetOrderId(res.data);
+          setGetOrderId(res?.data?.orders);
+          // console.log(getOrderId);
         } else {
           const resDev = await axios.get('/dev/orders/');
-          setGetOrderId(resDev.data);
+          setGetOrderId(resDev?.data?.orders);
         }
       } catch (err) {
         console.log(err);
@@ -89,7 +106,12 @@ function ChatRoom() {
     setLoading(true);
     const getConversations = async () => {
       try {
+        // const res = await axios.get('/conversations/' + :senderId);
         const res = await axios.get('/conversations/' + ctx?.clientChat?.id);
+        //##############################เปลี่ยน clientChat.id == /:sender
+        // {id: 7,<<< this senderId: 8, receiverId: 9, createdAt: '2022-07-05T08:30:36.000Z', updatedAt: '2022-07-05T08:30:36.000Z', …}
+        // {id: 8, senderId: 6, receiverId: 9, createdAt: '2022-07-05T08:49:27.000Z', updatedAt: '2022-07-05T08:49:27.000Z', …}
+        console.log(...res.data);
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
@@ -100,11 +122,14 @@ function ChatRoom() {
     setLoading(false);
   }, [ctx?.clientChat?.id]);
 
+  //onclick = navigate to chatroom/conversationId
   useEffect(() => {
     const getMessages = async () => {
       try {
+        // const res = await axios.get('/messages/' + conversationId);
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
+        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -311,6 +336,9 @@ function ChatRoom() {
                               own={m.sender === ctx.clientChat.id}
                               currentUser={ctx.clientChat}
                               ProfilePic={ProfilePic}
+                              setSelectedOrder={setSelectedOrder}
+                              selectedOrder={selectedOrder}
+                              getOrderId={getOrderId}
                             />
                           </div>
                         );
