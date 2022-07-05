@@ -14,15 +14,16 @@ function Quotation({ ProfilePic, own, message, array }) {
   const [user, setUser] = useState(null);
   const ctx = useAuth();
 
-  console.log('message');
-  console.log(ctx.clientChat);
+  // console.log('message');
+  // console.log(ctx.clientChat);
   let ret = message.message.replace('order: ', '');
-  console.log(+ret);
+  // console.log(+ret);
 
   useEffect(() => {
     const friendId = array.filter((e) => {
       return e.sender !== ctx.clientChat.id;
     });
+    // console.log(friendId);
 
     const getUser = async () => {
       try {
@@ -33,6 +34,7 @@ function Quotation({ ProfilePic, own, message, array }) {
         } else {
           const resDev = await axios.get('/dev/' + friendId[0].sender);
           setUser(resDev.data.dev);
+          console.log(resDev);
         }
       } catch (err) {
         console.log(err);
@@ -41,25 +43,25 @@ function Quotation({ ProfilePic, own, message, array }) {
     getUser();
   }, [array, ctx.clientChat.id]);
 
-  console.log(user);
+  console.log('/user/order/' + ret);
 
-  // useEffect(() => {
-  //   const getOrder = async () => {
-  //     try {
-  //       if (ctx.clientChat.id % 2 === 0) {
-  //         // setClientChat(res?.data?.user);
-  //         const res = await axios.get('/user/orders');
-  //         setOrder(res.data);
-  //       } else {
-  //         const resDev = await axios.get('/dev/orders');
-  //         setOrder(resDev.data);
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getOrder();
-  // }, [array, ctx.clientChat.id, ret]);
+  useEffect(() => {
+    const getOrder = async () => {
+      try {
+        if (ctx.clientChat.id % 2 === 0) {
+          // setClientChat(res?.data?.user);
+          const res = await axios.get('/user/order/' + ret);
+          setOrder(res.data.order);
+        } else {
+          const resDev = await axios.get('/dev/order/' + ret);
+          setOrder(resDev.data.order);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getOrder();
+  }, [array, ctx.clientChat.id, ret]);
 
   //  }
   //fetchOrder เฉพาะไอดี
