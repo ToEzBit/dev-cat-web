@@ -13,7 +13,7 @@ function PackageDetails({ product, devId }) {
     const res = await axios.get(
       `/conversations/find/${devId}/${ctx?.clientChat?.id}`,
     );
-    setRoom(res.data[0].id);
+    setRoom(res?.data[0]?.id);
     console.log(res.data.length === 0);
     if (res.data.length === 0) {
       const conversation = {
@@ -24,7 +24,7 @@ function PackageDetails({ product, devId }) {
       console.log(createRoom);
       navigate('/chatroom/' + room);
     } else {
-      navigate('/chatroom/' + '5');
+      navigate('/chatroom/' + room);
       // console.log(room);
     }
   };

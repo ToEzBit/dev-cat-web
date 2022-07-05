@@ -24,10 +24,10 @@ function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [friendId, setFriendId] = useState(null);
   const [getOrderId, setGetOrderId] = useState(null);
+  const [getOrderStatus, setGetOrderStatus] = useState(null);
+  const [orderId, setOrderId] = useState(null);
   // const [notification, setNotification] = useState(false);
   //socket io
-
-  // console.log(getOrderId);
 
   const socket = useRef();
   //inputChat
@@ -60,7 +60,7 @@ function ChatRoom() {
   useEffect(() => {
     const getOrder = async () => {
       try {
-        if (ctx?.clientChat.id % 2 === 0) {
+        if (ctx?.clientChat?.id % 2 === 0) {
           // setClientChat(res?.data?.user);
           const res = await axios.get('/user/orders/');
           setGetOrderId(res.data);
@@ -161,6 +161,39 @@ function ChatRoom() {
     scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  useEffect(() => {
+    const getOrderStatus = async () => {
+      if (currentChat) {
+        var allOrderId = currentChat?.Chats?.filter((e) => {
+          let arrayOrderId = e?.message?.startsWith('order: ');
+          return arrayOrderId;
+        });
+        var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
+        console.log(ctx.clientChat);
+
+        if (ctx.clientChat.id % 2 === 0) {
+          const getOrderIdStatus = await axios.get(
+            `/user/order/${getLastOrderId}`,
+          );
+          setOrderId(getLastOrderId);
+          setGetOrderStatus(getOrderIdStatus.data.order.status);
+        } else {
+          const getOrderIdStatus = await axios.get(
+            `/dev/order/${getLastOrderId}`,
+          );
+          setOrderId(getLastOrderId);
+          setGetOrderStatus(getOrderIdStatus.data.order.status);
+        }
+      } else {
+        // console.log('waiting');
+      }
+    };
+    getOrderStatus();
+  }, [currentChat, getOrderStatus, orderId]);
+
+  console.log(getOrderStatus);
+
+  // console.log(getOrderStatus);
   return (
     <>
       {' '}
@@ -193,93 +226,118 @@ function ChatRoom() {
                   </div>
                 </div>
               </div>
-              <div className=" col-span-2 border-x">
-                <div className="px-8 py-6 ">
-                  <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
-                    <label
-                      htmlFor="specialRequirement-modal"
-                      className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                      role="button"
-                    >
-                      Create Order
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      id="specialRequirement-modal"
-                      className="modal-toggle"
-                    />
-
-                    <div className="modal w-full h-full">
-                      <div className="modal-box">
-                        <CreateOrder
-                          currentChat={currentChat}
-                          socket={socket}
-                          setMessages={setMessages}
-                          setNewMessages={setNewMessages}
-                          messages={messages}
-                        />
+              {ctx.dev ? (
+                <div className=" col-span-2 border-x">
+                  <div className="px-8 py-6 ">
+                    <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
+                      <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
+                        <h5>John Doe</h5>
+                        <div>#01234567PP</div>
                       </div>
-                    </div>
+                      {getOrderStatus === null ||
+                      getOrderStatus === 'completed' ||
+                      getOrderStatus === 'cancelled' ? (
+                        <div>
+                          <label
+                            htmlFor="specialRequirement-modal"
+                            className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                            role="button"
+                          >
+                            Create Order
+                          </label>
 
-                    <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
-                      <h5>John Doe</h5>
-                      <div>#01234567PP</div>
-                    </div>
-                    {/* =============================  start work  ================================== */}
-                    <div>
-                      <button>
-                        <label
-                          htmlFor="save-modal"
-                          className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                          role="button"
-                        >
-                          START
-                        </label>
-                      </button>
-                      <input
-                        type="checkbox"
-                        id="save-modal"
-                        className="modal-toggle"
-                      />
+                          <input
+                            type="checkbox"
+                            id="specialRequirement-modal"
+                            className="modal-toggle"
+                          />
 
-                      <div className="modal">
-                        <div className="modal-box">
-                          <StartWork currentChat={currentChat} />
+                          <div className="modal w-full h-full">
+                            <div className="modal-box">
+                              <CreateOrder
+                                currentChat={currentChat}
+                                socket={socket}
+                                setMessages={setMessages}
+                                setNewMessages={setNewMessages}
+                                messages={messages}
+                              />
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      ) : getOrderStatus === 'pending' ? (
+                        <div>
+                          <button>
+                            <label
+                              htmlFor="save-modal"
+                              className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                              role="button"
+                            >
+                              START
+                            </label>
+                          </button>
+                          <input
+                            type="checkbox"
+                            id="save-modal"
+                            className="modal-toggle"
+                          />
 
-                    {/* =============================  start work  ================================== */}
+                          <div className="modal">
+                            <div className="modal-box">
+                              <StartWork currentChat={currentChat} />
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <button>
+                            <label
+                              htmlFor="submit-modal"
+                              className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                              role="button"
+                            >
+                              SUBMIT
+                            </label>
+                          </button>
+                          <input
+                            type="checkbox"
+                            id="submit-modal"
+                            className="modal-toggle"
+                          />
 
-                    <button>
-                      <label
-                        htmlFor="submit-modal"
-                        className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                        role="button"
-                      >
-                        SUBMIT
-                      </label>
-                    </button>
-                    <input
-                      type="checkbox"
-                      id="submit-modal"
-                      className="modal-toggle"
-                    />
+                          <div className="modal">
+                            <div className="modal-box">
+                              <Submit
+                                orderId={orderId}
+                                setMessages={setMessages}
+                                messages={messages}
+                                currentChat={currentChat}
+                                socket={socket}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {/* ============================= Create Order  ================================== */}
 
-                    <div className="modal">
-                      <div className="modal-box">
-                        <Submit
-                          setMessages={setMessages}
-                          messages={messages}
-                          currentChat={currentChat}
-                          socket={socket}
-                        />
-                      </div>
+                      {/* ============================= Create Order  ================================== */}
+
+                      {/* =============================  start work  ================================== */}
+
+                      {/* =============================  start work  ================================== */}
+                      {/* ============================= SUBMIT  ================================== */}
+
+                      {/* ============================= SUBMIT  ================================== */}
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className=" col-span-2 border-x">
+                  <div className="px-8 py-6 flex flex-col text-chat-quotation font-semibold  items-center px-4">
+                    <h5>John Doe</h5>
+                    <div>#01234567PP</div>
+                  </div>
+                </div>
+              )}
               <div className="col-span-1">
                 <div className="px-8 py-6  ">
                   <div className="grid grid-cols-2 justify-center gap-4 w-full items-center">
@@ -375,6 +433,8 @@ function ChatRoom() {
                           <div key={index} className="" ref={scrollRef}>
                             <Confirmation
                               array={messages}
+                              currentChat={currentChat}
+                              getOrderId={orderId}
                               message={m}
                               own={m.sender === ctx.clientChat.id}
                               currentUser={ctx.clientChat}
