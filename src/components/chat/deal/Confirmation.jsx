@@ -1,6 +1,10 @@
 import React from 'react';
-import { orderIsCompleted, orderNeedsRevision } from '../../../api/order';
+import {
+  orderIsCompleted,
+  // orderNeedsRevision
+} from '../../../api/order';
 import { useOrder } from '../../../contexts/OrderContext';
+import OrderReview from './OrderReview';
 
 function Confirmation({ message, currentUser }) {
   const { orderId } = useOrder();
@@ -8,11 +12,6 @@ function Confirmation({ message, currentUser }) {
 
   const handleComplete = async () => {
     await orderIsCompleted(orderId);
-  };
-
-  const handleRevision = async (input) => {
-    //navigate to หน้าเขียนรีวิว
-    await orderNeedsRevision({ reviewDetail: input }, orderId);
   };
 
   return (
@@ -27,7 +26,7 @@ function Confirmation({ message, currentUser }) {
               </div>
               <div className="flex flex-col items-center">
                 <a
-                  href={message.message}
+                  href={message?.message}
                   className="text-chat underline font-bold"
                 >
                   VIEW WORKS
@@ -43,12 +42,30 @@ function Confirmation({ message, currentUser }) {
                 >
                   Agree
                 </button>
-                <button
-                  className="border p-2 px-4 rounded-lg border-bg-home-content"
-                  onClick={() => handleRevision()}
-                >
-                  Required Edit
+                <button className="border p-2 px-4 rounded-lg border-bg-home-content">
+                  <label
+                    htmlFor="requireEdit"
+                    className="btn modal-button btn-ghost"
+                  >
+                    Require Edit
+                  </label>
                 </button>
+                <input
+                  type="checkbox"
+                  id="requireEdit"
+                  className="modal-toggle"
+                />
+                <div className="modal">
+                  <div className="modal-box relative">
+                    <label
+                      htmlFor="my-modal-3"
+                      class="btn btn-sm btn-circle absolute right-2 top-2"
+                    >
+                      ✕
+                    </label>
+                    <OrderReview />
+                  </div>
+                </div>
               </div>
             </div>
             <div className="text-xs text-slate-400">8.00 PM</div>
