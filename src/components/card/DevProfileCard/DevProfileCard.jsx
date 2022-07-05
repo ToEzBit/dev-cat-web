@@ -1,5 +1,6 @@
 import ProfilePic from '../../../asset/image/ProfilePic.png';
 import { useAuth } from '../../../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 function DevProfileCard({
   id,
@@ -13,11 +14,13 @@ function DevProfileCard({
 
   return (
     <div className="w-10/12 flex justify-evenly gap-10 ">
-      <div class="avatar">
-        <div className="w-24 rounded-full">
-          <img src={profileImage || ProfilePic} />
+      <Link to={`/dev/profile/${id}`}>
+        <div class="avatar">
+          <div className="w-24 rounded-full">
+            <img src={profileImage || ProfilePic} />
+          </div>
         </div>
-      </div>
+      </Link>
       <div className="w-4/5 flex flex-col gap-4 ">
         <div className="flex justify-between items-center">
           <h4>
