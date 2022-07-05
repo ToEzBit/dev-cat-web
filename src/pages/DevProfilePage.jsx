@@ -7,14 +7,27 @@ import DevSkills from '../components/card/DevProfileCard/DevSkills';
 import Workcard from '../components/card/WorkCard';
 import Footer from '../components/footer/Footer';
 import Review from '../components/review/Review';
+import { getDevProfile } from '../api/dev';
+import { getAllDevProducts } from '../api/product';
 
 function DevProfilePage() {
-  // const {dev}  = use
-  const [devProfile, setDevProfile] = useState({});
+  const { id } = useParams();
+
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [devProfile, setDevProfile] = useState({});
+  const [devProducts, setDevProducts] = useState([]);
 
   useEffect(() => {
-    const getDevProfile = async () => {};
+    const fetchMe = async () => {
+      const res = await getDevProfile(id);
+      setDevProfile(res);
+    };
+    const fetchMyProduct = async () => {
+      const res = await getAllDevProducts(id);
+      setDevProducts(res.slice(0, 2));
+    };
+    fetchMe();
+    fetchMyProduct();
   }, []);
 
   return (
@@ -29,7 +42,14 @@ function DevProfilePage() {
         >
           <div className="collapse-title text-xl font-medium">
             <div className="flex justify-center items-center">
-              <DevProfileCard />
+              <DevProfileCard
+                profileImage={devProfile.profileImage}
+                firstName={devProfile.firstName}
+                lastName={devProfile.lastName}
+                email={devProfile.email}
+                username={devProfile.username}
+                id={devProfile.id}
+              />
             </div>
           </div>
           <div className="collapse-content w-10/12x">
@@ -55,7 +75,7 @@ function DevProfilePage() {
 
         <div className="w-full">
           <div className=" flex justify-between">
-            <h6>ALL WORK</h6>
+            <h6 className="font-bold">ALL WORK</h6>
             <div>
               <a href="/" className="text-text-btn">
                 SEE MORE
@@ -63,9 +83,9 @@ function DevProfilePage() {
             </div>
           </div>
           <div className="flex justify-between gap-4">
-            <Workcard />
-            <Workcard />
-            <Workcard />
+            {devProducts.map((el, idx) => (
+              <Workcard key={idx} workcard={el} />
+            ))}
           </div>
         </div>
 
