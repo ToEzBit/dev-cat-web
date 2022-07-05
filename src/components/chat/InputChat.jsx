@@ -44,18 +44,18 @@ function InputChat({
   const handleSubmitImage = async (e) => {
     e.preventDefault();
     const message = {
-      sender: ctx.user.id,
+      sender: ctx.clientChat.id,
       message: getImage,
       conversationId: currentChat.id,
     };
 
     const receiverId =
-      currentChat.senderId == ctx.user.id
+      currentChat.senderId == ctx.clientChat.id
         ? currentChat.receiverId
         : currentChat.senderId;
 
     socket.current.emit('sendMessage', {
-      senderId: ctx?.user.id,
+      senderId: ctx?.clientChat.id,
       receiverId,
       message: getImage,
     });
@@ -85,18 +85,18 @@ function InputChat({
 
       if (getImage) {
         const message = {
-          sender: ctx.user.id,
+          sender: ctx.clientChat.id,
           message: getImage,
           conversationId: currentChat.id,
         };
 
         const receiverId =
-          currentChat.senderId == ctx.user.id
+          currentChat.senderId == ctx.clientChat.id
             ? currentChat.receiverId
             : currentChat.senderId;
 
         socket.current.emit('sendMessage', {
-          senderId: ctx?.user.id,
+          senderId: ctx?.clientChat.id,
           receiverId,
           message: getImage,
         });
@@ -121,7 +121,7 @@ function InputChat({
       <div className="flex input-bordered border rounded-xl p-2 mx-4 items-center gap-4  shadow-2xl shadow-bg-home-content">
         <div className="form-control  grow ">
           <input
-            className="w-0 h-0"
+            className="w-12 h-12"
             type="file"
             ref={inputEl}
             onChange={(event) => {

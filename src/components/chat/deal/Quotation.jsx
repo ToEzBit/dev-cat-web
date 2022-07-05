@@ -1,62 +1,157 @@
-import React, { useState } from 'react';
+import axios from '../../../config/axios';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 import { useOrder } from '../../../contexts/OrderContext';
 import CheckoutPage from '../../../pages/CheckoutPage';
 
-function Quotation({ ProfilePic }) {
+function Quotation({ ProfilePic, own, message, array }) {
   const { orderId } = useOrder();
   const [isClicked, setIsClicked] = useState(false);
+  const [order, setOrder] = useState('');
   // const navigate = useNavigate();
   //  const handleClick = () => {
+  const [user, setUser] = useState(null);
+  const ctx = useAuth();
+
+  console.log('message');
+  console.log(ctx.clientChat);
+  let ret = message.message.replace('order: ', '');
+  console.log(+ret);
+
+  useEffect(() => {
+    const friendId = array.filter((e) => {
+      return e.sender !== ctx.clientChat.id;
+    });
+
+    const getUser = async () => {
+      try {
+        if (friendId.sender % 2 === 0) {
+          const res = await axios.get('/user/' + friendId.sender);
+          setUser(res.data.user);
+          // setClientChat(res?.data?.user);
+        } else {
+          const resDev = await axios.get('/dev/' + friendId[0].sender);
+          setUser(resDev.data.dev);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [array, ctx.clientChat.id]);
+
+  console.log(user);
+
+  // useEffect(() => {
+  //   const getOrder = async () => {
+  //     try {
+  //       if (ctx.clientChat.id % 2 === 0) {
+  //         // setClientChat(res?.data?.user);
+  //         const res = await axios.get('/user/orders');
+  //         setOrder(res.data);
+  //       } else {
+  //         const resDev = await axios.get('/dev/orders');
+  //         setOrder(resDev.data);
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getOrder();
+  // }, [array, ctx.clientChat.id, ret]);
 
   //  }
   //fetchOrder เฉพาะไอดี
   return (
     <div>
-      <div className="w-full ">
-        <div className="flex p-4 items-center gap-4">
-          {isClicked ? (
-            <>
-              <div className="w-12 rounded-full">
-                <img src={ProfilePic} alt="" />
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
+      {own ? (
+        <>
+          <div className="w-full flex justify-end">
+            <div className="flex p-4 items-center gap-4">
+              <div className="flex flex-col gap-2 ">
+                <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content bg-chat  text-white rounded-lg  border-stroke">
                   <div className="flex justify-between items-baseline px-4">
-                    <h5>My Order</h5>
+                    <h5>{message.message}</h5>
                     <div>3,000 BAHT</div>
                   </div>
-                  <div className="text-chat-quotation">
+                  <div className="text-white">
                     Quick quiz is the easiest way to make quizzes FREE
                   </div>
                   <div className="grid grid-cols-2 gap-4 px-4">
-                    <button className="border p-2 rounded-lg border-bg-home-content">
+                    <button className="border p-2 rounded-lg bg-white text-chat border-bg-home-content">
                       View Detail
                     </button>
                     <button
-                      className="border p-2 rounded-lg border-bg-home-content"
+                      className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
                       onClick={() => setIsClicked((prev) => !prev)}
                     >
-                      Pay Now!
+                      Cancel
                     </button>
                   </div>
                 </div>
                 <div className="text-xs text-slate-400">8.00 PM</div>
               </div>
-            </>
-          ) : (
-            <div className="w-3/5 h-1/2 flex mx-auto items-center flex-col justify-center">
-              <button
-                className="w-full flex justify-end"
-                onClick={() => setIsClicked((prev) => !prev)}
-              >
-                X
-              </button>
-              <CheckoutPage productId={orderId} />
+              <div className="avatar">
+                <div className=" w-14 rounded-full ">
+                  <img src={ctx.clientChat.profileImage || ProfilePic} alt="" />
+                </div>
+              </div>
             </div>
-          )}
+          </div>
+          {/* <div className="w-full flex justify-end">
+                <div className="flex p-4 items-center gap-4">
+                  <div className="flex flex-col gap-2">
+                    <div className="border p-4  shadow-md shadow-bg-home-content bg-chat text-white rounded-lg  border-stroke">
+                      <img src={message.message} alt="" />
+                    </div>
+                    <div className="text-xs text-slate-400 flex justify-end">
+                      {message.createdAt}
+                    </div>
+                  </div>
+                  <div className="avatar ">
+                    <div className="w-14 rounded-full ">
+                      <img
+                        src={ctx.clientChat.profileImage || ProfilePic}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+        </>
+      ) : (
+        <div className="flex justify-end gap-4">
+          <div className="flex flex-col gap-2 ">
+            <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
+              <div className="flex justify-between items-baseline px-4">
+                <h5>{message.message}</h5>
+                <div>3,000 BAHT</div>
+              </div>
+              <div className="text-chat-quotation">
+                Quick quiz is the easiest way to make quizzes FREE
+              </div>
+              <div className="grid grid-cols-2 gap-4 px-4">
+                <button className="border p-2 rounded-lg border-bg-home-content">
+                  View Detail
+                </button>
+                <button
+                  className="border p-2 rounded-lg border-bg-home-content"
+                  onClick={() => setIsClicked((prev) => !prev)}
+                >
+                  Pay Now!
+                </button>
+              </div>
+            </div>
+            <div className="text-xs text-slate-400">8.00 PM</div>
+          </div>
+          <div className="avatar ">
+            <div className="w-14 rounded-full ">
+              <img src={user?.profileImage || ProfilePic} alt="" />
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

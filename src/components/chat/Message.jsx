@@ -24,8 +24,8 @@ function Message({ ProfilePic, own, message, array }) {
           setUser(res.data.user);
           // setClientChat(res?.data?.user);
         } else {
-          console.log('check dev');
           const resDev = await axios.get('/dev/' + friendId.sender);
+          console.log('check dev');
           console.log(resDev);
           setUser(resDev.data.dev);
         }

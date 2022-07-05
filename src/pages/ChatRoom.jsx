@@ -15,6 +15,7 @@ import Submit from '../components/modal/Submit';
 import SpecialRequirement from '../components/modal/SpecialRequirement';
 import SendImage from '../components/chat/conversation/SendImage';
 import Step from '../components/chat/step/Step';
+import CreateOrder from '../components/chat/deal/CreateOrder';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -36,10 +37,6 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  // console.log(ctx.clientChat);
-
-  // const receiverId = currentChat.Chats.find((sender) => console.log(sender));
-  // console.log(receiverId);
 
   useEffect(() => {
     socket.current = io('ws://103.74.253.125:8080');
@@ -51,15 +48,6 @@ function ChatRoom() {
       });
     });
   }, []);
-  // console.log(currentChat?.Chats);
-
-  // const isInclude = currentChat?.Chats.some((el) => {
-  //   return el.sender === arrivalMessage.sender;
-  // });
-
-  // console.log(arrivalMessage);
-  // console.log(currentChat?.Chats[0].sender === arrivalMessage.sender);
-  // console.log(currentChat?.Chats[currentChat?.Chats.length - 1]);
 
   useEffect(() => {
     const isInclude = currentChat?.Chats.some((el) => {
@@ -69,12 +57,6 @@ function ChatRoom() {
       isInclude &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
-
-  // useEffect(() => {
-  //   arrivalMessage &&
-  //     currentChat?.senderId &&
-  //     setMessages((prev) => [...prev, arrivalMessage]);
-  // }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
     socket.current.emit('addUser', ctx?.clientChat?.id);
@@ -118,10 +100,6 @@ function ChatRoom() {
       conversationId: currentChat.id,
     };
 
-    // const receiverId = currentChat.Chats.find(
-    //   (el) => el.sender !== ctx.user.id,
-    // );
-    // console.log(receiverId);
     const receiverId =
       currentChat.senderId !== ctx.clientChat.id
         ? currentChat.senderId
@@ -195,9 +173,15 @@ function ChatRoom() {
                       className="modal-toggle"
                     />
 
-                    <div className="modal">
+                    <div className="modal w-full h-full">
                       <div className="modal-box">
-                        <SpecialRequirement />
+                        <CreateOrder
+                          currentChat={currentChat}
+                          socket={socket}
+                          setMessages={setMessages}
+                          setNewMessages={setNewMessages}
+                          messages={messages}
+                        />
                       </div>
                     </div>
 
@@ -281,7 +265,7 @@ function ChatRoom() {
             </div>
 
             {/* ============================================ Chat Center  ===================================================== */}
-            {/* {console.log(messages)} */}
+
             <div className="border-x col-span-2 relative">
               {currentChat ? (
                 <>
@@ -296,7 +280,19 @@ function ChatRoom() {
                       let p = m?.message?.match(
                         /([/|.|\w|\s|-])(?:jpg|gif|png)/g,
                       );
-                      if (p) {
+                      let u = m?.message?.match(/order: /i);
+                      if (u) {
+                        return (
+                          <Quotation
+                            array={messages}
+                            loading={loading}
+                            message={m}
+                            own={m.sender === ctx.clientChat.id}
+                            currentUser={ctx.clientChat}
+                            ProfilePic={ProfilePic}
+                          />
+                        );
+                      } else if (p) {
                         return (
                           <div key={index} className="" ref={scrollRef}>
                             <SendImage
@@ -347,7 +343,7 @@ function ChatRoom() {
                       </div>
                     ))}</div> */}
                     {/* --------------- dev Quotation Chat -------------- */}
-                    <Quotation ProfilePic={ProfilePic} />
+                    {/* <Quotation ProfilePic={ProfilePic} /> */}
                     {/* --------------- dev Confirm Chat -------------- */}
                     {/* <Confirmation /> */}
                     {/* --------------- input Chat center -------------- */}
