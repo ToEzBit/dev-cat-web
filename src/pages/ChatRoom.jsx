@@ -22,6 +22,7 @@ function ChatRoom() {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [friendId, setFriendId] = useState(null);
+  const [getOrderId, setGetOrderId] = useState(null);
   // const [notification, setNotification] = useState(false);
   //socket io
   const socket = useRef();
@@ -37,6 +38,25 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
+  console.log(getOrderId.orders);
+
+  useEffect(() => {
+    const getOrder = async () => {
+      try {
+        if (ctx.clientChat.id % 2 === 0) {
+          // setClientChat(res?.data?.user);
+          const res = await axios.get('/user/orders/');
+          setGetOrderId(res.data);
+        } else {
+          const resDev = await axios.get('/dev/orders/');
+          setGetOrderId(resDev.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getOrder();
+  }, [ctx?.clientChat?.id]);
 
   useEffect(() => {
     socket.current = io('ws://103.74.253.125:8080');
@@ -283,14 +303,16 @@ function ChatRoom() {
                       let u = m?.message?.match(/order: /i);
                       if (u) {
                         return (
-                          <Quotation
-                            array={messages}
-                            loading={loading}
-                            message={m}
-                            own={m.sender === ctx.clientChat.id}
-                            currentUser={ctx.clientChat}
-                            ProfilePic={ProfilePic}
-                          />
+                          <div key={index} className="" ref={scrollRef}>
+                            <Quotation
+                              array={messages}
+                              loading={loading}
+                              message={m}
+                              own={m.sender === ctx.clientChat.id}
+                              currentUser={ctx.clientChat}
+                              ProfilePic={ProfilePic}
+                            />
+                          </div>
                         );
                       } else if (p) {
                         return (
