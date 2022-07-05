@@ -17,8 +17,6 @@ import CheckoutPage from '../pages/CheckoutPage';
 import CreateOrder from '../components/chat/deal/CreateOrder';
 import Quotation from '../components/chat/deal/Quotation';
 import Jodit from '../pages/Jodit';
-import UpdateOrder from '../components/chat/deal/UpdateOrder';
-import Confirmation from '../components/chat/deal/Confirmation';
 
 export default function Router() {
   return (
@@ -36,9 +34,8 @@ export default function Router() {
       <Route path="/new-password" element={<NewPasswordPage />} />
       <Route path="/checkout-page/*" element={<CheckoutPage />} />
       <Route path="/profile" element={<EditProfilePage />} />
-      <Route path="/test-create-order" element={<Confirmation />} />
-      <Route path="/test-update-order" element={<UpdateOrder />} />
-      <Route path="/test-update-order" element={<Quotation />} />
+      <Route path="/test-create-order" element={<CreateOrder />} />
+      <Route path="/test-create-quotation" element={<Quotation />} />
       <Route path="/jodit" element={<Jodit />} />
     </Routes>
   );
