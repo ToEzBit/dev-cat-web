@@ -5,21 +5,21 @@ export default function UpdateOrder() {
   const orderId = 8;
   //   useEffect(() => {}, []);
 
-  //   const handleDevUpdate = async () => {
-  //     switch (order.status) {
-  //       case 'pending': {
-  //         if (order.paymentStatus === 'awaitingPayment') {
-  //           return;
-  //         }
-  //         await updateOrderStatus({ status: 'Inprogress' }, orderId);
-  //         break;
+  // const handleDevUpdate = async () => {
+  //   switch (order.status) {
+  //     case 'pending': {
+  //       if (order.paymentStatus === 'awaitingPayment') {
+  //         return;
   //       }
-  //       case 'Inprogress': {
-  //         await updateOrderStatus({ status: 'awaitingReview' }, orderId);
-  //         break;
-  //       }
+  //       await updateOrderStatus({ status: 'Inprogress' }, orderId);
+  //       break;
   //     }
-  //   };
+  //     case 'Inprogress': {
+  //       await updateOrderStatus({ status: 'awaitingReview' }, orderId);
+  //       break;
+  //     }
+  //   }
+  // };
 
   //จริงๆลูกค้าก็ควรกดcancelได้?
 

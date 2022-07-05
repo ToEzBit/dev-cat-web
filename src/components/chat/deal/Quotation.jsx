@@ -14,6 +14,7 @@ function Quotation({
   message,
   array,
   setSelectedOrder,
+  selectedOrder,
   getOrderId,
 }) {
   const [isClicked, setIsClicked] = useState(false);
@@ -69,10 +70,12 @@ function Quotation({
   }, [array, ctx.clientChat.id, ret]);
 
   const currentQuotation = getOrderId?.filter((el) => el.id == +ret);
-  console.log(currentQuotation[0]?.status === 'cancelled');
   const handleCancel = async () => {
     await updateOrderStatus({ status: 'cancelled' }, +ret);
   };
+
+  console.log(currentQuotation[0].id);
+  // console.log(selectedOrder);
 
   return (
     <div>
@@ -146,25 +149,38 @@ function Quotation({
                 <div>{currentQuotation[0]?.totalPrice} BAHT</div>
               </div>
               <div className="text-chat-quotation">
-                Quick quiz is the easiest way to make quizzes FREE
+                {currentQuotation[0]?.Product.title}
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
                 <button className="border p-2 rounded-lg border-bg-home-content">
                   View Detail
                 </button>
-                <button
-                  className="border p-2 rounded-lg border-bg-home-content"
-                  onClick={() => setIsClicked((prev) => !prev)}
+                <label
+                  htmlFor="payment-modal"
+                  className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                  role="button"
                 >
                   Pay Now!
-                </button>
+                </label>
+
+                <input
+                  type="checkbox"
+                  id="payment-modal"
+                  className="modal-toggle"
+                />
+
+                <div className="modal w-full h-full">
+                  <div className="modal-box">
+                    <CheckoutPage orderId={currentQuotation[0].id} />
+                  </div>
+                </div>
               </div>
+              <div className="text-xs text-slate-400">8.00 PM</div>
             </div>
-            <div className="text-xs text-slate-400">8.00 PM</div>
-          </div>
-          <div className="avatar ">
-            <div className="w-14 rounded-full ">
-              <img src={user?.profileImage || ProfilePic} alt="" />
+            <div className="avatar ">
+              <div className="w-14 rounded-full ">
+                <img src={user?.profileImage || ProfilePic} alt="" />
+              </div>
             </div>
           </div>
         </div>

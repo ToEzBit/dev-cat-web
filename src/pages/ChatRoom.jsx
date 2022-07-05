@@ -107,7 +107,6 @@ function ChatRoom() {
       try {
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
-        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
