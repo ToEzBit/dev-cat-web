@@ -151,7 +151,10 @@ function Quotation({
                 {currentQuotation[0]?.Product.title}
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
-                <button className="border p-2 rounded-lg border-bg-home-content">
+                <button
+                  className="border p-2 rounded-lg border-bg-home-content"
+                  onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
+                >
                   View Detail
                 </button>
                 <label
@@ -166,11 +169,12 @@ function Quotation({
                   type="checkbox"
                   id="payment-modal"
                   className="modal-toggle"
+                  onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
                 />
 
                 <div className="modal w-full h-full">
                   <div className="modal-box">
-                    <CheckoutPage orderId={currentQuotation[0].id} />
+                    <CheckoutPage orderId={currentQuotation[0]?.id} />
                   </div>
                 </div>
               </div>
