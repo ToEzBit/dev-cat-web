@@ -23,6 +23,7 @@ function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [friendId, setFriendId] = useState(null);
   const [getOrderId, setGetOrderId] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState('');
   // const [notification, setNotification] = useState(false);
   //socket io
   const socket = useRef();
@@ -38,7 +39,7 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  console.log(getOrderId.orders);
+  // console.log(getOrderId);
 
   useEffect(() => {
     const getOrder = async () => {
@@ -46,10 +47,13 @@ function ChatRoom() {
         if (ctx.clientChat.id % 2 === 0) {
           // setClientChat(res?.data?.user);
           const res = await axios.get('/user/orders/');
-          setGetOrderId(res.data);
+          setGetOrderId(res?.data);
+          console.log(res?.data);
+          // console.log(getOrderId);
         } else {
           const resDev = await axios.get('/dev/orders/');
-          setGetOrderId(resDev.data);
+          setGetOrderId(resDev?.data);
+          console.log(resDev?.data);
         }
       } catch (err) {
         console.log(err);
@@ -311,6 +315,8 @@ function ChatRoom() {
                               own={m.sender === ctx.clientChat.id}
                               currentUser={ctx.clientChat}
                               ProfilePic={ProfilePic}
+                              setSelectedOrder={setSelectedOrder}
+                              selectedOrder={selectedOrder}
                             />
                           </div>
                         );

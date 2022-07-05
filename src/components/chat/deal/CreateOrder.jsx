@@ -49,14 +49,21 @@ export default function CreateOrder({
     getPackage();
   }, [selectedProduct]);
 
+//   console.log(ctx?.clientChat);
+
   const handleCreateOrder = async () => {
     const productId = selectedProduct.id;
     const packageId = selectedPackage.id;
 
+    const receiverId =
+      currentChat.senderId === ctx.clientChat.id
+        ? currentChat.receiverId
+        : currentChat.senderId;
+
     const res = await createOrder({
       productId: selectedProduct.id,
       packageId: selectedPackage.id,
-      userId: 2,
+      userId: receiverId,
     });
     setOrderId(res?.data?.createdOrder?.id);
     setNewMessageOrder('order: ' + res?.data?.createdOrder?.id);
@@ -68,10 +75,6 @@ export default function CreateOrder({
     };
 
     console.log(message);
-    const receiverId =
-      currentChat.senderId === ctx.clientChat.id
-        ? currentChat.receiverId
-        : currentChat.senderId;
 
     socket.current.emit('sendMessage', {
       senderId: ctx?.clientChat.id,

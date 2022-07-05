@@ -3,29 +3,25 @@ import { updateOrderStatus } from '../../../api/order';
 
 export default function UpdateOrder() {
   const orderId = 8;
-//   useEffect(() => {}, []);
+  //   useEffect(() => {}, []);
 
-//   const handleDevUpdate = async () => {
-//     switch (order.status) {
-//       case 'pending': {
-//         if (order.paymentStatus === 'awaitingPayment') {
-//           return;
-//         }
-//         await updateOrderStatus({ status: 'Inprogress' }, orderId);
-//         break;
-//       }
-//       case 'Inprogress': {
-//         await updateOrderStatus({ status: 'awaitingReview' }, orderId);
-//         break;
-//       }
-//     }
-//   };
+  //   const handleDevUpdate = async () => {
+  //     switch (order.status) {
+  //       case 'pending': {
+  //         if (order.paymentStatus === 'awaitingPayment') {
+  //           return;
+  //         }
+  //         await updateOrderStatus({ status: 'Inprogress' }, orderId);
+  //         break;
+  //       }
+  //       case 'Inprogress': {
+  //         await updateOrderStatus({ status: 'awaitingReview' }, orderId);
+  //         break;
+  //       }
+  //     }
+  //   };
 
   //จริงๆลูกค้าก็ควรกดcancelได้?
-  const handleCancel = async () => {
-    await updateOrderStatus({ status: 'cancelled' }, orderId);
-  };
-
 
   return (
     <div>
@@ -33,13 +29,6 @@ export default function UpdateOrder() {
         {/* <button className="btn btn-info" onClick={() => handleDevUpdate()}>
           Dev Update
         </button> */}
-      </div>
- 
-   
-      <div>
-        <button className="btn btn-info" onClick={() => handleCancel()}>
-          Cancel
-        </button>
       </div>
     </div>
   );
