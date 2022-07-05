@@ -100,7 +100,7 @@ function Quotation({
                     </button>
                     <button
                       className={`border p-2 rounded-lg bg-white border-bg-home-content ${
-                        currentQuotation[0].status === 'cancelled'
+                        currentQuotation[0]?.status === 'cancelled'
                           ? 'text-white btn-disable'
                           : 'text-chat'
                       }`}
