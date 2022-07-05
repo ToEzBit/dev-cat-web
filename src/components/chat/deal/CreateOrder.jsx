@@ -3,28 +3,35 @@ import { useAuth } from '../../../contexts/AuthContext';
 import { getAllDevProducts, getProductById } from '../../../api/product';
 import { createOrder } from '../../../api/order';
 import { useOrder } from '../../../contexts/OrderContext';
+import axios from '../../../config/axios';
 
 export default function CreateOrder({
-  userId,
-  devProducts,
-  setDevProducts,
-  devPackages,
-  setDevPackages,
-  selectedPackage,
-  setSelectedPackage,
-  selectedProduct,
-  setSelectedProduct,
+  currentChat,
+  socket,
+  setMessages,
+  setNewMessages,
+  messages,
 }) {
   const { setOrderId, orderId } = useOrder();
-  const { dev } = useAuth();
+  const ctx = useAuth();
+  const [devProducts, setDevProducts] = useState(null);
+  const [devPackages, setDevPackages] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [newMessageOrder, setNewMessageOrder] = useState(null);
+
+  function useRegex(input) {
+    let regex = /order: /i;
+    return regex.test(input);
+  }
 
   useEffect(() => {
     const getDevProducts = async () => {
-      const res = await getAllDevProducts(dev?.id);
+      const res = await getAllDevProducts(ctx.dev?.id);
       setDevProducts(res);
     };
     getDevProducts();
-  }, []);
+  }, [ctx.dev?.id]);
 
   const handleSelectProduct = (el) => {
     setSelectedProduct(el);
@@ -52,9 +59,44 @@ export default function CreateOrder({
       userId: 2,
     });
     setOrderId(res?.data?.createdOrder?.id);
-    //ใส่ลอจิคให้มันขึ้นแชท ให้ลูกค้ากดจ่ายเงิน/ดูรายละเอียดได้
+    setNewMessageOrder('order: ' + res?.data?.createdOrder?.id);
+
+    const message = {
+      sender: ctx.clientChat.id,
+      message: newMessageOrder,
+      conversationId: currentChat.id,
+    };
+
+    console.log(message);
+    const receiverId =
+      currentChat.senderId === ctx.clientChat.id
+        ? currentChat.receiverId
+        : currentChat.senderId;
+
+    socket.current.emit('sendMessage', {
+      senderId: ctx?.clientChat.id,
+      receiverId,
+      message: newMessageOrder,
+    });
+
+    try {
+      const res = await axios.post('/messages', message);
+      setMessages([...messages, res.data]);
+      setNewMessages('');
+      setNewMessageOrder('');
+      setOrderId('');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
+  // socket.current.emit('sendMessage', {
+  //   senderId: ctx?.clientChat?.id,
+  //   // receiverId,
+  //   message: newMessages,
+  // });
+
+  // const test = 'order: ' + { orderId };
   return (
     <div className="w-full h-full flex justify-center items-center ">
       <div className="w-1/2 h-1/2 gap-5 flex flex-col">

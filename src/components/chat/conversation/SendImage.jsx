@@ -13,8 +13,15 @@ function SendImage({ ProfilePic, own, message, array }) {
 
     const getUser = async () => {
       try {
-        const res = await axios('/user/' + friendId[0].sender);
-        setUser(res.data);
+        if (friendId.sender % 2 == 0) {
+          const res = await axios.get('/user/' + friendId.sender);
+          setUser(res.data.user);
+          // setClientChat(res?.data?.user);
+        } else {
+          const resDev = await axios.get('/dev/' + friendId[0].sender);
+          setUser(resDev.data.dev);
+          console.log(user);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -48,7 +55,7 @@ function SendImage({ ProfilePic, own, message, array }) {
           <div className="flex p-4 items-center gap-4">
             <div className="avatar ">
               <div className="w-14 rounded-full ">
-                <img src={user?.user?.profileImage || ProfilePic} alt="" />
+                <img src={user?.profileImage || ProfilePic} alt="" />
               </div>
             </div>
             <div className="flex flex-col gap-2">
