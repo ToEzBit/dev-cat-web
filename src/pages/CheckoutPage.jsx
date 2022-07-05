@@ -15,7 +15,7 @@ const stripePromise = loadStripe(
 export default function CheckoutPage() {
   const [clientSecret, setClientSecret] = useState('');
   const { user } = useAuth();
-  console.log(user);
+  // console.log(user);
 
   const orderId = useOrder();
   useEffect(() => {

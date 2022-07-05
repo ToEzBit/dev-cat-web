@@ -13,6 +13,7 @@ const AuthContext = createContext();
 function AuthContextProvider({ children }) {
   const [dev, setDev] = useState(null);
   const [user, setUser] = useState(null);
+  const [clientChat, setClientChat] = useState();
 
   useEffect(() => {
     const fetchMe = async () => {
@@ -23,10 +24,12 @@ function AuthContextProvider({ children }) {
           if (decoded.role === 'user') {
             const res = await axios.get('/user/me');
             setUser(res?.data?.user);
+            setClientChat(res?.data.user);
           }
           if (decoded.role === 'dev') {
             const res = await axios.get('/dev/me');
             setDev(res?.data?.dev);
+            setClientChat(res?.data?.dev);
           }
         }
       } catch (err) {
@@ -42,7 +45,9 @@ function AuthContextProvider({ children }) {
     setUser(null);
   };
   return (
-    <AuthContext.Provider value={{ logout, setDev, setUser, user, dev }}>
+    <AuthContext.Provider
+      value={{ logout, setDev, setUser, user, dev, clientChat }}
+    >
       {children}
     </AuthContext.Provider>
   );

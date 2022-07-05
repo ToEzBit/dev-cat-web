@@ -8,7 +8,7 @@ function SendImage({ ProfilePic, own, message, array }) {
 
   useEffect(() => {
     const friendId = array.filter((e) => {
-      return e.sender !== ctx.user.id;
+      return e.sender !== ctx.clientChat.id;
     });
 
     const getUser = async () => {
@@ -20,7 +20,7 @@ function SendImage({ ProfilePic, own, message, array }) {
       }
     };
     getUser();
-  }, [array, ctx.user.id]);
+  }, [array, ctx.clientChat.id]);
 
   return (
     <div>
@@ -38,7 +38,7 @@ function SendImage({ ProfilePic, own, message, array }) {
             </div>
             <div className="avatar ">
               <div className="w-14 rounded-full ">
-                <img src={ctx.user.profileImage || ProfilePic} alt="" />
+                <img src={ctx.clientChat.profileImage || ProfilePic} alt="" />
               </div>
             </div>
           </div>

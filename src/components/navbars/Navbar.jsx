@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 
 function Navbar() {
-  const { logout, user, dev } = useAuth();
+  const ctx = useAuth();
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
@@ -64,7 +64,7 @@ function Navbar() {
         {/* =========================================  left side  =============================================== */}
         <div className="flex-none gap-2 items-center">
           {/* =================  left side MSG ==================== */}
-          {user || dev ? (
+          {ctx.clientChat ? (
             <>
               <div className="navbar-end">
                 <Link to="/chatroom" className="btn btn-ghost btn-circle ">
@@ -114,7 +114,10 @@ function Navbar() {
               <div className="dropdown dropdown-end">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-12 rounded-full">
-                    <img src={ProfilePic} />
+                    <img
+                      src={ctx.clientChat.profileImage || ProfilePic}
+                      alt=""
+                    />
                   </div>
                 </label>
                 <ul
@@ -131,7 +134,7 @@ function Navbar() {
                     <div>Settings</div>
                   </li>
                   <li>
-                    <Link to="/" onClick={logout}>
+                    <Link to="/" onClick={ctx.logout}>
                       Logout
                     </Link>
                   </li>

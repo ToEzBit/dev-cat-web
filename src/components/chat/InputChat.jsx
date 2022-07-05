@@ -24,7 +24,7 @@ function InputChat({
   const [imageSelected, setImageSelected] = useState('');
   const [getImage, setGetImage] = useState('');
 
-  console.log(getImage);
+  // console.log(getImage);
   const instance = axios.create();
   delete instance.defaults.headers.common['Authorization'];
 
