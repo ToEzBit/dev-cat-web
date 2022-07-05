@@ -6,12 +6,8 @@ import { Navigate } from 'react-router-dom';
 import OrderDetails from './OrderDetails';
 
 function Quotation({ ProfilePic, MyOrder, selectedProduct, selectedPackage }) {
-  const { orderId } = useOrder();
-  const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
 
-  //orderDetails น่าจะไม่ได้ ต้อง ยิงดู packageid/productid เพราะ select กันคนละช่วง
-  //fetchOrder เฉพาะไอดี
   return (
     <div>
       <div className="w-full ">
