@@ -8,7 +8,8 @@ import { orderPayment } from '../api/order';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function CheckoutForm({ orderId }) {
+export default function CheckoutForm() {
+  const orderId = 8;
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
@@ -41,15 +42,15 @@ export default function CheckoutForm({ orderId }) {
           break;
         case 'processing':
           setMessage('Your payment is processing.');
-          // console.log(message);
+          console.log(message);
           break;
         case 'requires_payment_method':
           setMessage('Your payment was not successful, please try again.');
-          // console.log(message);
+          console.log(message);
           break;
         default:
           setMessage('Something went wrong.');
-          // console.log(message);
+          console.log(message);
           break;
       }
     });

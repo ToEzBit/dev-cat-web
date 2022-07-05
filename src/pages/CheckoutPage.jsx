@@ -12,13 +12,17 @@ const stripePromise = loadStripe(
   'pk_test_51LGO25J0De5S2BwxtNSp0yGpXK7bRGe475uYsBdLccGVPbf7zDtQMTSHHUBQLoGJMRphPubYQf7deuIyVtls5Dw900ZacHe3vj',
 );
 
-export default function CheckoutPage({ orderId }) {
+export default function CheckoutPage() {
   const [clientSecret, setClientSecret] = useState('');
   const { user } = useAuth();
+  // console.log(user);
 
+  const orderId = useOrder();
   useEffect(() => {
+    // from chatroom > click pay now > load this page and run this function
+    // Create PaymentIntent as soon as the page loads
     const getClientSecret = async () => {
-      const res = await createPaymentIntent({ orderId: orderId });
+      const res = await createPaymentIntent({ orderId: 8 });
       setClientSecret(res?.data?.clientSecret);
     };
     getClientSecret();
