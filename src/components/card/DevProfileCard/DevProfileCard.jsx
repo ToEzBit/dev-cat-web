@@ -13,12 +13,10 @@ function DevProfileCard({
 
   return (
     <div className="w-10/12 flex justify-evenly gap-10 ">
-      <div className="w-1/5  rounded-full bg-black">
-        <img
-          src={profileImage || ProfilePic}
-          alt=""
-          className="object-cover w-full h-full rounded-full"
-        />
+      <div class="avatar">
+        <div className="w-24 rounded-full">
+          <img src={profileImage || ProfilePic} />
+        </div>
       </div>
       <div className="w-4/5 flex flex-col gap-4 ">
         <div className="flex justify-between items-center">
