@@ -40,7 +40,7 @@ function CarouselHome() {
               setAnimationToggle(!animationToggle);
             }
           }}
-          className="btn btn-circle"
+          className="btn btn-circle opacity-50 hover:opacity-100 duration-300"
         >
           ❮
         </button>
@@ -56,7 +56,7 @@ function CarouselHome() {
               setAnimationToggle(!animationToggle);
             }
           }}
-          className=" btn btn-circle"
+          className=" btn btn-circle opacity-50 hover:opacity-100 duration-300"
         >
           ❯
         </button>

@@ -19,11 +19,10 @@ function Quotation({ ProfilePic, MyOrder, selectedProduct, selectedPackage }) {
             <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
               <div className="flex justify-between items-baseline px-4">
                 <h5>My Order</h5>
-                <div>{MyOrder.price || '3,000 BAHT'}</div>
+                <div>MyOrder.price || '3,000 BAHT'</div>
               </div>
               <div className="text-chat-quotation">
-                {MyOrder.title ||
-                  'Quick quiz is the easiest way to make quizzes FREE'}
+                'Quick quiz is the easiest way to make quizzes FREE'
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
                 <label

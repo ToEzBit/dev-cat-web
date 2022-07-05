@@ -17,6 +17,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useProduct } from '../contexts/ProductContext';
 import CarouselHome from '../components/carousel/CarouselHome';
+
 // import { useProduct } from '../contexts/ProductContext';
 
 function HomePage() {

@@ -8,22 +8,33 @@ function Message({ ProfilePic, own, message, array }) {
   const [user, setUser] = useState(null);
 
   const ctx = useAuth();
+  console.log(user);
 
   useEffect(() => {
-    const friendId = array.filter((e) => {
-      return e.sender !== ctx.user.id;
+    const friendId = array.find((e) => {
+      return e.sender !== ctx.clientChat.id;
     });
+    // console.log(friendId.sender);
 
     const getUser = async () => {
       try {
-        const res = await axios('/user/' + friendId[0].sender);
-        setUser(res.data);
+        if (friendId.sender % 2 == 0) {
+          console.log('check user');
+          const res = await axios.get('/user/' + friendId.sender);
+          setUser(res.data.user);
+          // setClientChat(res?.data?.user);
+        } else {
+          console.log('check dev');
+          const resDev = await axios.get('/dev/' + friendId.sender);
+          console.log(resDev);
+          setUser(resDev.data.dev);
+        }
       } catch (err) {
         console.log(err);
       }
     };
     getUser();
-  }, [array, ctx.user.id]);
+  }, [array, ctx.clientChat.id]);
 
   return (
     <div className=" ">
@@ -41,7 +52,7 @@ function Message({ ProfilePic, own, message, array }) {
             </div>
             <div className="avatar ">
               <div className="w-14 rounded-full ">
-                <img src={ctx.user.profileImage || ProfilePic} alt="" />
+                <img src={ctx.clientChat.profileImage || ProfilePic} alt="" />
               </div>
             </div>
           </div>
@@ -51,7 +62,7 @@ function Message({ ProfilePic, own, message, array }) {
           <div className="flex p-4 items-center gap-4">
             <div className="avatar ">
               <div className="w-14 rounded-full ">
-                <img src={user?.user?.profileImage || ProfilePic} alt="" />
+                <img src={user?.profileImage || ProfilePic} alt="" />
               </div>
             </div>
             <div className="flex flex-col gap-2">

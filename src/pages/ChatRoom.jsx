@@ -37,7 +37,7 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  // console.log(conversations);
+  // console.log(ctx.clientChat);
 
   // const receiverId = currentChat.Chats.find((sender) => console.log(sender));
   // console.log(receiverId);
@@ -57,6 +57,7 @@ function ChatRoom() {
       });
     });
   }, []);
+  // console.log(currentChat?.Chats);
 
   // const isInclude = currentChat?.Chats.some((el) => {
   //   return el.sender === arrivalMessage.sender;
@@ -82,17 +83,17 @@ function ChatRoom() {
   // }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    socket.current.emit('addUser', ctx?.user?.id);
+    socket.current.emit('addUser', ctx?.clientChat?.id);
     socket.current.on('getUsers', (users) => {
       setOnlineUsers(users);
     });
-  }, [ctx?.user]);
+  }, [ctx?.clientChat]);
 
   useEffect(() => {
     setLoading(true);
     const getConversations = async () => {
       try {
-        const res = await axios.get('/conversations/' + ctx?.user?.id);
+        const res = await axios.get('/conversations/' + ctx?.clientChat?.id);
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
@@ -101,7 +102,7 @@ function ChatRoom() {
     };
     getConversations();
     setLoading(false);
-  }, [ctx?.user?.id]);
+  }, [ctx?.clientChat?.id]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -118,7 +119,7 @@ function ChatRoom() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
-      sender: ctx.user.id,
+      sender: ctx.clientChat.id,
       message: newMessages,
       conversationId: currentChat.id,
     };
@@ -128,12 +129,12 @@ function ChatRoom() {
     // );
     // console.log(receiverId);
     const receiverId =
-      currentChat.senderId !== ctx.user.id
+      currentChat.senderId !== ctx.clientChat.id
         ? currentChat.senderId
         : currentChat.receiverId;
 
     socket.current.emit('sendMessage', {
-      senderId: ctx?.user.id,
+      senderId: ctx?.clientChat.id,
       receiverId,
       message: newMessages,
     });
@@ -277,7 +278,8 @@ function ChatRoom() {
               {/* --------------- History Chat -------------- */}
               {conversations.map((c, index) => {
                 let online = false;
-                let id = ctx.user.id !== c.senderId ? c.senderId : c.receiverId;
+                let id =
+                  ctx.clientChat.id !== c.senderId ? c.senderId : c.receiverId;
 
                 onlineUsers.map((el) => {
                   if (el.userId === id) {
@@ -292,7 +294,7 @@ function ChatRoom() {
                     <Conversation
                       online={online}
                       conversation={c}
-                      currentUser={ctx.user}
+                      currentUser={ctx.clientChat}
                       updatedAt={c.updatedAt}
                     />
                   </div>
@@ -323,8 +325,8 @@ function ChatRoom() {
                               array={messages}
                               loading={loading}
                               message={m}
-                              own={m.sender === ctx.user.id}
-                              currentUser={ctx.user}
+                              own={m.sender === ctx.clientChat.id}
+                              currentUser={ctx.clientChat}
                               ProfilePic={ProfilePic}
                             />
                           </div>
@@ -335,8 +337,8 @@ function ChatRoom() {
                             <Confirmation
                               array={messages}
                               message={m}
-                              own={m.sender === ctx.user.id}
-                              currentUser={ctx.user}
+                              own={m.sender === ctx.clientChat.id}
+                              currentUser={ctx.clientChat}
                             />
                           </div>
                         );
@@ -347,8 +349,8 @@ function ChatRoom() {
                               array={messages}
                               ProfilePic={ProfilePic}
                               message={m}
-                              own={m.sender === ctx.user.id}
-                              currentUser={ctx.user}
+                              own={m.sender === ctx.clientChat.id}
+                              currentUser={ctx.clientChat}
                             />
                           </div>
                         );
