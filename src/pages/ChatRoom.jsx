@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import ProfilePic from '../asset/image/ProfilePic.png';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect } from 'react';
+import StartWork from '../components/modal/StartWork';
 import axios from 'axios';
 import Conversation from '../components/chat/conversation/Conversation';
 import Message from '../components/chat/Message';
@@ -27,6 +28,9 @@ function ChatRoom() {
   const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   // const [notification, setNotification] = useState(false);
   //socket io
+
+  // console.log(getOrderId);
+
   const socket = useRef();
   //inputChat
   const [newMessages, setNewMessages] = useState('');
@@ -41,14 +45,14 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  // console.log(getOrderId);
+  // console.log(currentChat);
 
   useEffect(() => {
     const getOrder = async () => {
       try {
         const res = await axios.get('/user/order/' + selectedOrder);
         setSelectedOrder(res.data.orders);
-        console.log(selectedOrder);
+        // console.log(selectedOrder);
       } catch (err) {
         console.log(err);
       }
@@ -111,7 +115,7 @@ function ChatRoom() {
         //##############################เปลี่ยน clientChat.id == /:sender
         // {id: 7,<<< this senderId: 8, receiverId: 9, createdAt: '2022-07-05T08:30:36.000Z', updatedAt: '2022-07-05T08:30:36.000Z', …}
         // {id: 8, senderId: 6, receiverId: 9, createdAt: '2022-07-05T08:49:27.000Z', updatedAt: '2022-07-05T08:49:27.000Z', …}
-        console.log(...res.data);
+        // console.log(...res.data);
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
@@ -129,7 +133,7 @@ function ChatRoom() {
         // const res = await axios.get('/messages/' + conversationId);
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -234,6 +238,31 @@ function ChatRoom() {
                       <h5>John Doe</h5>
                       <div>#01234567PP</div>
                     </div>
+                    {/* =============================  start work  ================================== */}
+                    <div>
+                      <button>
+                        <label
+                          htmlFor="save-modal"
+                          className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                          role="button"
+                        >
+                          START
+                        </label>
+                      </button>
+                      <input
+                        type="checkbox"
+                        id="save-modal"
+                        className="modal-toggle"
+                      />
+
+                      <div className="modal">
+                        <div className="modal-box">
+                          <StartWork currentChat={currentChat} />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* =============================  start work  ================================== */}
 
                     <button>
                       <label
@@ -298,7 +327,7 @@ function ChatRoom() {
 
                 return (
                   <div key={index} onClick={() => setCurrentChat(c)}>
-                    {console.log(c)}
+                    {/* {console.log(c)} */}
                     <Conversation
                       online={online}
                       conversation={c}

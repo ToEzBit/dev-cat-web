@@ -42,7 +42,6 @@ export default function CreateOrder({
     };
     getPackage();
   }, [selectedProduct]);
-  console.log(newMessageOrder);
 
   //   console.log(ctx?.clientChat);
 
