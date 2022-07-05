@@ -39,8 +39,8 @@ export const orderIsCompleted = async (orderId) => {
 //user's side
 //input: reviewDetail
 export const orderNeedsRevision = async (input, orderId) => {
-  await axios.patch(`/orders/${orderId}/review`, input);
-};
+  await axios.post(`/orders/${orderId}/review`, input)
+}
 
 export const getUserOder = async () => {
   const res = await axios.get('/user/orders');

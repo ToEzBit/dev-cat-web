@@ -15,6 +15,7 @@ import Submit from '../components/modal/Submit';
 import SpecialRequirement from '../components/modal/SpecialRequirement';
 import SendImage from '../components/chat/conversation/SendImage';
 import Step from '../components/chat/step/Step';
+import CreateOrder from '../components/chat/deal/CreateOrder';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -41,6 +42,11 @@ function ChatRoom() {
   // const receiverId = currentChat.Chats.find((sender) => console.log(sender));
   // console.log(receiverId);
 
+  const [devProducts, setDevProducts] = useState(null);
+  const [devPackages, setDevPackages] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState(null);
+
   useEffect(() => {
     socket.current = io('ws://103.74.253.125:8080');
     socket.current.on('getMessage', (data) => {
@@ -51,7 +57,6 @@ function ChatRoom() {
       });
     });
   }, []);
-  console.log(currentChat?.Chats);
 
   // const isInclude = currentChat?.Chats.some((el) => {
   //   return el.sender === arrivalMessage.sender;
@@ -196,8 +201,24 @@ function ChatRoom() {
                     />
 
                     <div className="modal">
-                      <div className="modal-box">
-                        <SpecialRequirement />
+                      <div className="modal-box relative">
+                        <label
+                          for="my-modal-3"
+                          class="btn btn-sm btn-circle absolute right-2 top-2"
+                        >
+                          ✕
+                        </label>
+
+                        <CreateOrder
+                          devProducts={devProducts}
+                          setDevProducts={setDevProducts}
+                          devPackages={devPackages}
+                          setDevPackages={setDevPackages}
+                          selectedProduct={selectedProduct}
+                          selectedPackage={selectedPackage}
+                          setSelectedPackage={setSelectedPackage}
+                          setSelectedProduct={setSelectedProduct}
+                        />
                       </div>
                     </div>
 
@@ -346,7 +367,11 @@ function ChatRoom() {
                       </div>
                     ))}</div> */}
                     {/* --------------- dev Quotation Chat -------------- */}
-                    <Quotation ProfilePic={ProfilePic} />
+                    <Quotation
+                      ProfilePic={ProfilePic}
+                      selectedProduct={selectedProduct}
+                      selectedPackage={selectedPackage}
+                    />
                     {/* --------------- dev Confirm Chat -------------- */}
                     {/* <Confirmation /> */}
                     {/* --------------- input Chat center -------------- */}
@@ -396,7 +421,6 @@ function ChatRoom() {
 
               {/* --------------- steps work -------------- */}
               <Step />
-             
 
               {/* --------------- Dev profile -------------- */}
 

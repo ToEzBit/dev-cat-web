@@ -2,59 +2,77 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOrder } from '../../../contexts/OrderContext';
 import CheckoutPage from '../../../pages/CheckoutPage';
+import { Navigate } from 'react-router-dom';
+import OrderDetails from './OrderDetails';
 
-function Quotation({ ProfilePic }) {
+function Quotation({ ProfilePic, MyOrder, selectedProduct, selectedPackage }) {
   const { orderId } = useOrder();
   const [isClicked, setIsClicked] = useState(false);
-  // const navigate = useNavigate();
-  //  const handleClick = () => {
+  const navigate = useNavigate();
 
-  //  }
+  //orderDetails น่าจะไม่ได้ ต้อง ยิงดู packageid/productid เพราะ select กันคนละช่วง
   //fetchOrder เฉพาะไอดี
   return (
     <div>
       <div className="w-full ">
         <div className="flex p-4 items-center gap-4">
-          {isClicked ? (
-            <>
-              <div className="w-12 rounded-full">
-                <img src={ProfilePic} alt="" />
+          <div className="w-12 rounded-full">
+            <img src={ProfilePic} alt="" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
+              <div className="flex justify-between items-baseline px-4">
+                <h5>My Order</h5>
+                <div>{MyOrder.price || '3,000 BAHT'}</div>
               </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
-                  <div className="flex justify-between items-baseline px-4">
-                    <h5>My Order</h5>
-                    <div>3,000 BAHT</div>
-                  </div>
-                  <div className="text-chat-quotation">
-                    Quick quiz is the easiest way to make quizzes FREE
-                  </div>
-                  <div className="grid grid-cols-2 gap-4 px-4">
-                    <button className="border p-2 rounded-lg border-bg-home-content">
-                      View Detail
-                    </button>
-                    <button
-                      className="border p-2 rounded-lg border-bg-home-content"
-                      onClick={() => setIsClicked((prev) => !prev)}
+              <div className="text-chat-quotation">
+                {MyOrder.title ||
+                  'Quick quiz is the easiest way to make quizzes FREE'}
+              </div>
+              <div className="grid grid-cols-2 gap-4 px-4">
+                <label
+                  for="my-modal"
+                  className="btn bg-bg-home-content modal-button"
+                >
+                  View Details
+                </label>
+
+                <input type="checkbox" id="my-modal" className="modal-toggle" />
+                <div className="modal">
+                  <div
+                    className="modal-box relative
+                  "
+                  >
+                    <label
+                      for="my-modal-3"
+                      class="btn btn-sm btn-circle absolute right-2 top-2"
                     >
-                      Pay Now!
-                    </button>
+                      ✕
+                    </label>
+
+                    <OrderDetails
+                      selectedProduct={selectedProduct}
+                      selectedPackage={selectedPackage}
+                    />
                   </div>
                 </div>
-                <div className="text-xs text-slate-400">8.00 PM</div>
+                <label
+                  for="my-modal"
+                  className="btn bg-bg-home-content modal-button"
+                >
+                  Checkout Page
+                </label>
+
+                <input type="checkbox" id="my-modal" className="modal-toggle" />
+                <div className="modal">
+                  <div className="modal-box">
+                    <CheckoutPage />
+                  </div>
+                </div>
               </div>
-            </>
-          ) : (
-            <div className="w-3/5 h-1/2 flex mx-auto items-center flex-col justify-center">
-              <button
-                className="w-full flex justify-end"
-                onClick={() => setIsClicked((prev) => !prev)}
-              >
-                X
-              </button>
-              <CheckoutPage productId={orderId} />
             </div>
-          )}
+            <div className="text-xs text-slate-400">8.00 PM</div>
+          </div>
         </div>
       </div>
     </div>

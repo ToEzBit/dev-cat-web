@@ -4,13 +4,19 @@ import { getAllDevProducts, getProductById } from '../../../api/product';
 import { createOrder } from '../../../api/order';
 import { useOrder } from '../../../contexts/OrderContext';
 
-export default function CreateOrder({ userId }) {
+export default function CreateOrder({
+  userId,
+  devProducts,
+  setDevProducts,
+  devPackages,
+  setDevPackages,
+  selectedPackage,
+  setSelectedPackage,
+  selectedProduct,
+  setSelectedProduct,
+}) {
   const { setOrderId, orderId } = useOrder();
   const { dev } = useAuth();
-  const [devProducts, setDevProducts] = useState(null);
-  const [devPackages, setDevPackages] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [selectedPackage, setSelectedPackage] = useState(null);
 
   useEffect(() => {
     const getDevProducts = async () => {
@@ -46,7 +52,6 @@ export default function CreateOrder({ userId }) {
       userId: 2,
     });
     setOrderId(res?.data?.createdOrder?.id);
-    console.log(orderId);
     //ใส่ลอจิคให้มันขึ้นแชท ให้ลูกค้ากดจ่ายเงิน/ดูรายละเอียดได้
   };
 
