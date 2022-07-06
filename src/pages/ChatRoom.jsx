@@ -29,6 +29,7 @@ function ChatRoom() {
   // const [notification, setNotification] = useState(false);
   //socket io
 
+  const [stepOrder, setStepOrder] = useState({});
   const socket = useRef();
   //inputChat
   const [newMessages, setNewMessages] = useState('');
@@ -175,14 +176,18 @@ function ChatRoom() {
           const getOrderIdStatus = await axios.get(
             `/user/order/${getLastOrderId}`,
           );
+          setStepOrder(getOrderIdStatus?.data?.order);
           setOrderId(getLastOrderId);
-          setGetOrderStatus(getOrderIdStatus.data.order.status);
+          setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+          // console.log(getOrderIdStatus);
         } else {
           const getOrderIdStatus = await axios.get(
             `/dev/order/${getLastOrderId}`,
           );
+          // console.log(getOrderIdStatus);
+          setStepOrder(getOrderIdStatus?.data?.order);
           setOrderId(getLastOrderId);
-          setGetOrderStatus(getOrderIdStatus.data.order.status);
+          setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
         }
       } else {
         // console.log('waiting');
@@ -191,7 +196,7 @@ function ChatRoom() {
     getOrderStatus();
   }, [currentChat, getOrderStatus, orderId]);
 
-  console.log(getOrderStatus);
+  // console.log(getOrderStatus);
 
   // console.log(getOrderStatus);
   return (
@@ -517,7 +522,7 @@ function ChatRoom() {
               </div>
 
               {/* --------------- steps work -------------- */}
-              <Step />
+              <Step order={stepOrder} />
 
               {/* --------------- Dev profile -------------- */}
 
