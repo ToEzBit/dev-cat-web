@@ -35,11 +35,11 @@ function Quotation({
     const getUser = async () => {
       try {
         if (friendId?.sender % 2 === 0) {
-          const res = await axios.get('/user/' + friendId.sender);
+          const res = await axios.get('/user/' + friendId?.sender);
           setUser(res?.data?.user);
           // setClientChat(res?.data?.user);
         } else {
-          const resDev = await axios.get('/dev/' + friendId[0].sender);
+          const resDev = await axios.get('/dev/' + friendId[0]?.sender);
           setUser(resDev?.data?.dev);
         }
       } catch (err) {

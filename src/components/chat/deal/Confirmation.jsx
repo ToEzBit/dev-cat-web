@@ -7,7 +7,6 @@ import {
 import { useOrder } from '../../../contexts/OrderContext';
 import OrderReview from './OrderReview';
 import { useEffect } from 'react';
-import { orderIsCompleted, orderNeedsRevision } from '../../../api/order';
 import { useAuth } from '../../../contexts/AuthContext';
 import RequiredEdit from '../../modal/RequiredEdit';
 

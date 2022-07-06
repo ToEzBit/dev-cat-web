@@ -24,7 +24,6 @@ function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [friendId, setFriendId] = useState(null);
   const [getOrderId, setGetOrderId] = useState(null);
-  const [selectedOrder, setSelectedOrder] = useState('');
   const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   const [getOrderStatus, setGetOrderStatus] = useState(null);
   const [orderId, setOrderId] = useState(null);
