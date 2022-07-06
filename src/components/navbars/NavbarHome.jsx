@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
+import { Menu } from '@headlessui/react';
+import DropdownNav from '../dropdown/DropdownNav';
 
 function NavbarHome() {
   const ctx = useAuth();
@@ -112,7 +114,8 @@ function NavbarHome() {
                 </button>
               </div>
               {/* =================  left side Profile ==================== */}
-              <div className="dropdown dropdown-end">
+              <DropdownNav />
+              {/* <div className="dropdown dropdown-end">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-12 rounded-full">
                     <img
@@ -140,7 +143,7 @@ function NavbarHome() {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </>
           ) : (
             <>

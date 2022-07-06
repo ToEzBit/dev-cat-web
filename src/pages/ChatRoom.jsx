@@ -30,7 +30,7 @@ function ChatRoom() {
   // const [notification, setNotification] = useState(false);
   //socket io
 
-  console.log(orderId1);
+  const [stepOrder, setStepOrder] = useState({});
   const socket = useRef();
   //inputChat
   const [newMessages, setNewMessages] = useState('');
@@ -177,15 +177,18 @@ function ChatRoom() {
           const getOrderIdStatus = await axios.get(
             `/user/order/${getLastOrderId}`,
           );
+          setStepOrder(getOrderIdStatus?.data?.order);
           setOrderId(getLastOrderId);
-          setGetOrderStatus(getOrderIdStatus.data.order.status);
+          setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+          // console.log(getOrderIdStatus);
         } else {
           const getOrderIdStatus = await axios.get(
             `/dev/order/${getLastOrderId}`,
           );
+          // console.log(getOrderIdStatus);
+          setStepOrder(getOrderIdStatus?.data?.order);
           setOrderId(getLastOrderId);
-          setGetOrderStatus(getOrderIdStatus.data.order.status);
-          setOrderId1(getOrderIdStatus.data.order);
+          setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
         }
       } else {
         // console.log('waiting');
@@ -194,7 +197,32 @@ function ChatRoom() {
     getOrderStatus();
   }, [currentChat, getOrderStatus, orderId]);
 
-  console.log(getOrderStatus);
+  // const [currentValue, setCurrentValue] = useState(0);
+
+  // useEffect(() => {
+  //   if (!stepOrder) {
+  //     console.log(stepOrder);
+  //     return;
+  //   }
+
+  //   if (stepOrder?.order?.paymentStatus === 'awaitingPayment') {
+  //     return setCurrentValue(3);
+  //   } else if (
+  //     stepOrder?.order?.paymentStatus === 'Received' &&
+  //     stepOrder?.order?.status === 'pending'
+  //   ) {
+  //     return setCurrentValue(4);
+  //   } else if (
+  //     stepOrder?.order?.startDate &&
+  //     stepOrder?.order?.status !== 'completed'
+  //   ) {
+  //     return setCurrentValue(5);
+  //   } else if (stepOrder?.order?.status === 'completed') {
+  //     return setCurrentValue(6);
+  //   }
+  // }, [stepOrder]);
+
+  // console.log(getOrderStatus);
 
   // console.log(getOrderStatus);
   return (
@@ -520,7 +548,7 @@ function ChatRoom() {
               </div>
 
               {/* --------------- steps work -------------- */}
-              <Step />
+              <Step order={stepOrder} />
 
               {/* --------------- Dev profile -------------- */}
 
