@@ -3,10 +3,6 @@ import 'react-simple-typewriter/dist/index';
 import { Typewriter, useTypewriter, Cursor } from 'react-simple-typewriter';
 
 function Typewriters() {
-  const handleType = (count) => {
-    // access word count number
-    console.log(count);
-  };
   const words = ['DevCats', 'Full-Stack', 'Mobile', 'Website'];
   const { text } = useTypewriter({
     words,
@@ -15,7 +11,6 @@ function Typewriters() {
 
   return (
     <span className=" text-8xl  text-white">
-      {/* Style will be inherited from the parent element */}
       {text}
       <Cursor />
     </span>
