@@ -16,6 +16,7 @@ function Review({
 }) {
   const { myOrder } = useOrder();
   const { reviewRating, setReviewRating } = useFilter();
+
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
       {mode === 'ProductPage' ? (
@@ -45,12 +46,16 @@ function Review({
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          {myOrder.length > 0 &&
-            myOrder?.map((el, idx) => {
-              el.Product.id === productId && (
-                <CreateReview setProductByIDRender={setProductByIDRender} />
-              );
-            })}
+          {myOrder?.length > 0 &&
+            myOrder
+              ?.map((el, idx) => {
+                return (
+                  +el.Product.id === +productId && (
+                    <CreateReview setProductByIDRender={setProductByIDRender} />
+                  )
+                );
+              })
+              .slice(0, 1)}
           {reviews?.map((el) => {
             return (
               <ReviewCard
