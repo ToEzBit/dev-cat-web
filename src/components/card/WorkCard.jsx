@@ -21,7 +21,7 @@ function WorkCard({ workcard, devId }) {
 
   const shortProductTitle =
     workcard.title.length > 50
-      ? `${workcard.title.slice(0, 50)}...`
+      ? `${workcard.title.slice(0, 40)}...`
       : workcard.title;
 
   return (
@@ -64,7 +64,10 @@ function WorkCard({ workcard, devId }) {
         <div className="p-4 pt-8 -mt-4">
           <p className="">{shortProductTitle}</p>
           <div className=" flex justify-between items-center pt-4">
-            <div className="badge badge-outline">{workcard?.category}</div>
+            <div className="badge badge-outline">
+              {' '}
+              {workcard?.category === 'web' ? 'Website' : 'Mobile'}
+            </div>
             <div className="badge badge-accent text-white">
               <p>{minPriceOfPackage} B</p>
             </div>

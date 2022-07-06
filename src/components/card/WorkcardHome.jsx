@@ -43,7 +43,9 @@ const WorkcardHome = ({ test, el }) => {
         <div className="p-4 pt-8 -mt-4">
           {/* <p className="">{shortProductTitle}</p> */}
           <div className=" flex justify-between items-center pt-4">
-            <div className="badge badge-outline">{el?.category}</div>
+            <div className="badge badge-outline">
+              {el?.category === 'web' ? 'WebSite' : 'Mobile'}
+            </div>
             <div className="badge badge-accent text-white">
               {/* <p>{minPriceOfPackage} B</p> */}
             </div>
