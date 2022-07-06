@@ -76,6 +76,8 @@ function ResultPage() {
     (el) => el.minPrice > LowerBoundPrice && el.maxPrice < upperBoundPrice,
   );
 
+  console.log(filteredPrice);
+
   const filteredRating = filteredPrice.filter((el) => {
     if (!el.avgReview) {
       return false;

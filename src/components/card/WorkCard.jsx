@@ -4,17 +4,17 @@ import ProfilePic from '../../asset/image/ProfilePic.png';
 
 function WorkCard({ workcard, devId }) {
   const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
   let minPriceOfPackage;
-  if (workcard.Packages) {
-    const packageArr = workcard.Packages;
+  if (workcard?.Packages) {
+    const packageArr = workcard?.Packages;
     const findMinPriceOfPackage = packageArr.reduce((prev, curr) =>
       +prev.price < +curr.price ? prev : curr,
     );
     minPriceOfPackage = numberWithCommas(findMinPriceOfPackage.price);
   } else {
-    minPriceOfPackage = numberWithCommas(workcard.minPrice);
+    minPriceOfPackage = numberWithCommas(workcard?.minPrice);
   }
 
   const shortProductTitle =
@@ -27,7 +27,7 @@ function WorkCard({ workcard, devId }) {
       <div className="card w-18 bg-base-100 shadow-xl max-w-xs ">
         <div className="flex justify-between px-4 py-4 pb-4 items-center">
           <div className="flex gap-2">
-            <Link to={`/dev/profile/${workcard.Dev.id}`}>
+            <Link to={`/dev/profile/${workcard?.Dev.id}`}>
               <img
                 className="w-12 rounded-full h-12 object-cover"
                 src={workcard?.Dev.profileImage}
@@ -40,13 +40,13 @@ function WorkCard({ workcard, devId }) {
             {workcard?.avgReview}.0
           </div>
         </div>
-        <Link to={`/product/${workcard.id}`}>
+        <Link to={`/product/${workcard?.id}`}>
           <figure className="h-52 w-full">
-            {workcard.ProductImages ? (
+            {workcard?.ProductImages ? (
               <>
                 <img
-                  className="block object-cover w-full h-full   shadow-lg "
-                  src={workcard.ProductImages[0].image}
+                  className="block object-cover w-full h-full  rounded-lg shadow-lg "
+                  src={workcard.ProductImages[0]?.image}
                 />
               </>
             ) : (
