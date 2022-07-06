@@ -3,7 +3,7 @@ import 'react-simple-typewriter/dist/index';
 import { Typewriter, useTypewriter, Cursor } from 'react-simple-typewriter';
 
 function Typewriters() {
-  const words = ['DevCats', 'Full-Stack', 'Mobile', 'Website'];
+  const words = ['DevCats', 'Full-Stack', 'Mobile App', 'Website'];
   const { text } = useTypewriter({
     words,
     loop: 0, // Infinit

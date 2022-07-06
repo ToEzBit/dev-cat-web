@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Carousel } from 'react-carousel-minimal';
 
-function CarouselLanding({ width }) {
+function CarouselProduct({ photo }) {
   // const [photo, setPhoto] = useState('');
   // console.log(
   //   productArr.filter((el) => {
@@ -66,34 +66,35 @@ function CarouselLanding({ width }) {
     fontWeight: 'bold',
   };
   return (
-    <div className=" max-w-screen-xl">
-      <Carousel
-        data={data}
-        time={2000}
-        width={width}
-        height="500px"
-        // captionStyle={captionStyle}
-        radius="10px"
-        //   slideNumber={true}
-        //   slideNumberStyle={slideNumberStyle}
-        captionPosition="bottom"
-        automatic={true}
-        dots={true}
-        pauseIconColor="white"
-        pauseIconSize="40px"
-        slideBackgroundColor="darkgrey"
-        slideImageFit="cover"
-        thumbnails={false}
-        //   thumbnailWidth="100px"
-        style={{
-          // textAlign: 'center',
-          //   width: '1024px',
-          minWidth: '1024px',
-          height: '500px',
-        }}
-      />
-    </div>
+    // <div className=" max-w-screen-xl">
+    <Carousel
+      data={photo}
+      time={2000}
+      width="100%"
+      // height="100%"
+      // captionStyle={captionStyle}
+      radius="10px"
+      //   slideNumber={true}
+      //   slideNumberStyle={slideNumberStyle}
+      captionPosition="bottom"
+      automatic={false}
+      dots={true}
+      pauseIconColor="white"
+      pauseIconSize="40px"
+      slideBackgroundColor="darkgrey"
+      slideImageFit="cover"
+      thumbnails={false}
+      //   thumbnailWidth="100px"
+      style={{
+        // textAlign: 'center',
+        //   width: '1024px',
+        // minWidth: '1024px',
+        borderRadius: 'none',
+        height: '500px',
+      }}
+    />
+    // </div>
   );
 }
 
-export default CarouselLanding;
+export default CarouselProduct;

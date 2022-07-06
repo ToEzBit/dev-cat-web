@@ -17,8 +17,8 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useProduct } from '../contexts/ProductContext';
 
-import CarouselTest from '../components/carousel/CarouselLanding';
 import Typewriters from '../components/typewriter/Typewriters';
+import CarouselLanding from '../components/carousel/CarouselLanding';
 
 function HomePage() {
   const ctx = useAuth();
@@ -271,7 +271,7 @@ function HomePage() {
 
               <div className="flex justify-center ">
                 {/* <CarouselHome /> */}
-                <CarouselTest width={'1024px'} />
+                <CarouselLanding width={'1024px'} />
               </div>
               {/* <div className=" flex flex-col gap-4">
               <h4 className="text-text-orange">
