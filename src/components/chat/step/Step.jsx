@@ -1,165 +1,93 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { DateTime } from 'luxon';
+import { getDevOderById, getUserOderById } from '../../../api/order';
 
-export default function Step() {
-  //   let step = [];
+export default function Step({ order }) {
+  const formatTime = (dateTime) => {
+    return DateTime.fromISO(dateTime).toFormat('dd/LLL/yy');
+  };
 
-  //     const "order" = {
-  //       "id": 5,
-  //       "totalRevision": 3,
-  //       "currentRevision": 3,
-  //       "packagePrice": "1000",
-  //       "totalSpacialRequirementPrice": "7000",
-  //       "totalPrice": "8000",
-  //       "startDate": "2022-06-26T11:01:28.000Z",
-  //       "totalDuration": 12,
-  //       "endDate": "2022-07-07T11:01:28.000Z",
-  //       "status": "completed",
-  //       "paymentStatus": "paymentReceived",
-  //       "createdAt": "2022-06-26T07:38:24.000Z",
-  //       "updatedAt": "2022-06-26T13:12:27.000Z",
-  //       "devId": 1,
-  //       "userId": 1,
-  //       "Product": {
-  //         "id": 1,
-  //         "title": "test update product2",
-  //         "category": "mobile"
-  //       },
-  //       "Package": {
-  //         "id": 4,
-  //         "title": "product 1 package 2",
-  //         "revision": 5,
-  //         "duration": 10,
-  //         "price": "5000"
-  //       },
-  //       "ProofPayments": [
-  //         {
-  //           "id": 2,
-  //           "spacialRequire": true,
-  //           "transactionId": "Omise TransactionId",
-  //           "createdAt": "2022-06-26T12:22:15.000Z",
-  //           "updatedAt": "2022-06-26T12:22:15.000Z"
-  //         },
-  //         {
-  //           "id": 3,
-  //           "spacialRequire": true,
-  //           "transactionId": "Omise TransactionId",
-  //           "createdAt": "2022-06-26T13:12:27.000Z",
-  //           "updatedAt": "2022-06-26T13:12:27.000Z"
-  //         }
-  //       ],
-  //       "OrderReviews": [
-  //         {
-  //           "id": 1,
-  //           "countRevision": 1,
-  //           "reviewDetail": "errrrrrrrrrrrrrrrrrrrrrr",
-  //           "createdAt": "2022-06-26T13:06:24.000Z",
-  //           "updatedAt": "2022-06-26T13:06:24.000Z"
-  //         },
-  //         {
-  //           "id": 2,
-  //           "countRevision": 2,
-  //           "reviewDetail": "errrrrrrrrrrrrrrrrrrrrrr",
-  //           "createdAt": "2022-06-26T13:06:56.000Z",
-  //           "updatedAt": "2022-06-26T13:06:56.000Z"
-  //         },
-  //         {
-  //           "id": 3,
-  //           "countRevision": 3,
-  //           "reviewDetail": "errrrrrrrrrrrrrrrrrrrrrr",
-  //           "createdAt": "2022-06-26T13:07:41.000Z",
-  //           "updatedAt": "2022-06-26T13:07:41.000Z"
-  //         }
-  //       ]
-  //     }
+  const [currentValue, setCurrentValue] = useState(0);
 
-  //   1. create Order order.createAt (payment = awaitingPayment)
-  //   2. Paid ProofPayment[0].createAt (payment = Received &&  status === pending)
-  //   3. on process (order.startDate) (if startdate => on progress)
-  //   4. Deadline (order.Enddate) (ใส่ไว้ก่อน เป็น enddate) completed (status = complete )
+  console.log(order?.paymentStatus);
+  useEffect(() => {
+    if (order?.paymentStatus === 'awaitingPayment') {
+      setCurrentValue(3);
+    } else if (
+      order?.paymentStatus === 'Received' &&
+      order?.status === 'pending'
+    ) {
+      console.log('test2');
+      setCurrentValue(4);
+    } else if (order?.startDate && order?.status !== 'completed') {
+      console.log('test3');
+      setCurrentValue(5);
+    } else if (order?.status === 'completed') {
+      console.log('test4');
+      setCurrentValue(6);
+    }
+  }, [order]);
 
-  // for (let i = 0; i <)
-
-  //  let pagination = [];
-
-  //  for (let i = 0; i < Math.ceil(pageNumber); i++) {
-  //    pagination.push(
-  //      <button
-  //        className={`btn btn-ghost ${
-  //          currentPage === i + 1 ? 'text-indigo-500' : ''
-  //        }`}
-  //        onClick={() => setCurrentPage(i + 1)}
-  //      >
-  //        {i + 1}
-  //      </button>,
-  //    );
-  //  }
-
-  //  const nextPage = currentPage + 1;
-  //  const prevPage = currentPage - 1;
-  //  return (
-  //    <div className="btn-group btn-ghost my-8 mx-auto">
-  //      <button
-  //        className={`btn btn-ghost ${currentPage === 1 && 'btn-disabled'}`}
-  //        onClick={() => setCurrentPage(1)}
-  //      >
-  //        {'<<'}
-  //      </button>
-  //      <button
-  //        className={`btn btn-ghost ${currentPage === 1 && 'btn-disabled'}`}
-  //        onClick={() => setCurrentPage(prevPage)}
-  //      >
-  //        {'<'}
-  //      </button>
-  //      {pagination}
-  //      <button
-  //        className={`btn btn-ghost ${
-  //          currentPage === pageNumber && 'btn-disabled'
-  //        }`}
-  //        onClick={() => setCurrentPage(nextPage)}
-  //      >
-  //        {'>'}
-  //      </button>
-  //      <button
-  //        className={`btn btn-ghost ${
-  //          currentPage === pageNumber && 'btn-disabled'
-  //        }`}
-  //        onClick={() => setCurrentPage(pageNumber)}
-  //      >
-  //        {'>>'}
-  //      </button>
-  //    </div>
-  //  );
+  const setColorPrimary = (value) => {
+    console.log(currentValue);
+    return `${value < currentValue ? 'step step-primary flex' : 'step'}`;
+  };
 
   return (
     <div className="flex flex-col gap-4">
       <ul className="steps steps-vertical">
-        <li className="step step-primary">Register</li>
-        <li className="step step-primary">Choose plan</li>
-        <li className="step">Purchase</li>
-        <li className="step">Receive Product</li>
+        <li className={setColorPrimary(2)}>
+          <div className="flex flex-col items-start justify-start">
+            <h5>Order created</h5>
+            {order?.createdAt && <p>{formatTime(order?.createdAt)}</p>}
+          </div>
+        </li>
+        <li className={setColorPrimary(3)}>
+          <div className="flex flex-col items-start justify-start">
+            <h5>Order paid</h5>
+            {order?.ProofPayments?.length > 0 && (
+              <p>{formatTime(order?.ProofPayments[0].createdAt)}</p>
+            )}
+          </div>
+        </li>
+        <li className={setColorPrimary(4)}>
+          <div className="flex flex-col items-start justify-start">
+            <h5> Order on process</h5>
+            {order?.startDate && <p>{formatTime(order?.startDate)}</p>}
+          </div>
+        </li>
+        {order?.OrderReviews &&
+          order?.OrderReviews.map((el, idx) => {
+            return (
+              <li className={setColorPrimary(4)} value="3" key={idx}>
+                <div>
+                  <h5>
+                    revision: {el?.countRevision}/{order?.totalRevision}
+                  </h5>
+                  {/* <p className="col-start-2">{formatTime(el.createdAt)}</p> */}
+                </div>
+              </li>
+            );
+          })}
+        <li className={setColorPrimary(5)}>
+          {order?.status === 'complete' ? (
+            <div className="flex flex-col items-start justify-start">
+              <h5>Order completed</h5>
+              <p>{formatTime(order?.updatedAt)}</p>
+            </div>
+          ) : (
+            <div className="flex flex-col items-start justify-start">
+              <h5>Deadline</h5>
+              {order?.startDate && <p>{formatTime(order?.endDate)}</p>}
+            </div>
+          )}
+        </li>
       </ul>
-      <div>
-        <div className="text-base font-bold text-chat">ORDER CREATED</div>
-        <div className=" text-sm ">8 July 2022 start diccuss </div>
-      </div>
-      <div>
-        <div className="text-base text-chat-quotation  font-bold">PAID</div>
-        <div className=" text-sm text-chat-quotation ">10 July 2022 </div>
-      </div>
-      <div>
-        <div className="text-base text-chat-quotation  font-bold">
-          IN PROCESS
-        </div>
-        {/* <div className=" text-sm ">8 July 2022 start diccuss </div> */}
-      </div>
-      <div>
-        <div className="text-base text-chat-quotation  font-bold">REVIEW</div>
-        {/* <div className=" text-sm ">8 July 2022 start diccuss </div> */}
-      </div>
-      <div>
-        <div className="text-base text-chat-quotation  font-bold">COMPLETE</div>
-        {/* <div className=" text-sm ">8 July 2022 start diccuss </div> */}
-      </div>
     </div>
   );
 }
+
+//   1. create Order order.createAt (payment = awaitingPayment)
+//   2. Paid ProofPayment[0].createAt (payment = Received &&  status === pending)
+//   3. on process (order.startDate) (if startdate => on progress)
+//   4. Deadline (order.Enddate) (ใส่ไว้ก่อน เป็น enddate) completed (status = complete )

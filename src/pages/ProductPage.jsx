@@ -66,7 +66,10 @@ export default function ProductPage() {
           </div>
         </div>
         <div>
-          <PackageDetails product={product?.Packages} />
+          <PackageDetails
+            product={product?.Packages}
+            devId={product?.Dev?.id}
+          />
         </div>
       </div>
       <div>

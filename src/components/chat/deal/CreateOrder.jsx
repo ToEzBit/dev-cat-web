@@ -18,10 +18,11 @@ export default function CreateOrder({
   const [devPackages, setDevPackages] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedPackage, setSelectedPackage] = useState(null);
+  const [newMessageOrder, setNewMessageOrder] = useState(null);
 
   useEffect(() => {
     const getDevProducts = async () => {
-      const res = await getAllDevProducts(ctx.dev?.id);
+      const res = await getAllDevProducts(ctx?.dev?.id);
       setDevProducts(res);
     };
     getDevProducts();
@@ -70,7 +71,7 @@ export default function CreateOrder({
     };
 
     socket.current.emit('sendMessage', {
-      senderId: ctx?.clientChat.id,
+      senderId: ctx?.clientChat?.id,
       receiverId,
       message: `order:${res?.data?.createdOrder?.id}`,
     });

@@ -18,7 +18,8 @@ function Quotation({
   getOrderId,
 }) {
   const [isClicked, setIsClicked] = useState(false);
-  const [order, setOrder] = useState('');
+  const [order, setOrder] = useState([]);
+
   // const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const ctx = useAuth();
@@ -33,13 +34,13 @@ function Quotation({
 
     const getUser = async () => {
       try {
-        if (friendId.sender % 2 === 0) {
+        if (friendId?.sender % 2 === 0) {
           const res = await axios.get('/user/' + friendId.sender);
-          setUser(res.data.user);
+          setUser(res?.data?.user);
           // setClientChat(res?.data?.user);
         } else {
           const resDev = await axios.get('/dev/' + friendId[0].sender);
-          setUser(resDev.data.dev);
+          setUser(resDev?.data?.dev);
         }
       } catch (err) {
         console.log(err);
@@ -57,6 +58,8 @@ function Quotation({
           setOrder(res.data.order);
         } else {
           const resDev = await axios.get('/dev/order/' + ret);
+          // console.log(ret);
+
           setOrder(resDev.data.order);
         }
       } catch (err) {

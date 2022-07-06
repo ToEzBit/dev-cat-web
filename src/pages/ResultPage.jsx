@@ -32,7 +32,15 @@ function ResultPage() {
   }, []);
 
   const productArr = products.reduce((acc, curr) => {
-    const { id, title, Packages, ProductReviews } = curr;
+    const {
+      id,
+      title,
+      Packages,
+      ProductReviews,
+      category,
+      Dev,
+      ProductImages,
+    } = curr;
     // console.log({ id, title, Packages, ProductReviews });
     const priceArr = Packages.map((el) => +el.price);
     // console.log(priceArr);
@@ -49,14 +57,26 @@ function ResultPage() {
       );
     } else avgReview = '0';
 
-    return [...acc, { id, title, maxPrice, minPrice, avgReview }];
+    return [
+      ...acc,
+      {
+        id,
+        title,
+        maxPrice,
+        minPrice,
+        avgReview,
+        category,
+        Dev,
+        ProductImages,
+      },
+    ];
   }, []);
-
-  console.log(productArr);
 
   const filteredPrice = productArr.filter(
     (el) => el.minPrice > LowerBoundPrice && el.maxPrice < upperBoundPrice,
   );
+
+  console.log(filteredPrice);
 
   const filteredRating = filteredPrice.filter((el) => {
     if (!el.avgReview) {
@@ -73,7 +93,7 @@ function ResultPage() {
   }
 
   // let pageLimit = 20;
-  let pageLimit = 5;
+  let pageLimit = 8;
   const pageNumber = Math.ceil(filteredRating.length / pageLimit);
   const limitPages = filteredRating.slice(
     (currentPage - 1) * pageLimit,
@@ -124,7 +144,7 @@ function ResultPage() {
           </div>
           <div className="grid grid-cols-4 gap-x-2 gap-y-3 justify-start">
             {limitPages.map((el, idx) => (
-              <Workcard key={idx} />
+              <Workcard key={idx} workcard={el} />
             ))}
           </div>
         </div>
