@@ -58,7 +58,7 @@ function Navbar() {
           </div>
           <Link to="/">
             <div className="btn btn-ghost text-emerald-600 normal-case text-3xl">
-              daisyUI
+              devCats
             </div>
           </Link>
         </div>

@@ -60,7 +60,7 @@ function NavbarHome() {
             to="/"
             className="btn btn-ghost text-emerald-600 normal-case text-3xl"
           >
-            daisyUI
+            devCats
           </Link>
         </div>
 
@@ -69,9 +69,9 @@ function NavbarHome() {
           {ctx.clientChat ? (
             <>
               {/* =================  left side MSG ==================== */}
-              <div className="navbar-end">
+              <div className="navbar-end ">
                 <Link to="/chatroom" className="btn btn-ghost btn-circle ">
-                  <div className="indicator">
+                  <div className="indicator hover:opacity-80 duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-8 w-8"
@@ -94,7 +94,7 @@ function NavbarHome() {
               {/* =================  left side Noti ==================== */}
               <div className="navbar-end">
                 <button className="btn btn-ghost btn-circle ">
-                  <div className="indicator">
+                  <div className="indicator hover:opacity-80 duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-8 w-8"
