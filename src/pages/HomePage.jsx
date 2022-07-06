@@ -25,7 +25,15 @@ function HomePage() {
   const pro = useProduct();
 
   const productArr = pro.products.reduce((acc, curr) => {
-    const { id, title, Packages, ProductReviews, category, Dev } = curr;
+    const {
+      id,
+      title,
+      Packages,
+      ProductReviews,
+      category,
+      Dev,
+      ProductImages,
+    } = curr;
     // console.log({ id, title, Packages, ProductReviews });
     const priceArr = Packages.map((el) => +el.price);
     // console.log(priceArr);
@@ -45,7 +53,16 @@ function HomePage() {
 
     return [
       ...acc,
-      { id, category, title, maxPrice, Dev, minPrice, avgReview },
+      {
+        id,
+        category,
+        title,
+        maxPrice,
+        Dev,
+        minPrice,
+        avgReview,
+        ProductImages,
+      },
     ];
   }, []);
 
