@@ -1,13 +1,36 @@
+import axios from 'axios';
 import React from 'react';
+import { useEffect } from 'react';
 import { orderIsCompleted, orderNeedsRevision } from '../../../api/order';
+import { useAuth } from '../../../contexts/AuthContext';
 import { useOrder } from '../../../contexts/OrderContext';
+import RequiredEdit from '../../modal/RequiredEdit';
 
-function Confirmation({ message, currentUser }) {
+function Confirmation({ message, currentUser, currentChat, getOrderId }) {
+  // const [order]
   const { orderId } = useOrder();
+  const ctx = useAuth();
   //fetch userId
+  console.log(getOrderId);
 
+  // useEffect(() => {
+  //   const fetch = async ()  => {
+
+  //     if (ctx.clientChat.id % 2 === 0) {
+  //       const getOrderIdStatus = await axios.get(
+  //         `/user/order/${getOrderId}`,
+  //       );
+
+  //     } else {
+  //       const getOrderIdStatus = await axios.get(
+  //         `/dev/order/${getOrderId}`,
+  //       );
+
+  //     }
+  //   }
+  //   })
   const handleComplete = async () => {
-    await orderIsCompleted(orderId);
+    await orderIsCompleted(getOrderId);
   };
 
   const handleRevision = async (input) => {
@@ -36,19 +59,36 @@ function Confirmation({ message, currentUser }) {
                   click this link to view your work
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 ">
+              <div className="grid grid-cols-2 gap-4 items-center ">
                 <button
                   className="border p-2 rounded-lg border-bg-home-content"
                   onClick={() => handleComplete()}
                 >
                   Agree
                 </button>
-                <button
-                  className="border p-2 px-4 rounded-lg border-bg-home-content"
-                  onClick={() => handleRevision()}
-                >
-                  Required Edit
-                </button>
+                {/* ======================= Required Edit ========================== */}
+                <div className=" ">
+                  <button>
+                    <label
+                      htmlFor="Required-modal"
+                      className=" border px-4 py-2.5 rounded-lg border-bg-home-content "
+                      role="button"
+                    >
+                      Required Edit
+                    </label>
+                  </button>
+                  <input
+                    type="checkbox"
+                    id="Required-modal"
+                    className="modal-toggle"
+                  />
+
+                  <div className="modal">
+                    <div className="modal-box">
+                      <RequiredEdit getOrderId={getOrderId} />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="text-xs text-slate-400">8.00 PM</div>

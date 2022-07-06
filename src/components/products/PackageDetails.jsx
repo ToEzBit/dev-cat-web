@@ -1,8 +1,33 @@
+import axios from '../../config/axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import { useState } from 'react';
 
-function PackageDetails({ product }) {
+function PackageDetails({ product, devId }) {
+  const [room, setRoom] = useState('');
+  const ctx = useAuth();
   let navigate = useNavigate();
+  console.log(devId);
+  const handleCreateChat = async () => {
+    const res = await axios.get(
+      `/conversations/find/${devId}/${ctx?.clientChat?.id}`,
+    );
+    setRoom(res?.data[0]?.id);
+    console.log(res.data.length === 0);
+    if (res.data.length === 0) {
+      const conversation = {
+        senderId: ctx?.clientChat?.id,
+        receiverId: devId,
+      };
+      const createRoom = await axios.post('/conversations', conversation);
+      console.log(createRoom);
+      navigate('/chatroom/' + room);
+    } else {
+      navigate('/chatroom/' + room);
+      // console.log(room);
+    }
+  };
   return (
     <div className="overflow-x-scroll">
       <table className="table  text-center">
@@ -52,7 +77,7 @@ function PackageDetails({ product }) {
                   <div>{element.price} THB </div>
                   <button
                     className="btn btn-info btn-xs w-1/2"
-                    onClick={() => navigate('/chatroom')}
+                    onClick={handleCreateChat}
                   >
                     สนใจจ้าง
                   </button>

@@ -8,7 +8,8 @@ import CheckoutPage from '../../../pages/CheckoutPage';
 function Quotation({ ProfilePic, own, message, array }) {
   const { orderId } = useOrder();
   const [isClicked, setIsClicked] = useState(false);
-  const [order, setOrder] = useState('');
+  const [order, setOrder] = useState([]);
+
   // const navigate = useNavigate();
   //  const handleClick = () => {
   const [user, setUser] = useState(null);
@@ -51,6 +52,8 @@ function Quotation({ ProfilePic, own, message, array }) {
           setOrder(res.data.order);
         } else {
           const resDev = await axios.get('/dev/order/' + ret);
+          // console.log(ret);
+
           setOrder(resDev.data.order);
         }
       } catch (err) {
