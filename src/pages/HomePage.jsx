@@ -17,6 +17,8 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useProduct } from '../contexts/ProductContext';
 import CarouselHome from '../components/carousel/CarouselHome';
+import WorkcardHome from '../components/card/WorkcardHome';
+import CarouselReact from '../components/carousel/CarouselReact';
 
 // import { useProduct } from '../contexts/ProductContext';
 
@@ -37,7 +39,7 @@ function HomePage() {
     // console.log({ id, title, Packages, ProductReviews });
     const priceArr = Packages.map((el) => +el.price);
     // console.log(priceArr);
-    console.log(Dev);
+    // console.log(Dev);
     const maxPrice = Math.max(...priceArr);
     // console.log(maxPrice);
     const minPrice = Math.min(...priceArr);
@@ -68,8 +70,8 @@ function HomePage() {
 
   return (
     <>
-      {/* {console.log('term', pro.products)} */}
-      {console.log(pro.products)}
+      {/* {console.log('term', productArr)} */}
+      {/* {console.log(pro.products)} */}
 
       <motion.div
         className="relative flex flex-col  gap-20"
@@ -312,7 +314,9 @@ function HomePage() {
                 {console.log(productArr)}
                 {productArr
                   .map((e, index) => {
+                    console.log(e?.category === 'mobile');
                     if (e?.category === 'mobile') {
+                      console.log(e.category !== 'mobile');
                       return (
                         <div key={index}>
                           <Workcard workcard={e} />
@@ -320,7 +324,7 @@ function HomePage() {
                       );
                     }
                   })
-                  .slice(0, 4)}
+                  .slice(21, 25)}
               </div>
             </div>
           </div>
