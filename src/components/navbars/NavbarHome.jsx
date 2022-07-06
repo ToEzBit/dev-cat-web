@@ -8,6 +8,7 @@ import DropdownNav from '../dropdown/DropdownNav';
 
 function NavbarHome() {
   const ctx = useAuth();
+
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}

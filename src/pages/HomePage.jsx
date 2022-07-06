@@ -303,12 +303,13 @@ function HomePage() {
                       );
                     }
                   })
-                  .slice(0, 5)}
+                  .slice(0, 4)}
               </div>
             </div>
             <div className="flex flex-col gap-4">
               <h5>Popular Mobile</h5>
               <div className="grid gap-4 grid-cols-4">
+                {console.log(productArr)}
                 {productArr
                   .map((e, index) => {
                     if (e?.category === 'mobile') {
@@ -319,7 +320,7 @@ function HomePage() {
                       );
                     }
                   })
-                  .slice(0, 5)}
+                  .slice(0, 4)}
               </div>
             </div>
           </div>
