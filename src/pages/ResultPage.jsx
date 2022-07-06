@@ -52,11 +52,11 @@ function ResultPage() {
     return [...acc, { id, title, maxPrice, minPrice, avgReview }];
   }, []);
 
-  console.log(productArr);
-
   const filteredPrice = productArr.filter(
     (el) => el.minPrice > LowerBoundPrice && el.maxPrice < upperBoundPrice,
   );
+
+  console.log(filteredPrice);
 
   const filteredRating = filteredPrice.filter((el) => {
     if (!el.avgReview) {

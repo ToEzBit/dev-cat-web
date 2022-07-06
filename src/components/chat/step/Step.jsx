@@ -3,11 +3,6 @@ import { DateTime } from 'luxon';
 import { getDevOderById, getUserOderById } from '../../../api/order';
 
 export default function Step({ order }) {
-  //    //   1. create Order order.createAt (payment = awaitingPayment)
-  //    //   2. Paid ProofPayment[0].createAt (payment = Received &&  status === pending)
-  //    //   3. on process (order.startDate) (if startdate => on progress)
-  //    //   4. Deadline (order.Enddate) (ใส่ไว้ก่อน เป็น enddate) completed (status = complete )
-
   // const [order, setOrder] = useState({});
   // console.log(orderId);
 
@@ -37,31 +32,33 @@ export default function Step({ order }) {
 
   // console.log(order);
 
-  console.log(order);
-
   const formatTime = (dateTime) => {
     return DateTime.fromISO(dateTime).toFormat('dd/LLL/yy');
   };
 
   const [currentValue, setCurrentValue] = useState(0);
 
+  console.log(order?.paymentStatus);
   useEffect(() => {
     if (order?.paymentStatus === 'awaitingPayment') {
-      return setCurrentValue(3);
+      setCurrentValue(3);
     } else if (
       order?.paymentStatus === 'Received' &&
       order?.status === 'pending'
     ) {
-      return setCurrentValue(4);
+      console.log('test2');
+      setCurrentValue(4);
     } else if (order?.startDate && order?.status !== 'completed') {
-      return setCurrentValue(5);
+      console.log('test3');
+      setCurrentValue(5);
     } else if (order?.status === 'completed') {
-      return setCurrentValue(6);
+      console.log('test4');
+      setCurrentValue(6);
     }
-  }, []);
+  }, [order]);
 
-  console.log(currentValue);
   const setColorPrimary = (value) => {
+    console.log(currentValue);
     return `${value < currentValue ? 'step step-primary flex' : 'step'}`;
   };
 

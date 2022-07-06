@@ -196,6 +196,31 @@ function ChatRoom() {
     getOrderStatus();
   }, [currentChat, getOrderStatus, orderId]);
 
+  // const [currentValue, setCurrentValue] = useState(0);
+
+  // useEffect(() => {
+  //   if (!stepOrder) {
+  //     console.log(stepOrder);
+  //     return;
+  //   }
+
+  //   if (stepOrder?.order?.paymentStatus === 'awaitingPayment') {
+  //     return setCurrentValue(3);
+  //   } else if (
+  //     stepOrder?.order?.paymentStatus === 'Received' &&
+  //     stepOrder?.order?.status === 'pending'
+  //   ) {
+  //     return setCurrentValue(4);
+  //   } else if (
+  //     stepOrder?.order?.startDate &&
+  //     stepOrder?.order?.status !== 'completed'
+  //   ) {
+  //     return setCurrentValue(5);
+  //   } else if (stepOrder?.order?.status === 'completed') {
+  //     return setCurrentValue(6);
+  //   }
+  // }, [stepOrder]);
+
   // console.log(getOrderStatus);
 
   // console.log(getOrderStatus);
