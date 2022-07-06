@@ -44,19 +44,18 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-
-  useEffect(() => {
-    const getOrder = async () => {
-      try {
-        const res = await axios.get('/user/order/' + selectedOrder);
-        setSelectedOrder(res.data.orders);
-        // console.log(selectedOrder);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getOrder();
-  }, [selectedOrder]);
+  // useEffect(() => {
+  //   const getOrder = async () => {
+  //     try {
+  //       const res = await axios.get('/user/order/' + selectedOrder);
+  //       setSelectedOrder(res.data.orders);
+  //       // console.log(selectedOrder);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getOrder();
+  // }, [selectedOrder]);
 
   useEffect(() => {
     const getOrder = async () => {
@@ -170,24 +169,29 @@ function ChatRoom() {
           return arrayOrderId;
         });
         var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
-        console.log(ctx.clientChat);
+        // console.log(getLastOrderId);
+        // console.log(ctx.clientChat);
 
         if (ctx.clientChat.id % 2 === 0) {
-          const getOrderIdStatus = await axios.get(
-            `/user/order/${getLastOrderId}`,
-          );
-          setStepOrder(getOrderIdStatus?.data?.order);
-          setOrderId(getLastOrderId);
-          setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+          if (getLastOrderId) {
+            const getOrderIdStatus = await axios.get(
+              `/user/order/${getLastOrderId}`,
+            );
+            setStepOrder(getOrderIdStatus?.data?.order);
+            setOrderId(getLastOrderId);
+            setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+          }
           // console.log(getOrderIdStatus);
         } else {
-          const getOrderIdStatus = await axios.get(
-            `/dev/order/${getLastOrderId}`,
-          );
-          // console.log(getOrderIdStatus);
-          setStepOrder(getOrderIdStatus?.data?.order);
-          setOrderId(getLastOrderId);
-          setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+          if (getLastOrderId) {
+            const getOrderIdStatus = await axios.get(
+              `/dev/order/${getLastOrderId}`,
+            );
+            // console.log(getOrderIdStatus);
+            setStepOrder(getOrderIdStatus?.data?.order);
+            setOrderId(getLastOrderId);
+            setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+          }
         }
       } else {
         // console.log('waiting');
@@ -269,7 +273,7 @@ function ChatRoom() {
                       getOrderStatus === 'cancelled' ? (
                         <div>
                           <label
-                            htmlFor="specialRequirement-modal"
+                            htmlFor="createOrder-modal"
                             className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
                             role="button"
                           >
@@ -278,12 +282,12 @@ function ChatRoom() {
 
                           <input
                             type="checkbox"
-                            id="specialRequirement-modal"
+                            id="createOrder-modal"
                             className="modal-toggle"
                           />
 
                           <div className="modal w-full h-full">
-                            <div className="modal-box">
+                            <div className="modal-box  w-full h-full">
                               <CreateOrder
                                 currentChat={currentChat}
                                 socket={socket}
@@ -362,7 +366,7 @@ function ChatRoom() {
                 </div>
               ) : (
                 <div className=" col-span-2 border-x">
-                  <div className="px-8 py-6 flex flex-col text-chat-quotation font-semibold  items-center px-4">
+                  <div className=" py-6 flex flex-col text-chat-quotation font-semibold  items-center px-4">
                     <h5>John Doe</h5>
                     <div>#01234567PP</div>
                   </div>
@@ -540,7 +544,7 @@ function ChatRoom() {
               {/* --------------- History Chat -------------- */}
               {/* <div className="flex flex-col gap-8 justify-center items-center overflow-auto p-8"> */}
 
-              <div className="text-base p-4 w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
+              <div className="text-base w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
                 Lorem Ipsum has been the industry's standard dummy text ever
                 since the 1500s, Lorem Ipsum has been the industry's standard
                 dummy text ever since the 1500s

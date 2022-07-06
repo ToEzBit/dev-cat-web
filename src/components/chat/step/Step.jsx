@@ -38,7 +38,7 @@ export default function Step({ order }) {
 
   const [currentValue, setCurrentValue] = useState(0);
 
-  console.log(order?.paymentStatus);
+  // console.log(order?.paymentStatus);
   useEffect(() => {
     if (order?.paymentStatus === 'awaitingPayment') {
       setCurrentValue(3);
@@ -58,7 +58,7 @@ export default function Step({ order }) {
   }, [order]);
 
   const setColorPrimary = (value) => {
-    console.log(currentValue);
+    // console.log(currentValue);
     return `${value < currentValue ? 'step step-primary flex' : 'step'}`;
   };
 
