@@ -10,11 +10,13 @@ export default function Step({ order }) {
   const [currentValue, setCurrentValue] = useState(0);
 
   console.log(order?.paymentStatus);
+  console.log(order?.status);
+
   useEffect(() => {
     if (order?.paymentStatus === 'awaitingPayment') {
       setCurrentValue(3);
     } else if (
-      order?.paymentStatus === 'Received' &&
+      order?.paymentStatus === 'paymentReceived' &&
       order?.status === 'pending'
     ) {
       console.log('test2');
