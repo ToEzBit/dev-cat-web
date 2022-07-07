@@ -81,7 +81,8 @@ function LoginForm() {
 
         <div className="card-body">
           <div className="flex justify-between">
-            <h2 className="card-title mx-auto">DevCats</h2>
+            {tab ? <h2 className="card-title ml-28">DevCats</h2> : null}
+            {tab ? null : <h2 className="card-title ml-28">Developer</h2>}
 
             <a href="/" className="btn btn-ghost text-red-600">
               <svg
