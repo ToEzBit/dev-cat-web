@@ -3,15 +3,14 @@ import { useLocation } from 'react-router-dom';
 
 function StepTab() {
   const location = useLocation();
-  console.log(location.pathname);
   return (
-    <div className="max-w-screen-lg mx-auto mt-8">
+    <div className="max-w-screen-lg mx-auto">
       <ul className="stepper" data-mdb-stepper="stepper">
         <li className="stepper-step ">
-          <div className="stepper-head hover:bg-white">
+          <div className="stepper-head ">
             {location.pathname === '/create-product/1' ? (
               <span
-                className="stepper-head-icon"
+                className="stepper-head-icon "
                 style={{ backgroundColor: '#7879F1' }}
               >
                 1

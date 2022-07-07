@@ -23,7 +23,7 @@ function Navbar() {
       </div> */}
       {/* ========================================= right side =============================================== */}
 
-      <div className="navbar flex gap-4 justify-between md:justify-between max-w-screen-2xl mx-auto items-center  bg-transparent">
+      <div className="navbar flex gap-4 justify-between md:justify-between px-20 max-w-screen-2xl mx-auto items-center  bg-transparent">
         <div className="flex justify-center">
           <div className="dropdown md:hidden">
             <label tabIndex="0" className="btn btn-ghost btn-circle">
