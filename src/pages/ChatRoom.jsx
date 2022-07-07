@@ -24,31 +24,23 @@ function ChatRoom() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [friendId, setFriendId] = useState(null);
   const [getOrderId, setGetOrderId] = useState(null);
-  const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   const [getOrderStatus, setGetOrderStatus] = useState(null);
   const [getOrderPaymentStatus, setGetOrderPaymentStatus] = useState(null);
   const [orderId, setOrderId] = useState(null);
   const [fetchOrder, setFetchOrder] = useState(false);
-  const [orderId1, setOrderId1] = useState(null);
-  // const [notification, setNotification] = useState(false);
-  //socket io
 
   const [currentValue, setCurrentValue] = useState(0);
 
   const [stepOrder, setStepOrder] = useState({});
   const socket = useRef();
-  //inputChat
   const [newMessages, setNewMessages] = useState('');
   const [arrivalMessage, setArrivalMessage] = useState([]);
   const scrollRef = useRef();
-  //Online user
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState([]);
-  //notification
-  // const [notification, setNotification] = useState(false);
-  const [currentChatroom, setCurrentChatroom] = useState(undefined);
+
+  const [interlocutor, setInterlocutor] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -212,9 +204,27 @@ function ChatRoom() {
     getOrderStatus();
   }, [currentChat, getOrderStatus, orderId, fetchOrder]);
 
+  useEffect(() => {
+    const res = async () => {
+      if (currentChat) {
+        const receiverId =
+          currentChat.senderId !== ctx.clientChat.id
+            ? currentChat.senderId
+            : currentChat.receiverId;
+        if (receiverId % 2 === 0) {
+          const res = await axios.get(`/user/${receiverId}`);
+          setInterlocutor(res.data.user);
+        } else {
+          const res = await axios.get(`/dev/${receiverId}`);
+          setInterlocutor(res.data.dev);
+        }
+      }
+    };
+    res();
+  }, [currentChat]);
+
   return (
     <>
-      {' '}
       {loading ? (
         <div></div>
       ) : (
@@ -249,8 +259,7 @@ function ChatRoom() {
                   <div className="px-8 py-6 ">
                     <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
                       <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
-                        <h5>John Doe</h5>
-                        <div>#01234567PP</div>
+                        <h5>{interlocutor?.username}</h5>
                       </div>
                       {getOrderStatus === null ||
                       getOrderStatus === 'completed' ||
@@ -359,8 +368,7 @@ function ChatRoom() {
               ) : (
                 <div className=" col-span-2 border-x">
                   <div className=" py-6 flex flex-col text-chat-quotation font-semibold  items-center px-4">
-                    <h5>John Doe</h5>
-                    <div>#01234567PP</div>
+                    <h5>{interlocutor?.username}</h5>
                   </div>
                 </div>
               )}
@@ -468,11 +476,13 @@ function ChatRoom() {
                             <Confirmation
                               array={messages}
                               currentChat={currentChat}
-                              getOrderId={orderId}
+                              getOrderId={getOrderId}
                               message={m}
                               own={m.sender === ctx.clientChat.id}
                               currentUser={ctx.clientChat}
                               getOrderStatus={getOrderStatus}
+                              orderId={orderId}
+                              setFetchOrder={setFetchOrder}
                             />
                           </div>
                         );
@@ -524,7 +534,6 @@ function ChatRoom() {
                 </>
               ) : (
                 <div className=" text-6xl text-center p-24 opacity-20 ">
-                  {' '}
                   Open a conversation to start a chat
                 </div>
               )}

@@ -116,6 +116,11 @@ function InputChat({
     }
   };
 
+  const onKeyPressEnter = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e);
+    }
+  };
   return (
     <div>
       <div className="flex input-bordered border rounded-xl p-2 mx-4 items-center gap-4  shadow-2xl shadow-bg-home-content">
@@ -135,6 +140,7 @@ function InputChat({
             className=" h-8 input"
             onChange={(e) => setNewMessages(e.target.value)}
             value={newMessages}
+            onKeyPress={onKeyPressEnter}
           />
         </div>
         <div className="flex relative gap-2 ">
