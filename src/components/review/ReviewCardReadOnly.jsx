@@ -34,9 +34,9 @@ export default function ReviewCardReadOnly({
   const { user } = useAuth();
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <div className="flex justify-between items-center">
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-4 items-center">
           <div className="w-2/12 ">
             {isAnonymous ? (
               <img src={AnonymousProfilePic} alt="" className="w-[200px]" />

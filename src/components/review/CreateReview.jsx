@@ -29,7 +29,7 @@ export default function CreateReview({ name, setProductByIDRender }) {
   };
 
   return (
-    <div className="w-full shadow-sm rounded-lg bg-white">
+    <div className="w-full shadow-sm rounded-lg bg-white px-8 py-4">
       <div className="w-full h-30 m-2 flex">
         <div className="flex justify-between">
           <div className=" flex justify-start gap-3 items-center ">
@@ -102,7 +102,7 @@ export default function CreateReview({ name, setProductByIDRender }) {
       <textarea
         id="productReview"
         name="productReview"
-        className="w-full  border border-indigo-50"
+        className="w-full  border border-indigo-50 rounded-lg px-4 py-2 duration-300 placeholder:text-chat-quotation"
         typeof="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
@@ -112,7 +112,7 @@ export default function CreateReview({ name, setProductByIDRender }) {
         {createReviewError && <span>{createReviewError}</span>}
 
         <button
-          className="btn btn-outline btn-info btn-sm mx-2 mb-1"
+          className="btn hover:bg-chat-quotation duration-300 btn-info btn-xs px-8 pt-3  pb-6 flex justify-center items-center  bg-chat border-none  text-white"
           onClick={() => handleCreateReview()}
         >
           Submit

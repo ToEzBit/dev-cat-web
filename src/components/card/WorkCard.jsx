@@ -6,6 +6,7 @@ function WorkCard({ workcard, devId }) {
   const numberWithCommas = (x) => {
     return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
+  // console.log(workcard);
 
   let minPriceOfPackage;
   if (workcard?.Packages) {

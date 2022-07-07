@@ -6,7 +6,7 @@ function Pagination({ currentPage, setCurrentPage, pageNumber }) {
   for (let i = 0; i < Math.ceil(pageNumber); i++) {
     pagination.push(
       <button
-        className={`btn btn-ghost ${
+        className={`btn btn-ghost  ${
           currentPage === i + 1 ? 'text-indigo-500' : ''
         }`}
         onClick={() => setCurrentPage(i + 1)}
@@ -19,7 +19,7 @@ function Pagination({ currentPage, setCurrentPage, pageNumber }) {
   const nextPage = currentPage + 1;
   const prevPage = currentPage - 1;
   return (
-    <div className="btn-group btn-ghost my-8 mx-auto">
+    <div className="btn-group duration-700 btn-ghost my-8 mx-auto rounded-xl">
       <button
         className={`btn btn-ghost ${currentPage === 1 && 'btn-disabled'}`}
         onClick={() => setCurrentPage(1)}
