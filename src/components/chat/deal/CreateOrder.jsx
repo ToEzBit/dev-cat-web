@@ -12,6 +12,7 @@ export default function CreateOrder({
   setMessages,
   setNewMessages,
   messages,
+  setFetchOrder,
 }) {
   const { setOrderId, orderId } = useOrder();
   const ctx = useAuth();
@@ -52,9 +53,6 @@ export default function CreateOrder({
   //   console.log(ctx?.clientChat);
 
   const handleCreateOrder = async () => {
-    const productId = selectedProduct.id;
-    const packageId = selectedPackage.id;
-
     const receiverId =
       currentChat?.senderId === ctx?.clientChat?.id
         ? currentChat?.receiverId
@@ -84,6 +82,9 @@ export default function CreateOrder({
     try {
       const res = await axios.post('/messages', message);
       setMessages([...messages, res.data]);
+      setFetchOrder((prev) => !prev);
+      setSelectedProduct(null);
+      setSelectedPackage(null);
       setNewMessages('');
       setOrderId('');
     } catch (err) {

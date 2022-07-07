@@ -7,12 +7,6 @@ export default function Step({ order, currentValue, setCurrentValue }) {
     return DateTime.fromISO(dateTime).toFormat('dd/LLL/yy');
   };
 
-<<<<<<< HEAD
-  const [currentValue, setCurrentValue] = useState(0);
-
-  // console.log(order?.paymentStatus);
-=======
->>>>>>> dev
   useEffect(() => {
     if (order?.paymentStatus === 'awaitingPayment') {
       setCurrentValue(3);

@@ -13,9 +13,8 @@ const stripePromise = loadStripe(
   'pk_test_51LGO25J0De5S2BwxtNSp0yGpXK7bRGe475uYsBdLccGVPbf7zDtQMTSHHUBQLoGJMRphPubYQf7deuIyVtls5Dw900ZacHe3vj',
 );
 
-export default function CheckoutPage({ orderId }) {
+export default function CheckoutPage() {
   const { orderId } = useParams();
-  console.log(orderId);
   const [clientSecret, setClientSecret] = useState('');
   const { user } = useAuth();
 

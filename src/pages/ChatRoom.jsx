@@ -53,20 +53,6 @@ function ChatRoom() {
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  // console.log(getOrderId);
-
-  // useEffect(() => {
-  //   const getOrder = async () => {
-  //     try {
-  //       const res = await axios.get('/user/order/' + selectedOrder);
-  //       setSelectedOrder(res.data.orders);
-  //       // console.log(selectedOrder);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getOrder();
-  // }, [selectedOrder]);
 
   useEffect(() => {
     const getOrder = async () => {
@@ -74,7 +60,7 @@ function ChatRoom() {
         if (ctx.user) {
           // setClientChat(res?.data?.user);
           const res = await axios.get('/user/orders/');
-          setGetOrderId(res.data);
+          setGetOrderId(res?.data?.orders);
         }
         if (ctx.dev) {
           const resDev = await axios.get('/dev/orders/');
@@ -85,7 +71,7 @@ function ChatRoom() {
       }
     };
     getOrder();
-  }, [ctx?.clientChat?.id]);
+  }, [ctx?.clientChat?.id, fetchOrder]);
 
   useEffect(() => {
     socket.current = io('ws://103.74.253.125:8080');
@@ -178,54 +164,49 @@ function ChatRoom() {
 
   useEffect(() => {
     const getOrderStatus = async () => {
-      console.log(currentChat);
-      // console.log(currentChat.Chats.length);
-      if (currentChat.Chats.length !== 0) {
-        var allOrderId = currentChat?.Chats?.filter((e) => {
-          // console.log(currentChat?.Chats);
-          let arrayOrderId = e?.message?.startsWith('order: ');
-          // console.log(arrayOrderId);
-          return arrayOrderId;
-        });
-        // var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
-        const lastIndexAllOrderId = allOrderId.length - 1;
-        var getLastOrderId = allOrderId[lastIndexAllOrderId]?.message?.replace(
-          'order: ',
-          '',
-        );
-        // console.log(findLastArrAllOrderIdIndex);
-        // console.log(ctx.clientChat);
+      if (currentChat) {
+        if (currentChat.Chats.length !== 0) {
+          var allOrderId = currentChat?.Chats?.filter((e) => {
+            let arrayOrderId = e?.message?.startsWith('order: ');
+            return arrayOrderId;
+          });
+          const lastIndexAllOrderId = allOrderId.length - 1;
+          var getLastOrderId = allOrderId[
+            lastIndexAllOrderId
+          ]?.message?.replace('order: ', '');
 
-        if (ctx.user) {
-          if (getLastOrderId) {
-            const getOrderIdStatus = await axios.get(
-              `/user/order/${getLastOrderId}`,
-            );
-            setStepOrder(getOrderIdStatus?.data?.order);
-            setOrderId(getLastOrderId);
-            setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
-            setGetOrderPaymentStatus(getOrderIdStatus.data.order.paymentStatus);
+          if (ctx.user) {
+            if (getLastOrderId) {
+              const getOrderIdStatus = await axios.get(
+                `/user/order/${getLastOrderId}`,
+              );
+              setStepOrder(getOrderIdStatus?.data?.order);
+              setOrderId(getLastOrderId);
+              setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+              setGetOrderPaymentStatus(
+                getOrderIdStatus.data.order.paymentStatus,
+              );
+            }
           }
-          // console.log(getOrderIdStatus);
-        }
-        if (ctx.dev) {
-          if (getLastOrderId) {
-            const getOrderIdStatus = await axios.get(
-              `/dev/order/${getLastOrderId}`,
-            );
-            // console.log(getOrderIdStatus);
-            setStepOrder(getOrderIdStatus?.data?.order);
-            setOrderId(getLastOrderId);
-            setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
-            setGetOrderPaymentStatus(getOrderIdStatus.data.order.paymentStatus);
+          if (ctx.dev) {
+            if (getLastOrderId) {
+              const getOrderIdStatus = await axios.get(
+                `/dev/order/${getLastOrderId}`,
+              );
+              setStepOrder(getOrderIdStatus?.data?.order);
+              setOrderId(getLastOrderId);
+              setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+              setGetOrderPaymentStatus(
+                getOrderIdStatus.data.order.paymentStatus,
+              );
+            }
           }
+        } else {
+          setGetOrderStatus(null);
+          setStepOrder({});
+          setCurrentValue(0);
+          setOrderId(null);
         }
-      } else {
-        setGetOrderStatus(null);
-        setStepOrder({});
-        setCurrentValue(0);
-        setOrderId(null);
-        // console.log('waiting');
       }
     };
     getOrderStatus();
@@ -299,6 +280,7 @@ function ChatRoom() {
                                     setMessages={setMessages}
                                     setNewMessages={setNewMessages}
                                     messages={messages}
+                                    setFetchOrder={setFetchOrder}
                                   />
                                 </div>
                               </div>
@@ -461,6 +443,9 @@ function ChatRoom() {
                               setSelectedOrder={setSelectedOrder}
                               selectedOrder={selectedOrder}
                               getOrderId={getOrderId}
+                              getOrderStatus={getOrderStatus}
+                              orderId={orderId}
+                              setFetchOrder={setFetchOrder}
                             />
                           </div>
                         );

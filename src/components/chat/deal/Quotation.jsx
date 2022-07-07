@@ -18,14 +18,16 @@ function Quotation({
   selectedOrder,
   getOrderId,
   getOrderPaymentStatus,
+  getOrderStatus,
+  orderId,
+  setFetchOrder,
 }) {
-  const { orderId } = useOrder();
+  // console.log(orderId);
+
   const [order, setOrder] = useState([]);
 
   const navigate = useNavigate();
-  const [isClicked, setIsClicked] = useState(false);
 
-  // const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const ctx = useAuth();
 
@@ -35,7 +37,6 @@ function Quotation({
     const friendId = array.filter((e) => {
       return e.sender !== ctx.clientChat.id;
     });
-    // console.log(friendId);
 
     const getUser = async () => {
       try {
@@ -82,10 +83,12 @@ function Quotation({
   const currentQuotation = getOrderId?.filter((el) => el.id == +ret);
   const handleCancel = async () => {
     await updateOrderStatus({ status: 'cancelled' }, +ret);
+    setFetchOrder((prev) => !prev);
   };
 
-  // console.log(selectedOrder);
+  // console.log(currentQuotation);
 
+  // console.log(selectedOrder);
   return (
     <div>
       {own ? (
@@ -101,17 +104,27 @@ function Quotation({
                   <div className="text-white">
                     {currentQuotation[0]?.Product?.title}
                   </div>
-                  <div className="grid grid-cols-2 gap-4 px-4">
-                    <Link
-                      to={`/product/${order?.Product?.id}`}
-                      className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
-                    >
-                      View Detail
-                    </Link>
-                    <button className="border p-2 rounded-lg bg-white text-chat border-bg-home-content">
-                      Cancel
-                    </button>
-                  </div>
+                  {currentQuotation[0]?.status === 'cancelled' ? (
+                    <p className="text-center">This order is canceled</p>
+                  ) : (
+                    <>
+                      <div className="grid grid-cols-2 gap-4 px-4">
+                        <Link
+                          to={`/product/${order?.Product?.id}`}
+                          className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
+                          target="_blank"
+                        >
+                          View Detail
+                        </Link>
+                        <button
+                          className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
+                          onClick={handleCancel}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="avatar">
@@ -144,41 +157,51 @@ function Quotation({
         </>
       ) : (
         <div className="flex justify-end gap-4">
-          <div className="flex flex-col gap-2 ">
+          <div className="flex flex-row-reverse items-end gap-2 ">
             <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
               <div className="flex justify-between items-baseline px-4">
                 <h5>{message.message}</h5>
                 <div>{`${order?.totalPrice} BATH`}</div>
-                <div>{currentQuotation[0]?.totalPrice} BAHT</div>
               </div>
               <div className="text-chat-quotation">
                 {currentQuotation[0]?.Product.title}
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
-                <Link
-                  to={`/product/${order?.Product?.id}`}
-                  className="border p-2 rounded-lg border-bg-home-content"
-                >
-                  View Detail
-                </Link>
-                {getOrderPaymentStatus !== 'paymentReceived' ? (
-                  <button
-                    className="border p-2 rounded-lg border-bg-home-content"
-                    onClick={() => navigate(`/checkout-page/${order.id}`)}
-                  >
-                    Pay Now!
-                  </button>
+                {currentQuotation[0]?.status === 'cancelled' ? (
+                  <p className="text-center">This order is canceled</p>
                 ) : (
-                  <p className="border p-2 rounded-lg border-bg-home-content">
-                    payment received
-                  </p>
+                  <>
+                    <Link
+                      to={`/product/${order?.Product?.id}`}
+                      className="border p-2 rounded-lg border-bg-home-content"
+                      target="_blank"
+                    >
+                      View Detail
+                    </Link>
+                    {getOrderPaymentStatus !== 'paymentReceived' ? (
+                      <button
+                        className="border p-2 rounded-lg border-bg-home-content"
+                        onClick={() => navigate(`/checkout-page/${order.id}`)}
+                      >
+                        Pay Now!
+                      </button>
+                    ) : (
+                      <p className="border p-2 rounded-lg border-bg-home-content">
+                        payment received
+                      </p>
+                    )}
+                  </>
                 )}
               </div>
               <div className="text-xs text-slate-400">8.00 PM</div>
             </div>
             <div className="avatar ">
-              <div className="w-14 rounded-full ">
-                <img src={user?.profileImage || ProfilePic} alt="" />
+              <div className="w-16 h-16 rounded-full bg-gray-800 ">
+                <img
+                  src={user?.profileImage || ProfilePic}
+                  alt=""
+                  className="object-contain"
+                />
               </div>
             </div>
           </div>
