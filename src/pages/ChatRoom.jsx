@@ -39,6 +39,7 @@ function ChatRoom() {
   const scrollRef = useRef();
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState([]);
+  const [getDevProfile, setGetDevProfile] = useState({});
 
   const [interlocutor, setInterlocutor] = useState(null);
 
@@ -223,6 +224,17 @@ function ChatRoom() {
     res();
   }, [currentChat]);
 
+  useEffect(() => {
+    const res = async () => {
+      if (currentChat) {
+        const res = await axios.get(`/dev/${currentChat.receiverId}`);
+        setGetDevProfile(res.data.dev);
+        console.log(getDevProfile);
+      }
+    };
+    res();
+  }, [currentChat]);
+
   return (
     <>
       {loading ? (
@@ -241,16 +253,20 @@ function ChatRoom() {
               <div className="col-span-1">
                 <div className="px-8 py-6 ">
                   <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
-                    <div className="form-control col-span-2 ">
-                      <input
+                    <div className="form-control col-span-2 py-1">
+                      Conversation
+                      {/* <input
                         type="text"
                         placeholder="Search"
                         className=" h-8 input   input-bordered   shadow-2xl shadow-bg-home-content"
-                      />
+                      /> */}
                     </div>
-                    <button className=" p-1 px-4 text-slate-400 rounded-lg bg-white">
-                      Sort
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <div className="  text-slate-400 rounded-lg bg-white">
+                        Status:
+                      </div>
+                      <div className=" font-semibold  text-chat">Active</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -539,7 +555,7 @@ function ChatRoom() {
               )}
             </div>
             {/* ============================================ Chat Right  ===================================================== */}
-            <div className=" col-span-1 flex flex-col  overflow-auto p-4 h-full  gap-4">
+            <div className=" col-span-1 flex flex-col  overflow-auto px-10 py-6 h-full   gap-4">
               {/* <div className="px-8 py-6 border-y ">
             <div className="grid grid-cols-2 justify-center gap-4 w-full items-center">
               <div className="">
@@ -570,13 +586,19 @@ function ChatRoom() {
 
               {/* --------------- Dev profile -------------- */}
 
-              <div className="flex p-4 items-center gap-4">
-                <div className="w-12 rounded-full">
-                  <img src={ProfilePic} alt="" />
-                </div>
-                <div className="flex flex-col gap-2">
+              <div className="flex pt-4 items-center gap-4">
+                <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+                  <div className="w-12 rounded-full">
+                    <img
+                      src={getDevProfile.profileImage || ProfilePic}
+                      alt=""
+                    />
+                  </div>
+                </label>
+
+                <div className="flex flex-col gap-1">
                   <div className=" text-chat rounded-lg  border-stroke">
-                    John Doe
+                    {getDevProfile.firstName} {getDevProfile.lastName}
                   </div>
                   <div className="text-xs text-stroke">
                     Give feedback or Report this profile
