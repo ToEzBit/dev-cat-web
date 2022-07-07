@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/navbars/Navbar';
 import Workcard from '../components/card/WorkCard';
 import FilterResultPageDropDown from '../components/filter/FilterResultPageDropDown';
@@ -17,27 +17,40 @@ AOS.init();
 
 function ResultPage() {
   const [currentPage, setCurrentPage] = useState(1);
-
   const [products, setProducts] = useState([]);
   const [LowerBoundPrice, setLowerBoundPrice] = useState(1);
   const [upperBoundPrice, setUpperBoundPrice] = useState(100000);
   const [rating, setRating] = useState(null);
   const [order, setOrder] = useState(false);
 
+  const { filterMethod } = useParams();
+
   useEffect(() => {
     const run = async () => {
       const res = await getAllProducts();
       const fetchProducts = res.data.products;
-      setProducts(fetchProducts);
+
+      switch (filterMethod) {
+        case 'mobile':
+          setProducts(fetchProducts.filter((el) => el.category === 'mobile'));
+          break;
+        case 'web':
+          setProducts(fetchProducts.filter((el) => el.category === 'web'));
+          break;
+        default:
+          setProducts(fetchProducts);
+          break;
+      }
+      // setProducts(fetchProducts);
     };
     try {
       run();
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [filterMethod]);
 
-  const productArr = products.reduce((acc, curr) => {
+  const productArr = products?.reduce((acc, curr) => {
     const {
       id,
       title,
@@ -82,8 +95,6 @@ function ResultPage() {
     (el) => el.minPrice > LowerBoundPrice && el.maxPrice < upperBoundPrice,
   );
 
-  console.log(filteredPrice);
-
   const filteredRating = filteredPrice.filter((el) => {
     if (!el.avgReview) {
       return false;
@@ -116,15 +127,30 @@ function ResultPage() {
       <Navbar />
       <div className="flex flex-col items-center max-w-screen-xl mx-auto">
         <div className="flex w-3/6 justify-between my-8">
-          <a href="/" className="font-medium">
+          <Link
+            to="/result/mobile"
+            className={`font-medium ${
+              filterMethod === 'mobile' ? 'text-text-btn' : ''
+            }`}
+          >
             Mobile Application
-          </a>
-          <a href="/" className="text-text-btn font-medium">
+          </Link>
+          <Link
+            to="/result/all"
+            className={`font-medium ${
+              filterMethod === 'all' ? 'text-text-btn' : ''
+            }`}
+          >
             All Types
-          </a>
-          <a href="/" className="font-medium">
+          </Link>
+          <Link
+            to="/result/desktop"
+            className={`font-medium ${
+              filterMethod === 'desktop' ? 'text-text-btn' : ''
+            }`}
+          >
             Desktop Website
-          </a>
+          </Link>
         </div>
         {/* ==================== carousel ==================== */}
         <div className="w-4/5 flex flex-col gap-6" data-aos="flip-left">
