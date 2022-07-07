@@ -4,8 +4,10 @@ import AnonymousProfilePic from '../../asset/image/AnonymousProfilePic.png';
 import Rating from './Rating';
 import { useProduct } from '../../contexts/ProductContext';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function CreateReview({ name, setProductByIDRender }) {
+  const { user } = useAuth();
   const { productId } = useParams();
   const { handleCreateProductReview } = useProduct();
   const [rate, setRate] = useState(4);
@@ -23,7 +25,7 @@ export default function CreateReview({ name, setProductByIDRender }) {
       );
     }
     await handleCreateProductReview({ rate, message, isAnonymous }, productId);
-    setRate(5);
+    setRate(4);
     setProductByIDRender((prev) => !prev);
     setMessage('');
   };
@@ -35,7 +37,7 @@ export default function CreateReview({ name, setProductByIDRender }) {
           <div className=" flex justify-start gap-3 items-center ">
             <div className="w-10">
               <img
-                src={isAnonymous ? AnonymousProfilePic : ProfilePic}
+                src={isAnonymous ? AnonymousProfilePic : user?.profileImage}
                 alt=""
               />
             </div>
@@ -73,7 +75,9 @@ export default function CreateReview({ name, setProductByIDRender }) {
                   onClick={() => setIsAnonymous(!isAnonymous)}
                   className="flex gap-2 items-center"
                 >
-                  {name}
+                  {user?.firstName
+                    ? `${user?.firstName + user?.lastName}`
+                    : user?.username}
                   <button>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
