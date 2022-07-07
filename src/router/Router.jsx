@@ -24,12 +24,11 @@ import Step4 from '../components/step/Step4';
 import Step5 from '../components/step/Step5';
 import UpdateOrder from '../components/chat/deal/UpdateOrder';
 import Confirmation from '../components/chat/deal/Confirmation';
-
 export default function Router() {
   return (
     <Routes>
       <Route path="/home" element={<HomePage />} />
-      <Route path="/result" element={<ResultPage />} />
+      <Route path="/result/:filterMethod" element={<ResultPage />} />
 
       <Route path="/create-product" element={<CreateProductPage />}>
         <Route path="1" element={<Step1 />} />
