@@ -8,6 +8,7 @@ import CarouselSecondary from '../components/carousel/CarouselSecondary';
 import Pagination from '../components/pagination/Pagination';
 import { useEffect } from 'react';
 import { getAllProducts } from '../api/product';
+import CarouselLanding from '../components/carousel/CarouselLanding';
 
 function ResultPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -103,7 +104,7 @@ function ResultPage() {
   return (
     <div className="flex flex-col gap-30 w-screen">
       <Navbar />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center max-w-screen-xl mx-auto">
         <div className="flex w-3/6 justify-between my-8">
           <a href="/" className="font-medium">
             Mobile Application
@@ -117,7 +118,7 @@ function ResultPage() {
         </div>
         {/* ==================== carousel ==================== */}
         <div className="w-4/5 flex flex-col gap-6">
-          <CarouselSecondary />
+          <CarouselLanding width={'1024px'} />
           {/* </div> */}
 
           {/* ==================== filter bar ==================== */}

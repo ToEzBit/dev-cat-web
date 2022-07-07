@@ -19,6 +19,7 @@ import { useProduct } from '../contexts/ProductContext';
 
 import Typewriters from '../components/typewriter/Typewriters';
 import CarouselLanding from '../components/carousel/CarouselLanding';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
   const ctx = useAuth();
@@ -211,45 +212,60 @@ function HomePage() {
           <div className="  flex flex-col gap-16">
             <div className=" flex flex-col gap-8">
               <div className=" flex gap-4 justify-between w-full text-center ">
-                <Cards pic={phone} bgpic={phone} type={'Mobile Application'} />
-                <Cards pic={laptop} bgpic={laptop} type={'Website Developer'} />
+                <Link to="/result">
+                  <Cards
+                    pic={phone}
+                    bgpic={phone}
+                    type={'Mobile Application'}
+                  />
+                </Link>
+                <Link to="/result">
+                  <Cards
+                    pic={laptop}
+                    bgpic={laptop}
+                    type={'Website Developer'}
+                  />
+                </Link>
               </div>
-              <div className=" hover:scale-110 duration-300 group card bg-base-100 shadow-xl image-full">
-                <figure className="gap-8">
-                  <img
-                    src={Alltype2}
-                    className="bg-contain h-36 w-48"
-                    alt="Shoes"
-                  />
-                  <img
-                    src={Alltype3}
-                    className="bg-contain h-36 w-48"
-                    alt="Shoes"
-                  />
-                  <img
-                    src={AlltypeHome}
-                    className="bg-contain h-48 w-48"
-                    alt="Shoes"
-                  />
-                  <img
-                    src={Alltype4}
-                    className="bg-contain h-48 w-48"
-                    alt="Shoes"
-                  />
-                  <img
-                    src={Alltype5}
-                    className="bg-contain h-48 w-48"
-                    alt="Shoes"
-                  />
-                </figure>
-                <div className="card-body items-center gap-4">
-                  <h2 className="card-title text-center mt-8">All Type</h2>
-                  <p>Mobile Application and Website Developer</p>
-                  {/* <div className="card-actions justify-end">
+              <Link to="/result">
+                <div className=" hover:scale-110 duration-300 group card bg-base-100 shadow-xl image-full">
+                  <figure className="gap-8">
+                    <img
+                      src={Alltype2}
+                      className="bg-contain h-36 w-48"
+                      alt="Shoes"
+                    />
+                    <img
+                      src={Alltype3}
+                      className="bg-contain h-36 w-48"
+                      alt="Shoes"
+                    />
+                    <img
+                      src={AlltypeHome}
+                      className="bg-contain h-48 w-48"
+                      alt="Shoes"
+                    />
+                    <img
+                      src={Alltype4}
+                      className="bg-contain h-48 w-48"
+                      alt="Shoes"
+                    />
+                    <img
+                      src={Alltype5}
+                      className="bg-contain h-48 w-48"
+                      alt="Shoes"
+                    />
+                  </figure>
+
+                  <div className="card-body items-center gap-4">
+                    <h2 className="card-title text-center mt-8">All Type</h2>
+                    <p>Mobile Application and Website Developer</p>
+                    {/* <div className="card-actions justify-end">
                     <button className="btn btn-primary">Buy Now</button>
                   </div> */}
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
             <div className=" flex flex-col gap-4 text-center">
               <h3 className="text-text-orange">
