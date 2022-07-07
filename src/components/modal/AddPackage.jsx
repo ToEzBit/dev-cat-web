@@ -36,7 +36,6 @@ function AddPackage({
       setErrInfo('Info is required');
     }
     if (packagePrice === '') {
-      console.log('first');
       setErrPrice('Price is required');
     }
     if (packageDuration === '') {

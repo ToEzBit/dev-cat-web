@@ -329,7 +329,7 @@ function HomePage() {
             <div className="flex flex-col gap-4">
               <h5>Popular Mobile</h5>
               <div className="grid gap-4 grid-cols-4">
-                {console.log(productArr)}
+                {/* {console.log(productArr)} */}
                 {productArr
                   .map((e, index) => {
                     console.log(e?.category === 'mobile');

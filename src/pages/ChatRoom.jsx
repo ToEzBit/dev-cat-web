@@ -17,6 +17,8 @@ import SpecialRequirement from '../components/modal/SpecialRequirement';
 import SendImage from '../components/chat/conversation/SendImage';
 import Step from '../components/chat/step/Step';
 import CreateOrder from '../components/chat/deal/CreateOrder';
+import OrderDetails from '../components/chat/deal/OrderDetails';
+import { current } from 'daisyui/src/colors';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -24,11 +26,14 @@ function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [friendId, setFriendId] = useState(null);
   const [getOrderId, setGetOrderId] = useState(null);
+  const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   const [getOrderStatus, setGetOrderStatus] = useState(null);
   const [orderId, setOrderId] = useState(null);
   const [orderId1, setOrderId1] = useState(null);
   // const [notification, setNotification] = useState(false);
   //socket io
+
+  const [currentValue, setCurrentValue] = useState(0);
 
   const [stepOrder, setStepOrder] = useState({});
   const socket = useRef();
@@ -41,23 +46,25 @@ function ChatRoom() {
   const [selectedOrder, setSelectedOrder] = useState([]);
   //notification
   // const [notification, setNotification] = useState(false);
+  const [currentChatroom, setCurrentChatroom] = useState(undefined);
 
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
+  // console.log(getOrderId);
 
-  useEffect(() => {
-    const getOrder = async () => {
-      try {
-        const res = await axios.get('/user/order/' + selectedOrder);
-        setSelectedOrder(res.data.orders);
-        // console.log(selectedOrder);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getOrder();
-  }, [selectedOrder]);
+  // useEffect(() => {
+  //   const getOrder = async () => {
+  //     try {
+  //       const res = await axios.get('/user/order/' + selectedOrder);
+  //       setSelectedOrder(res.data.orders);
+  //       // console.log(selectedOrder);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getOrder();
+  // }, [selectedOrder]);
 
   useEffect(() => {
     const getOrder = async () => {
@@ -65,10 +72,11 @@ function ChatRoom() {
         if (ctx?.clientChat?.id % 2 === 0) {
           // setClientChat(res?.data?.user);
           const res = await axios.get('/user/orders/');
-          setGetOrderId(res.data);
+          setGetOrderId(res?.data?.orders);
+          // console.log(getOrderId);
         } else {
           const resDev = await axios.get('/dev/orders/');
-          setGetOrderId(resDev.data);
+          setGetOrderId(resDev?.data?.orders);
         }
       } catch (err) {
         console.log(err);
@@ -109,6 +117,7 @@ function ChatRoom() {
     const getConversations = async () => {
       try {
         const res = await axios.get('/conversations/' + ctx?.clientChat?.id);
+        // console.log(...res.data);
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
@@ -119,11 +128,13 @@ function ChatRoom() {
     setLoading(false);
   }, [ctx?.clientChat?.id]);
 
+  //onclick = navigate to chatroom/conversationId
   useEffect(() => {
     const getMessages = async () => {
       try {
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
+        // console.logw(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -165,13 +176,17 @@ function ChatRoom() {
 
   useEffect(() => {
     const getOrderStatus = async () => {
-      if (currentChat) {
+      console.log(currentChat);
+      // console.log(currentChat.Chats.length);
+      if (currentChat.Chats.length !== 0) {
         var allOrderId = currentChat?.Chats?.filter((e) => {
+          // console.log(currentChat?.Chats);
           let arrayOrderId = e?.message?.startsWith('order: ');
+          // console.log(arrayOrderId);
           return arrayOrderId;
         });
         var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
-        console.log(ctx.clientChat);
+        // console.log(ctx.clientChat);
 
         if (ctx.clientChat.id % 2 === 0) {
           const getOrderIdStatus = await axios.get(
@@ -191,40 +206,16 @@ function ChatRoom() {
           setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
         }
       } else {
+        setGetOrderStatus(null);
+        setStepOrder({});
+        setCurrentValue(0);
+        setOrderId(null);
         // console.log('waiting');
       }
     };
     getOrderStatus();
   }, [currentChat, getOrderStatus, orderId]);
 
-  // const [currentValue, setCurrentValue] = useState(0);
-
-  // useEffect(() => {
-  //   if (!stepOrder) {
-  //     console.log(stepOrder);
-  //     return;
-  //   }
-
-  //   if (stepOrder?.order?.paymentStatus === 'awaitingPayment') {
-  //     return setCurrentValue(3);
-  //   } else if (
-  //     stepOrder?.order?.paymentStatus === 'Received' &&
-  //     stepOrder?.order?.status === 'pending'
-  //   ) {
-  //     return setCurrentValue(4);
-  //   } else if (
-  //     stepOrder?.order?.startDate &&
-  //     stepOrder?.order?.status !== 'completed'
-  //   ) {
-  //     return setCurrentValue(5);
-  //   } else if (stepOrder?.order?.status === 'completed') {
-  //     return setCurrentValue(6);
-  //   }
-  // }, [stepOrder]);
-
-  // console.log(getOrderStatus);
-
-  // console.log(getOrderStatus);
   return (
     <>
       {' '}
@@ -437,12 +428,16 @@ function ChatRoom() {
                         return (
                           <div key={index} className="" ref={scrollRef}>
                             <Quotation
+                              currentOrder={stepOrder}
                               array={messages}
                               loading={loading}
                               message={m}
                               own={m.sender === ctx.clientChat.id}
                               currentUser={ctx.clientChat}
                               ProfilePic={ProfilePic}
+                              setSelectedOrder={setSelectedOrder}
+                              selectedOrder={selectedOrder}
+                              getOrderId={getOrderId}
                             />
                           </div>
                         );
@@ -542,13 +537,18 @@ function ChatRoom() {
               {/* <div className="flex flex-col gap-8 justify-center items-center overflow-auto p-8"> */}
 
               <div className="text-base p-4 w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
-                Lorem Ipsum has been the industry's standard dummy text ever
+                <OrderDetails order={stepOrder} />
+                {/* Lorem Ipsum has been the industry's standard dummy text ever
                 since the 1500s, Lorem Ipsum has been the industry's standard
-                dummy text ever since the 1500s
+                dummy text ever since the 1500s */}
               </div>
 
               {/* --------------- steps work -------------- */}
-              <Step order={stepOrder} />
+              <Step
+                order={stepOrder}
+                currentValue={currentValue}
+                setCurrentValue={setCurrentValue}
+              />
 
               {/* --------------- Dev profile -------------- */}
 

@@ -88,7 +88,7 @@ export default function ProductPage() {
                 20,
               )}...`}</div>
             </div>
-            {dev && dev.id === product?.Dev?.id ? (
+            {dev && dev?.id == product?.Dev?.id ? (
               <div className="flex justify-end gap-2">
                 <button className="btn btn-outline btn-info btn-sm">
                   Edit
@@ -119,7 +119,7 @@ export default function ProductPage() {
         <div>
           <div className="flex w-full justify-between">
             <p className="text-chat font-semibold">Package</p>
-            {dev && dev?.id === product?.Dev?.id ? (
+            {dev && dev?.id == product?.Dev?.id ? (
               <button className="btn btn-outline btn-info btn-sm">
                 Edit Package
               </button>
