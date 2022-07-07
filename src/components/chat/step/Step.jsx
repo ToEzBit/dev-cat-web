@@ -9,9 +9,6 @@ export default function Step({ order }) {
 
   const [currentValue, setCurrentValue] = useState(0);
 
-  console.log(order?.paymentStatus);
-  console.log(order?.status);
-
   useEffect(() => {
     if (order?.paymentStatus === 'awaitingPayment') {
       setCurrentValue(3);
@@ -19,19 +16,15 @@ export default function Step({ order }) {
       order?.paymentStatus === 'paymentReceived' &&
       order?.status === 'pending'
     ) {
-      console.log('test2');
       setCurrentValue(4);
     } else if (order?.startDate && order?.status !== 'completed') {
-      console.log('test3');
       setCurrentValue(5);
     } else if (order?.status === 'completed') {
-      console.log('test4');
       setCurrentValue(6);
     }
   }, [order]);
 
   const setColorPrimary = (value) => {
-    console.log(currentValue);
     return `${value < currentValue ? 'step step-primary flex' : 'step'}`;
   };
 

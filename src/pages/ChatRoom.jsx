@@ -17,6 +17,7 @@ import SpecialRequirement from '../components/modal/SpecialRequirement';
 import SendImage from '../components/chat/conversation/SendImage';
 import Step from '../components/chat/step/Step';
 import CreateOrder from '../components/chat/deal/CreateOrder';
+import OrderDetails from '../components/chat/deal/OrderDetails';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -48,18 +49,18 @@ function ChatRoom() {
   const ctx = useAuth();
   // console.log(getOrderId);
 
-  useEffect(() => {
-    const getOrder = async () => {
-      try {
-        const res = await axios.get('/user/order/' + selectedOrder);
-        setSelectedOrder(res.data.orders);
-        // console.log(selectedOrder);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getOrder();
-  }, [selectedOrder]);
+  // useEffect(() => {
+  //   const getOrder = async () => {
+  //     try {
+  //       const res = await axios.get('/user/order/' + selectedOrder);
+  //       setSelectedOrder(res.data.orders);
+  //       // console.log(selectedOrder);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getOrder();
+  // }, [selectedOrder]);
 
   useEffect(() => {
     const getOrder = async () => {
@@ -111,11 +112,7 @@ function ChatRoom() {
     setLoading(true);
     const getConversations = async () => {
       try {
-        // const res = await axios.get('/conversations/' + :senderId);
         const res = await axios.get('/conversations/' + ctx?.clientChat?.id);
-        //##############################เปลี่ยน clientChat.id == /:sender
-        // {id: 7,<<< this senderId: 8, receiverId: 9, createdAt: '2022-07-05T08:30:36.000Z', updatedAt: '2022-07-05T08:30:36.000Z', …}
-        // {id: 8, senderId: 6, receiverId: 9, createdAt: '2022-07-05T08:49:27.000Z', updatedAt: '2022-07-05T08:49:27.000Z', …}
         console.log(...res.data);
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
@@ -131,7 +128,6 @@ function ChatRoom() {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        // const res = await axios.get('/messages/' + conversationId);
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
         console.log(res.data);
@@ -208,34 +204,6 @@ function ChatRoom() {
     getOrderStatus();
   }, [currentChat, getOrderStatus, orderId]);
 
-  // const [currentValue, setCurrentValue] = useState(0);
-
-  // useEffect(() => {
-  //   if (!stepOrder) {
-  //     console.log(stepOrder);
-  //     return;
-  //   }
-
-  //   if (stepOrder?.order?.paymentStatus === 'awaitingPayment') {
-  //     return setCurrentValue(3);
-  //   } else if (
-  //     stepOrder?.order?.paymentStatus === 'Received' &&
-  //     stepOrder?.order?.status === 'pending'
-  //   ) {
-  //     return setCurrentValue(4);
-  //   } else if (
-  //     stepOrder?.order?.startDate &&
-  //     stepOrder?.order?.status !== 'completed'
-  //   ) {
-  //     return setCurrentValue(5);
-  //   } else if (stepOrder?.order?.status === 'completed') {
-  //     return setCurrentValue(6);
-  //   }
-  // }, [stepOrder]);
-
-  // console.log(getOrderStatus);
-
-  // console.log(getOrderStatus);
   return (
     <>
       {' '}
@@ -448,6 +416,7 @@ function ChatRoom() {
                         return (
                           <div key={index} className="" ref={scrollRef}>
                             <Quotation
+                              currentOrder={stepOrder}
                               array={messages}
                               loading={loading}
                               message={m}
@@ -556,9 +525,10 @@ function ChatRoom() {
               {/* <div className="flex flex-col gap-8 justify-center items-center overflow-auto p-8"> */}
 
               <div className="text-base p-4 w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
-                Lorem Ipsum has been the industry's standard dummy text ever
+                <OrderDetails order={stepOrder} />
+                {/* Lorem Ipsum has been the industry's standard dummy text ever
                 since the 1500s, Lorem Ipsum has been the industry's standard
-                dummy text ever since the 1500s
+                dummy text ever since the 1500s */}
               </div>
 
               {/* --------------- steps work -------------- */}

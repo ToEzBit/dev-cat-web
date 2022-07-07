@@ -9,6 +9,7 @@ import OrderDetails from './OrderDetails';
 import { updateOrderStatus } from '../../../api/order';
 
 function Quotation({
+  currentOrder,
   ProfilePic,
   own,
   message,
@@ -155,12 +156,42 @@ function Quotation({
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
                 <button
-                  className="border p-2 rounded-lg border-bg-home-content"
+                  className="border p-2 rounded-lg border-bg-home-content col-span-2"
                   onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
                 >
                   View Detail
                 </button>
-                <label
+
+                {order.paymentStatus === 'paymentReceived' ||
+                order.status === 'cancelled' ? (
+                  <div></div>
+                ) : (
+                  <div className="col-span-2 w-full">
+                    <div
+                      role="button"
+                      htmlFor="payment-modal"
+                      className="w-full  border p-2 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center"
+                    >
+                      <label role="button" htmlFor="payment-modal">
+                        Pay Now!
+                      </label>
+                    </div>
+
+                    <input
+                      type="checkbox"
+                      id="payment-modal"
+                      className="modal-toggle w-full bg-slate-300"
+                      onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
+                    />
+
+                    <div className="modal w-full h-full ">
+                      <div className="modal-box w-full ">
+                        <CheckoutPage orderId={currentQuotation[0]?.id} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {/* <label
                   htmlFor="payment-modal"
                   className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
                   role="button"
@@ -179,7 +210,7 @@ function Quotation({
                   <div className="modal-box">
                     <CheckoutPage orderId={currentQuotation[0]?.id} />
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="text-xs text-slate-400">8.00 PM</div>
             </div>

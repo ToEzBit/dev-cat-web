@@ -1,35 +1,33 @@
 import React from 'react';
 
-export default function OrderDetails({
-  selectedPackage,
-  selectedProduct,
-}) {
+export default function OrderDetails({ order }) {
+  console.log(order);
   return (
-    <div className="w-full h-full flex justify-center items-center ">
-      <div className="w-1/2 h-1/2 gap-5 flex flex-col">
+    <div className="w-full h-full flex justify-center items-center overflow-auto">
+      <div className="w-1/2xw gap-5 flex flex-col">
         <h3>Order details</h3>
 
         <div>
-          Select Product: {selectedProduct?.title}
-          Select Package: {selectedPackage?.title}
-          {selectedPackage && (
-            <div>
-              <h5>Description</h5>
-              <ul>
-                <li>category: {selectedProduct.category} </li>
-                {Object.entries(selectedPackage).map((el, idx) => {
-                  if (el[0] === 'PackageDetails') {
-                    return;
-                  }
-                  return (
-                    <li key={idx}>
-                      {el[0]} :{el[1]}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
+          <p className="font-bold tracking-wide text-text-btn">
+            {order?.Product?.title}
+          </p>
+          <p className="font-sm">{order?.Package?.title}</p>
+          <p>
+            <span className="font-bold">category: </span>
+            {order?.Product?.category}
+          </p>
+          <p>
+            <span className="font-bold">price: </span>
+            {order?.totalPrice}
+          </p>
+          <p>
+            <span className="font-bold">working duration: </span>
+            {order?.totalDuration}
+          </p>
+          <p>
+            <span className="font-bold">revision available: </span>
+            {order?.currentRevision}/{order?.totalRevision}
+          </p>
         </div>
       </div>
     </div>
