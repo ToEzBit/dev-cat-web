@@ -16,9 +16,9 @@ import Alltype5 from '../asset/image/Alltype5.png';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useProduct } from '../contexts/ProductContext';
-import CarouselHome from '../components/carousel/CarouselHome';
 
-// import { useProduct } from '../contexts/ProductContext';
+import CarouselTest from '../components/carousel/CarouselLanding';
+import Typewriters from '../components/typewriter/Typewriters';
 
 function HomePage() {
   const ctx = useAuth();
@@ -37,7 +37,7 @@ function HomePage() {
     // console.log({ id, title, Packages, ProductReviews });
     const priceArr = Packages.map((el) => +el.price);
     // console.log(priceArr);
-    console.log(Dev);
+    // console.log(Dev);
     const maxPrice = Math.max(...priceArr);
     // console.log(maxPrice);
     const minPrice = Math.min(...priceArr);
@@ -68,8 +68,8 @@ function HomePage() {
 
   return (
     <>
-      {/* {console.log('term', pro.products)} */}
-      {console.log(pro.products)}
+      {/* {console.log('term', productArr)} */}
+      {/* {console.log(pro.products)} */}
 
       <motion.div
         className="relative flex flex-col  gap-20"
@@ -91,10 +91,13 @@ function HomePage() {
             <div className=" grid grid-cols-2 items-center ">
               <div className="col-span-1 flex flex-col gap-8">
                 <div>
-                  <div className=" text-8xl  text-white">DEVcats...</div>
+                  {/* <div className=" text-8xl  text-white">DEVcats...</div> */}
+                  <Typewriters />
+
                   <div className=" text-7xl  text-orange-500">
                     that can read
                   </div>
+
                   <div className=" text-7xl text-orange-500">your mind</div>
                 </div>
                 <div className=" text-2xl text-orange-200 opacity-60">
@@ -266,8 +269,9 @@ function HomePage() {
             <div className=" flex flex-col gap-8">
               <h5 className="text-text-normal">Popular works</h5>
 
-              <div className="h-[24rem]">
-                <CarouselHome />
+              <div className="flex justify-center ">
+                {/* <CarouselHome /> */}
+                <CarouselTest width={'1024px'} />
               </div>
               {/* <div className=" flex flex-col gap-4">
               <h4 className="text-text-orange">
@@ -312,7 +316,9 @@ function HomePage() {
                 {console.log(productArr)}
                 {productArr
                   .map((e, index) => {
+                    console.log(e?.category === 'mobile');
                     if (e?.category === 'mobile') {
+                      console.log(e.category !== 'mobile');
                       return (
                         <div key={index}>
                           <Workcard workcard={e} />
@@ -320,7 +326,7 @@ function HomePage() {
                       );
                     }
                   })
-                  .slice(0, 4)}
+                  .slice(21, 25)}
               </div>
             </div>
           </div>
