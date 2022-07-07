@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 import { Menu } from '@headlessui/react';
 import DropdownNav from '../dropdown/DropdownNav';
+import Logo from '../../asset/image/Logo.png';
 
 function NavbarHome() {
   const ctx = useAuth();
@@ -59,9 +60,10 @@ function NavbarHome() {
           </div>
           <Link
             to="/"
-            className="btn btn-ghost text-emerald-600 normal-case text-3xl"
+            className=" animate-pulse text-text-color-footer  font-medium normal-case text-3xl items-center flex"
           >
-            devCats
+            {/* <div className="text-text-orange">&lt;/DevCats&gt;</div> */}
+            <img src={Logo} alt="" className=" w-20 h-16 " />
           </Link>
         </div>
 
@@ -87,7 +89,7 @@ function NavbarHome() {
                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                       />
                     </svg>
-                    <span className="badge badge-xs badge-primary indicator-item"></span>
+                    {/* <span className="badge badge-xs badge-primary indicator-item"></span> */}
                   </div>
                 </Link>
               </div>

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import NavbarHome from './NavbarHome';
 import DropdownNav from '../dropdown/DropdownNav';
+import Logo from '../../asset/image/Logo.png';
 
 function Navbar() {
   const ctx = useAuth();
@@ -56,10 +57,12 @@ function Navbar() {
               </li>
             </ul>
           </div>
-          <Link to="/">
-            <div className="btn btn-ghost text-emerald-600 normal-case text-3xl">
-              devCats
-            </div>
+          <Link
+            to="/"
+            className=" animate-pulse text-text-color-footer  font-medium normal-case text-3xl items-center flex"
+          >
+            {/* <div className="text-text-orange">&lt;/DevCats&gt;</div> */}
+            <img src={Logo} alt="" className=" w-20 h-16 " />
           </Link>
         </div>
 
@@ -85,7 +88,7 @@ function Navbar() {
                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                       />
                     </svg>
-                    <span className="badge badge-xs badge-primary indicator-item"></span>
+                    {/* <span className="badge badge-xs badge-primary indicator-item"></span> */}
                   </div>
                 </Link>
               </div>

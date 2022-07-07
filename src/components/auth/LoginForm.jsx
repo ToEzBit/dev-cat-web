@@ -50,6 +50,7 @@ function LoginForm() {
         setDev(res?.data?.dev);
       }
       navigate('/');
+      window.location.reload();
     } catch (err) {
       setApiError(err.response.data.message);
     }

@@ -43,6 +43,7 @@ function AuthContextProvider({ children }) {
   const logout = () => {
     removeAccessToken();
     setUser(null);
+    window.location.reload();
   };
   return (
     <AuthContext.Provider
