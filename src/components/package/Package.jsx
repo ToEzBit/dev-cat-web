@@ -12,11 +12,11 @@ function Package({
   deletePackageArr,
 }) {
   return (
-    <div className="flex">
+    <div className="flex ">
       <div className="flex justify-start w-full">
         <div
-          tabIndex="0"
-          className="collapse collapse-arrow border border-[#9747FF] bg-base-100 rounded-box my-8"
+        // tabIndex="0"
+        // className="collapse collapse-arrow border border-[#9747FF] bg-base-100 rounded-box my-8"
         >
           <div className="collapse-title text-xl font-medium">{title}</div>
           <div className="collapse-content flex justify-start flex-col">
