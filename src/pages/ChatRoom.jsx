@@ -17,6 +17,8 @@ import SpecialRequirement from '../components/modal/SpecialRequirement';
 import SendImage from '../components/chat/conversation/SendImage';
 import Step from '../components/chat/step/Step';
 import CreateOrder from '../components/chat/deal/CreateOrder';
+import OrderDetails from '../components/chat/deal/OrderDetails';
+import { current } from 'daisyui/src/colors';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -24,12 +26,16 @@ function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [friendId, setFriendId] = useState(null);
   const [getOrderId, setGetOrderId] = useState(null);
+  const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   const [getOrderStatus, setGetOrderStatus] = useState(null);
   const [getOrderPaymentStatus, setGetOrderPaymentStatus] = useState(null);
   const [orderId, setOrderId] = useState(null);
   const [fetchOrder, setFetchOrder] = useState(false);
+  const [orderId1, setOrderId1] = useState(null);
   // const [notification, setNotification] = useState(false);
   //socket io
+
+  const [currentValue, setCurrentValue] = useState(0);
 
   const [stepOrder, setStepOrder] = useState({});
   const socket = useRef();
@@ -42,10 +48,13 @@ function ChatRoom() {
   const [selectedOrder, setSelectedOrder] = useState([]);
   //notification
   // const [notification, setNotification] = useState(false);
+  const [currentChatroom, setCurrentChatroom] = useState(undefined);
 
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
+  // console.log(getOrderId);
+
   // useEffect(() => {
   //   const getOrder = async () => {
   //     try {
@@ -58,6 +67,7 @@ function ChatRoom() {
   //   };
   //   getOrder();
   // }, [selectedOrder]);
+
   useEffect(() => {
     const getOrder = async () => {
       try {
@@ -68,7 +78,7 @@ function ChatRoom() {
         }
         if (ctx.dev) {
           const resDev = await axios.get('/dev/orders/');
-          setGetOrderId(resDev.data);
+          setGetOrderId(resDev?.data?.orders);
         }
       } catch (err) {
         console.log(err);
@@ -109,6 +119,7 @@ function ChatRoom() {
     const getConversations = async () => {
       try {
         const res = await axios.get('/conversations/' + ctx?.clientChat?.id);
+        // console.log(...res.data);
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
@@ -119,11 +130,13 @@ function ChatRoom() {
     setLoading(false);
   }, [ctx?.clientChat?.id]);
 
+  //onclick = navigate to chatroom/conversationId
   useEffect(() => {
     const getMessages = async () => {
       try {
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
+        // console.logw(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -165,9 +178,13 @@ function ChatRoom() {
 
   useEffect(() => {
     const getOrderStatus = async () => {
-      if (currentChat) {
+      console.log(currentChat);
+      // console.log(currentChat.Chats.length);
+      if (currentChat.Chats.length !== 0) {
         var allOrderId = currentChat?.Chats?.filter((e) => {
+          // console.log(currentChat?.Chats);
           let arrayOrderId = e?.message?.startsWith('order: ');
+          // console.log(arrayOrderId);
           return arrayOrderId;
         });
         // var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
@@ -204,36 +221,15 @@ function ChatRoom() {
           }
         }
       } else {
+        setGetOrderStatus(null);
+        setStepOrder({});
+        setCurrentValue(0);
+        setOrderId(null);
         // console.log('waiting');
       }
     };
     getOrderStatus();
   }, [currentChat, getOrderStatus, orderId, fetchOrder]);
-
-  // const [currentValue, setCurrentValue] = useState(0);
-
-  // useEffect(() => {
-  //   if (!stepOrder) {
-  //     console.log(stepOrder);
-  //     return;
-  //   }
-
-  //   if (stepOrder?.order?.paymentStatus === 'awaitingPayment') {
-  //     return setCurrentValue(3);
-  //   } else if (
-  //     stepOrder?.order?.paymentStatus === 'Received' &&
-  //     stepOrder?.order?.status === 'pending'
-  //   ) {
-  //     return setCurrentValue(4);
-  //   } else if (
-  //     stepOrder?.order?.startDate &&
-  //     stepOrder?.order?.status !== 'completed'
-  //   ) {
-  //     return setCurrentValue(5);
-  //   } else if (stepOrder?.order?.status === 'completed') {
-  //     return setCurrentValue(6);
-  //   }
-  // }, [stepOrder]);
 
   return (
     <>
@@ -454,6 +450,7 @@ function ChatRoom() {
                         return (
                           <div key={index} className="" ref={scrollRef}>
                             <Quotation
+                              currentOrder={stepOrder}
                               array={messages}
                               loading={loading}
                               message={m}
@@ -461,6 +458,9 @@ function ChatRoom() {
                               currentUser={ctx.clientChat}
                               ProfilePic={ProfilePic}
                               getOrderPaymentStatus={getOrderPaymentStatus}
+                              setSelectedOrder={setSelectedOrder}
+                              selectedOrder={selectedOrder}
+                              getOrderId={getOrderId}
                             />
                           </div>
                         );
@@ -560,14 +560,19 @@ function ChatRoom() {
               {/* --------------- History Chat -------------- */}
               {/* <div className="flex flex-col gap-8 justify-center items-center overflow-auto p-8"> */}
 
-              <div className="text-base w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
-                Lorem Ipsum has been the industry's standard dummy text ever
+              <div className="text-base  w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
+                <OrderDetails order={stepOrder} />
+                {/* Lorem Ipsum has been the industry's standard dummy text ever
                 since the 1500s, Lorem Ipsum has been the industry's standard
-                dummy text ever since the 1500s
+                dummy text ever since the 1500s */}
               </div>
 
               {/* --------------- steps work -------------- */}
-              <Step order={stepOrder} />
+              <Step
+                order={stepOrder}
+                currentValue={currentValue}
+                setCurrentValue={setCurrentValue}
+              />
 
               {/* --------------- Dev profile -------------- */}
 

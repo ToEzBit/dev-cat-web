@@ -24,7 +24,7 @@ export default function CheckoutForm({ orderId }) {
     if (!stripe) {
       return;
     }
-
+    // console.log(stripe);
     const clientSecret = new URLSearchParams(window.location.search).get(
       'payment_intent_client_secret',
     );
@@ -41,15 +41,15 @@ export default function CheckoutForm({ orderId }) {
           break;
         case 'processing':
           setMessage('Your payment is processing.');
-          console.log(message);
+          // console.log(message);
           break;
         case 'requires_payment_method':
           setMessage('Your payment was not successful, please try again.');
-          console.log(message);
+          // console.log(message);
           break;
         default:
           setMessage('Something went wrong.');
-          console.log(message);
+          // console.log(message);
           break;
       }
     });

@@ -3,9 +3,12 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
+import { Menu } from '@headlessui/react';
+import DropdownNav from '../dropdown/DropdownNav';
 
 function NavbarHome() {
   const ctx = useAuth();
+
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
@@ -58,7 +61,7 @@ function NavbarHome() {
             to="/"
             className="btn btn-ghost text-emerald-600 normal-case text-3xl"
           >
-            daisyUI
+            devCats
           </Link>
         </div>
 
@@ -67,9 +70,9 @@ function NavbarHome() {
           {ctx.clientChat ? (
             <>
               {/* =================  left side MSG ==================== */}
-              <div className="navbar-end">
+              <div className="navbar-end ">
                 <Link to="/chatroom" className="btn btn-ghost btn-circle ">
-                  <div className="indicator">
+                  <div className="indicator hover:opacity-80 duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-8 w-8"
@@ -92,7 +95,7 @@ function NavbarHome() {
               {/* =================  left side Noti ==================== */}
               <div className="navbar-end">
                 <button className="btn btn-ghost btn-circle ">
-                  <div className="indicator">
+                  <div className="indicator hover:opacity-80 duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-8 w-8"
@@ -112,7 +115,8 @@ function NavbarHome() {
                 </button>
               </div>
               {/* =================  left side Profile ==================== */}
-              <div className="dropdown dropdown-end">
+              <DropdownNav />
+              {/* <div className="dropdown dropdown-end">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-12 rounded-full">
                     <img
@@ -140,7 +144,7 @@ function NavbarHome() {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </>
           ) : (
             <>

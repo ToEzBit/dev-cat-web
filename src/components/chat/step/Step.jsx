@@ -2,63 +2,33 @@ import { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 import { getDevOderById, getUserOderById } from '../../../api/order';
 
-export default function Step({ order }) {
-  // const [order, setOrder] = useState({});
-  // console.log(orderId);
-
-  // useEffect(() => {
-  //   const getOrder = async () => {
-  //     try {
-  //       if (friendId?.sender % 2 === 0) {
-  //         console.log('test');
-  //         const res = await getUserOderById(orderId);
-  //         setOrder(res?.data?.order);
-  //         console.log(order);
-  //         // order = res?.data?.order;
-  //       } else {
-  //         const resDev = await getDevOderById(orderId);
-  //         setOrder(resDev?.data?.order);
-  //         console.log(resDev?.data?.order);
-  //         console.log(order);
-
-  //         // order = resDev?.data?.order;
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getOrder();
-  // }, [orderId]);
-
-  // console.log(order);
-
+export default function Step({ order, currentValue, setCurrentValue }) {
   const formatTime = (dateTime) => {
     return DateTime.fromISO(dateTime).toFormat('dd/LLL/yy');
   };
 
+<<<<<<< HEAD
   const [currentValue, setCurrentValue] = useState(0);
 
   // console.log(order?.paymentStatus);
+=======
+>>>>>>> dev
   useEffect(() => {
     if (order?.paymentStatus === 'awaitingPayment') {
       setCurrentValue(3);
     } else if (
-      order?.paymentStatus === 'Received' &&
+      order?.paymentStatus === 'paymentReceived' &&
       order?.status === 'pending'
     ) {
-      console.log('test2');
       setCurrentValue(4);
     } else if (order?.startDate && order?.status !== 'completed') {
-      console.log('test3');
       setCurrentValue(5);
     } else if (order?.status === 'completed') {
-      console.log('test4');
       setCurrentValue(6);
     }
   }, [order]);
 
   const setColorPrimary = (value) => {
-    // console.log(currentValue);
     return `${value < currentValue ? 'step step-primary flex' : 'step'}`;
   };
 

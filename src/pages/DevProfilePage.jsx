@@ -30,15 +30,17 @@ function DevProfilePage() {
     fetchMyProduct();
   }, []);
 
+  console.log(devProducts);
+
   return (
     <div className="w-screen flex flex-col items-center">
       <div className="w-full">
         <Navbar />
       </div>
-      <div className="w-8/12 flex flex-col gap-20">
+      <div className=" max-w-screen-lg flex flex-col gap-20">
         <div
           tabIndex="0"
-          className="collapse bg-base-100 border border-base-200 rounded-box row-start-1 mt-20"
+          className="collapse bg-base-100 border border-base-200 rounded-box row-start-1 mt-16"
         >
           <div className="collapse-title text-xl font-medium">
             <div className="flex justify-center items-center">
@@ -73,35 +75,36 @@ function DevProfilePage() {
           </svg>
         </div>
 
-        <div className="w-full">
+        <div className="w-full flex flex-col gap-4">
           <div className=" flex justify-between">
             <h6 className="font-bold">ALL WORK</h6>
             <div>
-              <a href="/" className="text-text-btn">
+              <a href="/" className="text-text-btn font-semibold">
                 SEE MORE
               </a>
             </div>
           </div>
-          <div className="flex justify-between gap-4">
+          <div className="flex  gap-4">
             {devProducts.map((el, idx) => (
               <Workcard key={idx} workcard={el} />
             ))}
           </div>
         </div>
 
-        <div className="w-full pb-10">
+        <div className="w-full pb-10 flex flex-col gap-4">
           <div className=" flex justify-between">
-            <h6>PORTFOLIO</h6>
+            <h6 className="font-bold">PORTFOLIO</h6>
             <div>
-              <a href="/" className="text-text-btn">
+              <a href="/" className="text-text-btn font-semibold">
                 SEE MORE
               </a>
             </div>
           </div>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-2 ">
             {[...Array(8).keys()].map((el, idx) => (
               <figure key={idx}>
                 <img
+                  className="rounded-lg"
                   src="https://api.lorem.space/image/shoes?w=500&h=400"
                   alt="cats"
                 />

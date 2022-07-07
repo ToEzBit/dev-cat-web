@@ -18,7 +18,7 @@ export default function ReviewCard({
   };
 
   return (
-    <div className="card card-compact h-30 w-full bg-base-100 shadow-xl">
+    <div className="card card-compact h-30 w-full bg-base-100 shadow-xl px-6 py-4">
       <div className="card-body">
         {isReadOnlyMode ? (
           <ReviewCardReadOnly

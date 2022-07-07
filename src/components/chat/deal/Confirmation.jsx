@@ -1,9 +1,13 @@
 import axios from 'axios';
 import React from 'react';
-import { useEffect } from 'react';
-import { orderIsCompleted, orderNeedsRevision } from '../../../api/order';
-import { useAuth } from '../../../contexts/AuthContext';
+import {
+  orderIsCompleted,
+  // orderNeedsRevision
+} from '../../../api/order';
 import { useOrder } from '../../../contexts/OrderContext';
+import OrderReview from './OrderReview';
+import { useEffect } from 'react';
+import { useAuth } from '../../../contexts/AuthContext';
 import RequiredEdit from '../../modal/RequiredEdit';
 
 function Confirmation({
@@ -37,11 +41,6 @@ function Confirmation({
     await orderIsCompleted(getOrderId);
   };
 
-  const handleRevision = async (input) => {
-    //navigate to หน้าเขียนรีวิว
-    await orderNeedsRevision({ reviewDetail: input }, orderId);
-  };
-
   return (
     <div>
       <div className="w-full ">
@@ -57,7 +56,7 @@ function Confirmation({
               </div>
               <div className="flex flex-col items-center">
                 <a
-                  href={message.message}
+                  href={message?.message}
                   className="text-chat underline font-bold"
                   target="_blank"
                 >

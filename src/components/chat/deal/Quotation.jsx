@@ -4,20 +4,32 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useOrder } from '../../../contexts/OrderContext';
 import CheckoutPage from '../../../pages/CheckoutPage';
+import { Navigate } from 'react-router-dom';
+import OrderDetails from './OrderDetails';
+import { updateOrderStatus } from '../../../api/order';
 
-function Quotation({ ProfilePic, own, message, array, getOrderPaymentStatus }) {
+function Quotation({
+  currentOrder,
+  ProfilePic,
+  own,
+  message,
+  array,
+  setSelectedOrder,
+  selectedOrder,
+  getOrderId,
+  getOrderPaymentStatus,
+}) {
   const { orderId } = useOrder();
   const [order, setOrder] = useState([]);
 
   const navigate = useNavigate();
-  //  const handleClick = () => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  // const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const ctx = useAuth();
 
-  // console.log('message');
-  // console.log(ctx.clientChat);
   let ret = message.message.replace('order: ', '');
-  // console.log(+ret);
 
   useEffect(() => {
     const friendId = array.filter((e) => {
@@ -28,11 +40,11 @@ function Quotation({ ProfilePic, own, message, array, getOrderPaymentStatus }) {
     const getUser = async () => {
       try {
         if (friendId?.sender % 2 === 0) {
-          const res = await axios.get('/user/' + friendId.sender);
+          const res = await axios.get('/user/' + friendId?.sender);
           setUser(res?.data?.user);
           // setClientChat(res?.data?.user);
         } else {
-          const resDev = await axios.get('/dev/' + friendId[0].sender);
+          const resDev = await axios.get('/dev/' + friendId[0]?.sender);
           setUser(resDev?.data?.dev);
         }
       } catch (err) {
@@ -57,14 +69,22 @@ function Quotation({ ProfilePic, own, message, array, getOrderPaymentStatus }) {
         }
       } catch (err) {
         console.log(err);
+      } finally {
       }
     };
+
     getOrder();
     // setGetOrderId(order);
   }, [array, ctx.clientChat.id, ret]);
 
   //  }
   //fetchOrder เฉพาะไอดี
+  const currentQuotation = getOrderId?.filter((el) => el.id == +ret);
+  const handleCancel = async () => {
+    await updateOrderStatus({ status: 'cancelled' }, +ret);
+  };
+
+  // console.log(selectedOrder);
 
   return (
     <div>
@@ -79,7 +99,7 @@ function Quotation({ ProfilePic, own, message, array, getOrderPaymentStatus }) {
                     <div>{`${order?.totalPrice} BATH`}</div>
                   </div>
                   <div className="text-white">
-                    Quick quiz is the easiest way to make quizzes FREE
+                    {currentQuotation[0]?.Product?.title}
                   </div>
                   <div className="grid grid-cols-2 gap-4 px-4">
                     <Link
@@ -93,7 +113,6 @@ function Quotation({ ProfilePic, own, message, array, getOrderPaymentStatus }) {
                     </button>
                   </div>
                 </div>
-                <div className="text-xs text-slate-400">8.00 PM</div>
               </div>
               <div className="avatar">
                 <div className=" w-14 rounded-full ">
@@ -130,9 +149,10 @@ function Quotation({ ProfilePic, own, message, array, getOrderPaymentStatus }) {
               <div className="flex justify-between items-baseline px-4">
                 <h5>{message.message}</h5>
                 <div>{`${order?.totalPrice} BATH`}</div>
+                <div>{currentQuotation[0]?.totalPrice} BAHT</div>
               </div>
               <div className="text-chat-quotation">
-                Quick quiz is the easiest way to make quizzes FREE
+                {currentQuotation[0]?.Product.title}
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
                 <Link
@@ -154,12 +174,12 @@ function Quotation({ ProfilePic, own, message, array, getOrderPaymentStatus }) {
                   </p>
                 )}
               </div>
+              <div className="text-xs text-slate-400">8.00 PM</div>
             </div>
-            <div className="text-xs text-slate-400">8.00 PM</div>
-          </div>
-          <div className="avatar ">
-            <div className="w-14 rounded-full ">
-              <img src={user?.profileImage || ProfilePic} alt="" />
+            <div className="avatar ">
+              <div className="w-14 rounded-full ">
+                <img src={user?.profileImage || ProfilePic} alt="" />
+              </div>
             </div>
           </div>
         </div>
