@@ -11,31 +11,27 @@ import step1 from '../../asset/video/step1.mp4';
 import { useNavigate } from 'react-router-dom';
 import ConfirmCreateProduct from '../modal/ConfirmCreateProduct';
 import { motion } from 'framer-motion';
+import { useCreateProduct } from '../../contexts/CreateProductContext';
+import Modal from '../ui/headlessUi/Modal';
+import Spinner from '../../components/common/Spinner';
 
 function Step4() {
   const navigate = useNavigate();
-  const [error, setError] = useState(false);
-
-  const [packageArr, setPackageArr] = useState([]);
-  const [packageTitle, setPackageTitle] = useState('');
-  const [packageInfo, setPackageInfo] = useState('');
-  const [packagePrice, setPackagePrice] = useState('');
-  const [packageDuration, setPackageDuration] = useState('');
-  const [packageRevision, setPackageRevision] = useState('');
+  const { packageArr, setPackageArr, handleCreateProduct, isLoading } =
+    useCreateProduct();
+  // const [packageArr, setPackageArr] = useState([]);
+  const [title, setTitle] = useState('');
+  const [info, setInfo] = useState('');
+  const [price, setPrice] = useState('');
+  const [duration, setDuration] = useState('');
+  const [revision, setRevision] = useState('');
 
   const packageObj = {
-    packageArr,
-    setPackageArr,
-    packageTitle,
-    setPackageTitle,
-    packageInfo,
-    setPackageInfo,
-    packagePrice,
-    setPackagePrice,
-    packageDuration,
-    setPackageDuration,
-    packageRevision,
-    setPackageRevision,
+    title,
+    info,
+    price,
+    duration,
+    revision,
   };
 
   const deletePackageArr = (idx, arrPackage, setArrPackage) => {
@@ -49,6 +45,19 @@ function Step4() {
   };
   const handleBack3 = () => {
     navigate('/create-product/3');
+  };
+
+  const handlePushArr = () => {
+    if (!title || !info || !price || !duration || !revision) {
+      alert('Please fill in all fields');
+      return;
+    }
+    setPackageArr([...packageArr, packageObj]);
+    setTitle('');
+    setInfo('');
+    setPrice('');
+    setDuration('');
+    setRevision('');
   };
 
   // const handleSubmit = async () => {
@@ -90,11 +99,12 @@ function Step4() {
 
   return (
     <>
+      {isLoading ? <Spinner /> : null}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="card max-w-screen-xl flex flex-col bg-base-100 p-20 border shadow-xl mx-auto gap-8"
+        className="card max-w-screen-xl flex flex-col bg-base-100 p-20 border shadow-xl mx-auto gap-8 mt-4"
       >
         {/*====================== Title Project ====================== */}
         <div className="flex flex-col gap-4 ">
@@ -119,7 +129,9 @@ function Step4() {
                   className=""
                   // onClick={}
                 >
-                  <ConfirmCreateProduct />
+                  <ConfirmCreateProduct
+                    handleCreateProduct={handleCreateProduct}
+                  />
                   {/* Confirm to Create */}
                 </button>
               </div>
@@ -138,39 +150,59 @@ function Step4() {
                 <div className="flex flex-col gap-2">
                   <input
                     type="text"
-                    placeholder="Title Project"
-                    className="input input-bordered w-full  "
+                    placeholder="Title Package"
+                    className="input input-bordered w-full"
+                    value={title}
+                    disabled={packageArr.length >= 3 ? true : false}
+                    onChange={(e) => setTitle(e.target.value)}
                   />
                   <textarea
                     class="textarea textarea-bordered w-full "
                     placeholder="Description"
+                    value={info}
+                    disabled={packageArr.length >= 3 ? true : false}
+                    onChange={(e) => setInfo(e.target.value)}
                   ></textarea>
                   <input
-                    type="text"
-                    placeholder="Category"
-                    className="input input-bordered w-full  "
-                  />
-                  <input
-                    type="text"
+                    type="number"
                     placeholder="Price"
                     className="input input-bordered w-full  "
+                    value={price}
+                    disabled={packageArr.length >= 3 ? true : false}
+                    onChange={(e) => setPrice(e.target.value)}
                   />
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Duration"
                     className="input input-bordered w-full  "
+                    value={duration}
+                    disabled={packageArr.length >= 3 ? true : false}
+                    onChange={(e) => setDuration(e.target.value)}
                   />
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Revision"
                     className="input input-bordered w-full  "
+                    value={revision}
+                    disabled={packageArr.length >= 3 ? true : false}
+                    onChange={(e) => setRevision(e.target.value)}
                   />
                 </div>
                 <div class="">
-                  <button class=" btn btn-primary w-full bg-chat border-none hover:bg-chat-quotation duration-500d">
+                  <button
+                    class="btn btn-primary w-full bg-chat border-none hover:bg-chat-quotation duration-500d"
+                    onClick={handlePushArr}
+                  >
                     SUBMIT
                   </button>
                 </div>
+              </div>
+              <div className="w-full">
+                <Modal
+                  packageArr={packageArr}
+                  setPackageArr={setPackageArr}
+                  deletePackageArr={deletePackageArr}
+                />
               </div>
             </div>
 
@@ -186,6 +218,20 @@ function Step4() {
           </div>
         </div>
       </motion.div>
+      {/* {packageArr?.map((el, idx) => (
+        // <Package
+        //   key={idx}
+        //   title={el.title}
+        //   info={el.info}
+        //   price={el.price}
+        //   duration={el.duration}
+        //   revision={el.revision}
+        //   packageArr={packageArr}
+        //   setPackageArr={setPackageArr}
+        //   deletePackageArr={deletePackageArr}
+        // />
+     
+      ))} */}
     </>
   );
 }

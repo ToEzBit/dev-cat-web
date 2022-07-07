@@ -11,6 +11,7 @@ import ProductContextProvider from './contexts/ProductContext';
 import OrderContextProvider from './contexts/OrderContext';
 
 import Wrapper from './components/utils/Wrapper';
+import CreateProductContextProvider from './contexts/CreateProductContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,7 +22,9 @@ root.render(
           <AuthContextProvider>
             <ProductContextProvider>
               <OrderContextProvider>
-                <App />
+                <CreateProductContextProvider>
+                  <App />
+                </CreateProductContextProvider>
               </OrderContextProvider>
             </ProductContextProvider>
           </AuthContextProvider>

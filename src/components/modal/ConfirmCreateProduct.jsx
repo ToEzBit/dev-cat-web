@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 
-export default function ConfirmCreateProduct() {
+export default function ConfirmCreateProduct({ handleCreateProduct }) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -12,6 +12,10 @@ export default function ConfirmCreateProduct() {
     setIsOpen(true);
   }
 
+  const handleSubmit = () => {
+    closeModal();
+    handleCreateProduct();
+  };
   return (
     <>
       <button
@@ -65,7 +69,7 @@ export default function ConfirmCreateProduct() {
                     <button
                       type="button"
                       className="border cursor-pointer border-stroke p-2 rounded-xl px-4 hover:bg-chat  hover:text-white duration-300  text-chat"
-                      onClick={closeModal}
+                      onClick={handleSubmit}
                     >
                       Yes! I'm sure
                     </button>

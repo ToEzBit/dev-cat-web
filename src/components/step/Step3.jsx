@@ -5,12 +5,16 @@ import FileInput from '../ui/FileInput';
 import ImageDisplay from '../ui/ImageDisplay';
 import step1 from '../../asset/video/step1.mp4';
 import { motion } from 'framer-motion';
+import { useCreateProduct } from '../../contexts/CreateProductContext';
 
 function Step3() {
   const navigate = useNavigate();
 
-  const [imageArr, setImageArr] = useState([]);
-  const [thumbnailImage, setThumbnailImage] = useState([]);
+  // const [imageArr, setImageArr] = useState([]);
+  // const [thumbnailImage, setThumbnailImage] = useState([]);
+
+  const { imageArr, setImageArr, thumbnailImage, setThumbnailImage } =
+    useCreateProduct();
 
   const deleteImgArr = (idx, arrImg, setArrImg) => {
     let newArr = [...arrImg];
@@ -32,7 +36,7 @@ function Step3() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="card max-w-screen-xl h-full flex flex-col gap-4 bg-base-100 shadow-xl mx-auto border p-20 mt-20"
+        className="card max-w-screen-xl h-full flex flex-col gap-4 bg-base-100 shadow-xl mx-auto border p-20 mt-4"
       >
         {/*====================== Title Project ====================== */}
         <div className="flex flex-col gap-2">
