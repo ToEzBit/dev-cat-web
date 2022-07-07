@@ -9,6 +9,7 @@ import Review from '../components/review/Review';
 import Footer from '../components/footer/Footer';
 import PhotoCollage from '../components/products/PhotoCollage';
 import { useAuth } from '../contexts/AuthContext';
+import { motion } from 'framer-motion';
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -31,7 +32,12 @@ export default function ProductPage() {
   }, [render]);
 
   return (
-    <div className="w-screen mx-auto flex flex-col gap-6  items-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="w-screen mx-auto flex flex-col gap-6  items-center"
+    >
       <div className="w-full">
         <Navbar />
       </div>
@@ -148,6 +154,6 @@ export default function ProductPage() {
       </div>
 
       <Footer />
-    </div>
+    </motion.div>
   );
 }

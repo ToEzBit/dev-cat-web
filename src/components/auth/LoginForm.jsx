@@ -4,6 +4,7 @@ import { devLogin, userLogin } from '../../api/auth';
 import { EyeIcon } from '@heroicons/react/solid';
 import { EyeOffIcon } from '@heroicons/react/solid';
 import { useAuth } from '../../contexts/AuthContext';
+import { motion } from 'framer-motion';
 import axios from '../../config/axios';
 
 function LoginForm() {
@@ -55,7 +56,11 @@ function LoginForm() {
   };
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="card w-96 bg-base-100 shadow-xl mt-20 mx-auto">
         <div className="tabs">
           <button
@@ -167,7 +172,7 @@ function LoginForm() {
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }
 

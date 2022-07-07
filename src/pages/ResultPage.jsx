@@ -7,6 +7,7 @@ import Footer from '../components/footer/Footer';
 import CarouselSecondary from '../components/carousel/CarouselSecondary';
 import Pagination from '../components/pagination/Pagination';
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { getAllProducts } from '../api/product';
 import CarouselLanding from '../components/carousel/CarouselLanding';
 
@@ -102,7 +103,12 @@ function ResultPage() {
   );
 
   return (
-    <div className="flex flex-col gap-30 w-screen">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col gap-30 w-screen"
+    >
       <Navbar />
       <div className="flex flex-col items-center max-w-screen-xl mx-auto">
         <div className="flex w-3/6 justify-between my-8">
@@ -156,7 +162,7 @@ function ResultPage() {
         />
         <Footer />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

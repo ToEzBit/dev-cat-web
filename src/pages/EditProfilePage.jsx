@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Navbar from '../components/navbars/Navbar';
+import { motion } from 'framer-motion';
 import ProfilePic from '../asset/image/ProfilePic.png';
 import {
   devEditProfile,
@@ -81,7 +82,11 @@ function EditProfilePage() {
     }
   };
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {loading && <Spinner />}
       <Navbar />
       <div className="max-w-screen-lg mx-auto">
@@ -256,7 +261,7 @@ function EditProfilePage() {
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }
 
