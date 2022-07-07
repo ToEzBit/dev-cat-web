@@ -4,6 +4,7 @@ import { devLogin, userLogin } from '../../api/auth';
 import { EyeIcon } from '@heroicons/react/solid';
 import { EyeOffIcon } from '@heroicons/react/solid';
 import { useAuth } from '../../contexts/AuthContext';
+import { motion } from 'framer-motion';
 import axios from '../../config/axios';
 
 function LoginForm() {
@@ -49,13 +50,18 @@ function LoginForm() {
         setDev(res?.data?.dev);
       }
       navigate('/');
+      window.location.reload();
     } catch (err) {
       setApiError(err.response.data.message);
     }
   };
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="card w-96 bg-base-100 shadow-xl mt-20 mx-auto">
         <div className="tabs">
           <button
@@ -76,7 +82,8 @@ function LoginForm() {
 
         <div className="card-body">
           <div className="flex justify-between">
-            <h2 className="card-title mx-auto">DevCats</h2>
+            {tab ? <h2 className="card-title ml-28">DevCats</h2> : null}
+            {tab ? null : <h2 className="card-title ml-28">Developer</h2>}
 
             <a href="/" className="btn btn-ghost text-red-600">
               <svg
@@ -153,21 +160,21 @@ function LoginForm() {
           <div className="flex justify-between mt-4">
             <a
               href="/forgot-password"
-              className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
+              className="text-xs ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
             >
               Forgot Password ?
             </a>
 
             <a
               href="/register"
-              className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
+              className="text-xs ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
             >
               Don't have an account yet?
             </a>
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }
 

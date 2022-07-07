@@ -2,10 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import { orderNeedsRevision } from '../../../api/order';
 
-export default function OrderReview() {
+export default function OrderReview({ orderId }) {
   const [reviewDetail, setReviewDetail] = useState('');
 
-  const orderId = 1;
   const handleSubmitReview = async () => {
     await orderNeedsRevision({ reviewDetail: reviewDetail }, orderId);
   };

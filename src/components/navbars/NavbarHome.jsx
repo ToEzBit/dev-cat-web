@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 import { Menu } from '@headlessui/react';
 import DropdownNav from '../dropdown/DropdownNav';
+import Logo from '../../asset/image/Logo.png';
 
 function NavbarHome() {
   const ctx = useAuth();
@@ -12,7 +13,7 @@ function NavbarHome() {
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
-      <div className="max-w-screen-2xl mx-auto flex justify-center ">
+      {/* <div className="max-w-screen-2xl mx-auto flex justify-center ">
         <div className="form-control absolute pt-5 hidden md:block">
           <input
             type="text"
@@ -20,10 +21,10 @@ function NavbarHome() {
             className="w-96 h-7 input  opacity-50 hover:opacity-100 focus:text-chat placeholder:italic placeholder:text-chat-quotation   opacity-64   input-bordered   shadow-2xl shadow-green-900"
           />
         </div>
-      </div>
+      </div> */}
       {/* ========================================= right side =============================================== */}
 
-      <div className="navbar flex gap-4 justify-between md:justify-between max-w-screen-2xl mx-auto items-center  bg-transparent">
+      <div className="navbar flex gap-4 justify-between md:justify-between  max-w-screen-2xl mx-auto items-center  bg-transparent">
         <div className="flex justify-center">
           <div className="dropdown md:hidden">
             <label tabIndex="0" className="btn btn-ghost btn-circle">
@@ -59,9 +60,10 @@ function NavbarHome() {
           </div>
           <Link
             to="/"
-            className="btn btn-ghost text-emerald-600 normal-case text-3xl"
+            className=" animate-pulse text-text-color-footer  font-medium normal-case text-3xl items-center flex"
           >
-            devCats
+            {/* <div className="text-text-orange">&lt;/DevCats&gt;</div> */}
+            <img src={Logo} alt="" className=" w-20 h-16 " />
           </Link>
         </div>
 
@@ -87,13 +89,13 @@ function NavbarHome() {
                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                       />
                     </svg>
-                    <span className="badge badge-xs badge-primary indicator-item"></span>
+                    {/* <span className="badge badge-xs badge-primary indicator-item"></span> */}
                   </div>
                 </Link>
               </div>
 
               {/* =================  left side Noti ==================== */}
-              <div className="navbar-end">
+              {/* <div className="navbar-end">
                 <button className="btn btn-ghost btn-circle ">
                   <div className="indicator hover:opacity-80 duration-300">
                     <svg
@@ -113,7 +115,7 @@ function NavbarHome() {
                     <span className="badge badge-xs badge-primary indicator-item"></span>
                   </div>
                 </button>
-              </div>
+              </div> */}
               {/* =================  left side Profile ==================== */}
               <DropdownNav />
               {/* <div className="dropdown dropdown-end">

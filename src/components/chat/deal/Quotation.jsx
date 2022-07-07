@@ -81,6 +81,7 @@ function Quotation({
   //  }
   //fetchOrder เฉพาะไอดี
   const currentQuotation = getOrderId?.filter((el) => el.id == +ret);
+
   const handleCancel = async () => {
     await updateOrderStatus({ status: 'cancelled' }, +ret);
     setFetchOrder((prev) => !prev);

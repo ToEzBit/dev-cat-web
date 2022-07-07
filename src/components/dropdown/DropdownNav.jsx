@@ -54,36 +54,38 @@ export default function DropdownNav() {
                         />
                       )}
                       <Link to="/profile" className="justify-between">
-                        Profile
+                        Setting
                       </Link>
                     </button>
                   </Link>
                 )}
               </Menu.Item>
-              {/* <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    {active ? (
-                      <DuplicateActiveIcon
-                        className="mr-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <DuplicateInactiveIcon
-                        className="mr-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    )}
-                    <Link to="/" onClick={ctx.logout}>
-                      Logout
+              {ctx.dev ? (
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link to={`/dev/profile/${ctx.dev?.id}`}>
+                      <button
+                        className={`${
+                          active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                      >
+                        {active ? (
+                          <DuplicateActiveIcon
+                            className="mr-2 h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <DuplicateInactiveIcon
+                            className="mr-2 h-5 w-5"
+                            aria-hidden="true"
+                          />
+                        )}
+                        <Link to={`/dev/profile/${ctx.dev?.id}`}>Profile</Link>
+                      </button>
                     </Link>
-                  </button>
-                )}
-              </Menu.Item> */}
+                  )}
+                </Menu.Item>
+              ) : null}
             </div>
             {/* <div className="px-1 py-1">
               <Menu.Item>
