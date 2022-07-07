@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   sendVerificationEmail,
   changePasswordByEmail,
@@ -87,7 +88,11 @@ function ForgotPasswordForm() {
     }
   };
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {showToast ? (
         <>
           <div className="absolute right-0 mx-8">
@@ -215,7 +220,7 @@ function ForgotPasswordForm() {
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }
 

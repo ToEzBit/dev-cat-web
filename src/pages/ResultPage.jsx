@@ -7,8 +7,13 @@ import Footer from '../components/footer/Footer';
 import CarouselSecondary from '../components/carousel/CarouselSecondary';
 import Pagination from '../components/pagination/Pagination';
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { getAllProducts } from '../api/product';
 import CarouselLanding from '../components/carousel/CarouselLanding';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 function ResultPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,7 +107,12 @@ function ResultPage() {
   );
 
   return (
-    <div className="flex flex-col gap-30 w-screen">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col gap-30 w-screen"
+    >
       <Navbar />
       <div className="flex flex-col items-center max-w-screen-xl mx-auto">
         <div className="flex w-3/6 justify-between my-8">
@@ -117,7 +127,7 @@ function ResultPage() {
           </a>
         </div>
         {/* ==================== carousel ==================== */}
-        <div className="w-4/5 flex flex-col gap-6">
+        <div className="w-4/5 flex flex-col gap-6" data-aos="flip-left">
           <CarouselLanding width={'1024px'} />
           {/* </div> */}
 
@@ -156,7 +166,7 @@ function ResultPage() {
         />
         <Footer />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

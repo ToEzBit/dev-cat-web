@@ -20,6 +20,10 @@ import { useProduct } from '../contexts/ProductContext';
 import Typewriters from '../components/typewriter/Typewriters';
 import CarouselLanding from '../components/carousel/CarouselLanding';
 import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 function HomePage() {
   const ctx = useAuth();
@@ -194,7 +198,7 @@ function HomePage() {
             </div>
           </div>
           <div id="section1"></div>
-          <div className="flex flex-col gap-4 text-center">
+          <div className="flex flex-col gap-4 text-center" data-aos="flip-left">
             <h1>Devcats, one of the best quality developer</h1>
             <div>
               They also have the freedom to choose employment from time to time.
@@ -209,7 +213,7 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="  flex flex-col gap-16">
+          <div className="  flex flex-col gap-16" data-aos="fade-up">
             <div className=" flex flex-col gap-8">
               <div className=" flex gap-4 justify-between w-full text-center ">
                 <Link to="/result">
@@ -267,7 +271,10 @@ function HomePage() {
                 </div>
               </Link>
             </div>
-            <div className=" flex flex-col gap-4 text-center">
+            <div
+              className=" flex flex-col gap-4 text-center"
+              data-aos="fade-up"
+            >
               <h3 className="text-text-orange">
                 We have quality developer. and various experts in the system to
                 serve
@@ -285,7 +292,7 @@ function HomePage() {
             <div className=" flex flex-col gap-8">
               <h5 className="text-text-normal">Popular works</h5>
 
-              <div className="flex justify-center ">
+              <div className="flex justify-center " data-aos="fade-up">
                 {/* <CarouselHome /> */}
                 <CarouselLanding width={'1024px'} />
               </div>
@@ -348,7 +355,10 @@ function HomePage() {
           </div>
         </div>
         {/* ================================== Why use Devwork? ===================================== */}
-        <div className="max-w-screen-lg mx-auto flex flex-col gap-24">
+        <div
+          className="max-w-screen-lg mx-auto flex flex-col gap-24"
+          data-aos="fade-up"
+        >
           <div className="flex flex-col gap-4">
             <h5>Why use Devcats?</h5>
             <div className="grid grid-cols-3 gap-8 ">
@@ -376,7 +386,7 @@ function HomePage() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4" data-aos="fade-up">
             <h5>Devcats, one of the best quality developer</h5>
             <div>
               They also have the freedom to choose employment from time to time.

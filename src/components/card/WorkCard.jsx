@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 function WorkCard({ workcard, devId }) {
   const numberWithCommas = (x) => {
@@ -25,7 +29,10 @@ function WorkCard({ workcard, devId }) {
       : workcard.title;
 
   return (
-    <div className="hover:-translate-y-1 hover:scale-110 duration-300 group">
+    <div
+      data-aos="fade-up"
+      className="hover:-translate-y-1 hover:scale-110 duration-300 group"
+    >
       <div className="card w-18 bg-base-100 shadow-xl max-w-xs ">
         <div className="flex justify-between px-4 py-4 pb-4 items-center">
           <div className="flex gap-2">
