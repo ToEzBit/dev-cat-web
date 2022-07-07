@@ -17,10 +17,14 @@ function Review({
   product,
 }) {
   // console.log(productId);
+  // console.log(reviews[0].User);
   const { dev } = useAuth();
   const { myOrder } = useOrder();
   const { reviewRating, setReviewRating } = useFilter();
 
+  // console.log(myOrder);
+  // console.log(dev);
+  // console.log(productDev);
   return (
     <div className="bg-text-color-footer w-screen flex flex-col items-center">
       {mode === 'ProductPage' ? (
@@ -54,10 +58,10 @@ function Review({
         <div className="w-full flex justify-between">
           <h5>Review</h5>
           <div className="flex gap-4 items-center">
-            <Rating setReviewRating={setReviewRating} />
+            {/* <Rating setReviewRating={setReviewRating} />
             <h6 className=" rounded-full bg-amber-300 px-4 text-white">
               {reviewRating}.0
-            </h6>
+            </h6> */}
           </div>
         </div>
         <div className="flex flex-col gap-2">
@@ -81,7 +85,7 @@ function Review({
                 message={el.message}
                 rate={el.rate}
                 isAnonymous={el.isAnonymous}
-                profilePic={el.User.profileImage}
+                profilePic={el?.User?.profileImage}
                 setProductByIDRender={setProductByIDRender}
                 reviews={reviews}
                 setReviews={setReviews}

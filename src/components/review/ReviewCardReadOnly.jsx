@@ -18,6 +18,7 @@ export default function ReviewCardReadOnly({
   isReadOnlyMode,
   anonymousName,
   setProductByIDRender,
+  profilePic,
 }) {
   const [error, setError] = useState('');
   const handleDeleteReview = async (id) => {
@@ -39,9 +40,9 @@ export default function ReviewCardReadOnly({
         <div className="flex gap-4 items-center">
           <div className="w-2/12 ">
             {isAnonymous ? (
-              <img src={AnonymousProfilePic} alt="" className="w-[200px]" />
+              <img src={AnonymousProfilePic} alt="" className="w-[240px]" />
             ) : (
-              <img src={ProfilePic} alt="" />
+              <img src={profilePic} alt="" className="w-[240px]" />
             )}
           </div>
           <h3 className="card-title">
@@ -49,7 +50,7 @@ export default function ReviewCardReadOnly({
           </h3>
         </div>
         <div className="flex gap-3">
-          {user && user.id === userId ? (
+          {user && user.id == userId ? (
             <div className="flex gap-2">
               <button>
                 <IconEdit

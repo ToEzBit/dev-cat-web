@@ -12,25 +12,27 @@ import { getAllDevProducts } from '../api/product';
 
 function DevProfilePage() {
   const { id } = useParams();
-
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [devProfile, setDevProfile] = useState({});
   const [devProducts, setDevProducts] = useState([]);
+  const [render, setRender] = useState(false);
+  const [product, setProduct] = useState({});
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const fetchMe = async () => {
       const res = await getDevProfile(id);
       setDevProfile(res);
+      setReviews(res?.ProductReviews);
     };
     const fetchMyProduct = async () => {
       const res = await getAllDevProducts(id);
-      setDevProducts(res.slice(0, 2));
+      setDevProducts(res?.slice(0, 3));
     };
     fetchMe();
     fetchMyProduct();
-  }, []);
+  }, [render]);
 
-  console.log(devProducts);
 
   return (
     <div className="w-screen flex flex-col items-center">
@@ -45,12 +47,12 @@ function DevProfilePage() {
           <div className="collapse-title text-xl font-medium">
             <div className="flex justify-center items-center">
               <DevProfileCard
-                profileImage={devProfile.profileImage}
-                firstName={devProfile.firstName}
-                lastName={devProfile.lastName}
-                email={devProfile.email}
-                username={devProfile.username}
-                id={devProfile.id}
+                profileImage={devProfile?.profileImage}
+                firstName={devProfile?.firstName}
+                lastName={devProfile?.lastName}
+                email={devProfile?.email}
+                username={devProfile?.username}
+                id={devProfile?.id}
               />
             </div>
           </div>
@@ -113,7 +115,14 @@ function DevProfilePage() {
           </div>
         </div>
       </div>
-      <Review />
+      {/* product={product}
+      productId={productId}
+      mode="ProductPage" productDev={product?.Dev}
+      reviews={reviews}
+      setReviews={setReviews}
+      setProductByIDRender={setRender} */}
+
+      <Review reviews={reviews} setRender={setRender} setReviews={setReviews} />
       <Footer />
     </div>
   );
