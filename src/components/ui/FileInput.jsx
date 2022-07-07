@@ -2,8 +2,10 @@ import React from 'react';
 
 function FileInput({ setImageArr }) {
   return (
-    <label className="block p-6 max-w-sm bg-white rounded-lg border-dashed border-[#06033A] border-2 shadow-md hover:bg-[#E8E7FF]">
-      <p className="font-normal text-[#706D9E] dark:text-[#9747FF]">+</p>
+    <label className=" cursor-pointer block p-6 max-w-sm bg-white rounded-lg border-dashed hover:border-chat  border-2 hover:bg-violet-100 duration-300 hover:opacity-80">
+      <p className="font-normal  text-chat-quotation flex justify-center dark:text-chat">
+        +
+      </p>
       <input
         type="file"
         className="hidden"

@@ -19,7 +19,7 @@ const RichTextEditor = ({ initialValue, getValue }) => {
       value={initialValue}
       config={config}
       tabIndex={1}
-      className="prose"
+      className="prose "
       height="20"
       //   onBlur={(newContent) => getValue(newContent)}
       onChange={(newContent) => getValue(newContent)}

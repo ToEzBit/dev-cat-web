@@ -10,12 +10,12 @@ function Step5() {
   };
   return (
     <>
-      <div className="card w-3/4 h-96 flex flex-col bg-base-100 shadow-xl mx-auto mt-20">
+      <div className="card max-w-screen-xl flex flex-col bg-base-100 shadow-xl border mx-auto p-20 ">
         {/*====================== Title Project ====================== */}
-        <div className="flex flex-row gap-2 ml-12 mt-6">
+        <div className="flex flex-row gap-2 ">
           <div className="gap-5">
             <label
-              className="block text-purple-500 text-4xl font-extrabold mb-2"
+              className="block text-chat text-5xl font-extrabold"
               htmlFor="titleProject"
             >
               STEP 5

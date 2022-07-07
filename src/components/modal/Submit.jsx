@@ -29,12 +29,12 @@ function Submit({
     };
 
     const receiverId =
-      currentChat.senderId == ctx?.clientChat?.id
+      currentChat.senderId === ctx?.clientChat?.id
         ? currentChat.receiverId
         : currentChat.senderId;
 
     socket.current.emit('sendMessage', {
-      senderId: ctx?.user?.id,
+      senderId: ctx?.clientChat?.id,
       receiverId,
       message: link,
     });
