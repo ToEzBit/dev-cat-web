@@ -100,10 +100,11 @@ function Quotation({
                 <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content bg-chat  text-white rounded-lg  border-stroke">
                   <div className="flex justify-between items-baseline px-4">
                     <h5>{message.message}</h5>
-                    <div>{`${order?.totalPrice} BATH`}</div>
+                    <div>{`${order?.totalPrice || 6000} BATH`}</div>
                   </div>
                   <div className="text-white">
-                    {currentQuotation[0]?.Product?.title}
+                    {currentQuotation[0]?.Product?.title ||
+                      'All types of website making services Easy to use, works fast'}
                   </div>
                   {currentQuotation[0]?.status === 'cancelled' ? (
                     <p className="text-center">This order is canceled</p>
@@ -162,10 +163,11 @@ function Quotation({
             <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
               <div className="flex justify-between items-baseline px-4">
                 <h5>{message.message}</h5>
-                <div>{`${order?.totalPrice} BATH`}</div>
+                <div>{`${order?.totalPrice || 6000} BATH`}</div>
               </div>
               <div className="text-chat-quotation">
-                {currentQuotation[0]?.Product.title}
+                {currentQuotation[0]?.Product.title ||
+                  'All types of website making services Easy to use, works fast'}
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
                 {currentQuotation[0]?.status === 'cancelled' ? (
