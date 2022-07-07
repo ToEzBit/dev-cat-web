@@ -1,16 +1,15 @@
 import axios from '../../../config/axios';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useOrder } from '../../../contexts/OrderContext';
 import CheckoutPage from '../../../pages/CheckoutPage';
 
-function Quotation({ ProfilePic, own, message, array }) {
+function Quotation({ ProfilePic, own, message, array, getOrderPaymentStatus }) {
   const { orderId } = useOrder();
-  const [isClicked, setIsClicked] = useState(false);
   const [order, setOrder] = useState([]);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   //  const handleClick = () => {
   const [user, setUser] = useState(null);
   const ctx = useAuth();
@@ -66,6 +65,7 @@ function Quotation({ ProfilePic, own, message, array }) {
 
   //  }
   //fetchOrder เฉพาะไอดี
+
   return (
     <div>
       {own ? (
@@ -76,19 +76,19 @@ function Quotation({ ProfilePic, own, message, array }) {
                 <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content bg-chat  text-white rounded-lg  border-stroke">
                   <div className="flex justify-between items-baseline px-4">
                     <h5>{message.message}</h5>
-                    <div>3,000 BAHT</div>
+                    <div>{`${order?.totalPrice} BATH`}</div>
                   </div>
                   <div className="text-white">
                     Quick quiz is the easiest way to make quizzes FREE
                   </div>
                   <div className="grid grid-cols-2 gap-4 px-4">
-                    <button className="border p-2 rounded-lg bg-white text-chat border-bg-home-content">
-                      View Detail
-                    </button>
-                    <button
+                    <Link
+                      to={`/product/${order?.Product?.id}`}
                       className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
-                      onClick={() => setIsClicked((prev) => !prev)}
                     >
+                      View Detail
+                    </Link>
+                    <button className="border p-2 rounded-lg bg-white text-chat border-bg-home-content">
                       Cancel
                     </button>
                   </div>
@@ -129,21 +129,30 @@ function Quotation({ ProfilePic, own, message, array }) {
             <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
               <div className="flex justify-between items-baseline px-4">
                 <h5>{message.message}</h5>
-                <div>3,000 BAHT</div>
+                <div>{`${order?.totalPrice} BATH`}</div>
               </div>
               <div className="text-chat-quotation">
                 Quick quiz is the easiest way to make quizzes FREE
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
-                <button className="border p-2 rounded-lg border-bg-home-content">
-                  View Detail
-                </button>
-                <button
+                <Link
+                  to={`/product/${order?.Product?.id}`}
                   className="border p-2 rounded-lg border-bg-home-content"
-                  onClick={() => setIsClicked((prev) => !prev)}
                 >
-                  Pay Now!
-                </button>
+                  View Detail
+                </Link>
+                {getOrderPaymentStatus !== 'paymentReceived' ? (
+                  <button
+                    className="border p-2 rounded-lg border-bg-home-content"
+                    onClick={() => navigate(`/checkout-page/${order.id}`)}
+                  >
+                    Pay Now!
+                  </button>
+                ) : (
+                  <p className="border p-2 rounded-lg border-bg-home-content">
+                    payment received
+                  </p>
+                )}
               </div>
             </div>
             <div className="text-xs text-slate-400">8.00 PM</div>

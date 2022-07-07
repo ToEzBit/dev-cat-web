@@ -25,7 +25,9 @@ function ChatRoom() {
   const [friendId, setFriendId] = useState(null);
   const [getOrderId, setGetOrderId] = useState(null);
   const [getOrderStatus, setGetOrderStatus] = useState(null);
+  const [getOrderPaymentStatus, setGetOrderPaymentStatus] = useState(null);
   const [orderId, setOrderId] = useState(null);
+  const [fetchOrder, setFetchOrder] = useState(false);
   // const [notification, setNotification] = useState(false);
   //socket io
 
@@ -56,15 +58,15 @@ function ChatRoom() {
   //   };
   //   getOrder();
   // }, [selectedOrder]);
-
   useEffect(() => {
     const getOrder = async () => {
       try {
-        if (ctx?.clientChat?.id % 2 === 0) {
+        if (ctx.user) {
           // setClientChat(res?.data?.user);
           const res = await axios.get('/user/orders/');
           setGetOrderId(res.data);
-        } else {
+        }
+        if (ctx.dev) {
           const resDev = await axios.get('/dev/orders/');
           setGetOrderId(resDev.data);
         }
@@ -168,11 +170,16 @@ function ChatRoom() {
           let arrayOrderId = e?.message?.startsWith('order: ');
           return arrayOrderId;
         });
-        var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
-        // console.log(getLastOrderId);
+        // var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
+        const lastIndexAllOrderId = allOrderId.length - 1;
+        var getLastOrderId = allOrderId[lastIndexAllOrderId]?.message?.replace(
+          'order: ',
+          '',
+        );
+        // console.log(findLastArrAllOrderIdIndex);
         // console.log(ctx.clientChat);
 
-        if (ctx.clientChat.id % 2 === 0) {
+        if (ctx.user) {
           if (getLastOrderId) {
             const getOrderIdStatus = await axios.get(
               `/user/order/${getLastOrderId}`,
@@ -180,9 +187,11 @@ function ChatRoom() {
             setStepOrder(getOrderIdStatus?.data?.order);
             setOrderId(getLastOrderId);
             setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+            setGetOrderPaymentStatus(getOrderIdStatus.data.order.paymentStatus);
           }
           // console.log(getOrderIdStatus);
-        } else {
+        }
+        if (ctx.dev) {
           if (getLastOrderId) {
             const getOrderIdStatus = await axios.get(
               `/dev/order/${getLastOrderId}`,
@@ -191,6 +200,7 @@ function ChatRoom() {
             setStepOrder(getOrderIdStatus?.data?.order);
             setOrderId(getLastOrderId);
             setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+            setGetOrderPaymentStatus(getOrderIdStatus.data.order.paymentStatus);
           }
         }
       } else {
@@ -198,7 +208,7 @@ function ChatRoom() {
       }
     };
     getOrderStatus();
-  }, [currentChat, getOrderStatus, orderId]);
+  }, [currentChat, getOrderStatus, orderId, fetchOrder]);
 
   // const [currentValue, setCurrentValue] = useState(0);
 
@@ -225,9 +235,6 @@ function ChatRoom() {
   //   }
   // }, [stepOrder]);
 
-  // console.log(getOrderStatus);
-
-  // console.log(getOrderStatus);
   return (
     <>
       {' '}
@@ -272,31 +279,35 @@ function ChatRoom() {
                       getOrderStatus === 'completed' ||
                       getOrderStatus === 'cancelled' ? (
                         <div>
-                          <label
-                            htmlFor="createOrder-modal"
-                            className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                            role="button"
-                          >
-                            Create Order
-                          </label>
+                          {currentChat ? (
+                            <>
+                              <label
+                                htmlFor="createOrder-modal"
+                                className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                                role="button"
+                              >
+                                Create Order
+                              </label>
 
-                          <input
-                            type="checkbox"
-                            id="createOrder-modal"
-                            className="modal-toggle"
-                          />
-
-                          <div className="modal w-full h-full">
-                            <div className="modal-box  w-full h-full">
-                              <CreateOrder
-                                currentChat={currentChat}
-                                socket={socket}
-                                setMessages={setMessages}
-                                setNewMessages={setNewMessages}
-                                messages={messages}
+                              <input
+                                type="checkbox"
+                                id="createOrder-modal"
+                                className="modal-toggle"
                               />
-                            </div>
-                          </div>
+
+                              <div className="modal w-full h-full">
+                                <div className="modal-box  w-full h-full">
+                                  <CreateOrder
+                                    currentChat={currentChat}
+                                    socket={socket}
+                                    setMessages={setMessages}
+                                    setNewMessages={setNewMessages}
+                                    messages={messages}
+                                  />
+                                </div>
+                              </div>
+                            </>
+                          ) : null}
                         </div>
                       ) : getOrderStatus === 'pending' ? (
                         <div>
@@ -317,7 +328,10 @@ function ChatRoom() {
 
                           <div className="modal">
                             <div className="modal-box">
-                              <StartWork currentChat={currentChat} />
+                              <StartWork
+                                currentChat={currentChat}
+                                setFetchOrder={setFetchOrder}
+                              />
                             </div>
                           </div>
                         </div>
@@ -446,6 +460,7 @@ function ChatRoom() {
                               own={m.sender === ctx.clientChat.id}
                               currentUser={ctx.clientChat}
                               ProfilePic={ProfilePic}
+                              getOrderPaymentStatus={getOrderPaymentStatus}
                             />
                           </div>
                         );
@@ -472,6 +487,7 @@ function ChatRoom() {
                               message={m}
                               own={m.sender === ctx.clientChat.id}
                               currentUser={ctx.clientChat}
+                              getOrderStatus={getOrderStatus}
                             />
                           </div>
                         );

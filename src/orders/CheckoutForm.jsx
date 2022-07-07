@@ -8,8 +8,7 @@ import { orderPayment } from '../api/order';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function CheckoutForm() {
-  const orderId = 8;
+export default function CheckoutForm({ orderId }) {
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();

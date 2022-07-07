@@ -6,6 +6,7 @@ import { createPaymentIntent } from '../api/order';
 import CheckoutForm from '../orders/CheckoutForm';
 import { useOrder } from '../contexts/OrderContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useParams } from 'react-router-dom';
 
 // devCat's publishable key
 const stripePromise = loadStripe(
@@ -13,16 +14,19 @@ const stripePromise = loadStripe(
 );
 
 export default function CheckoutPage() {
+  const { orderId } = useParams();
   const [clientSecret, setClientSecret] = useState('');
   const { user } = useAuth();
   // console.log(user);
 
-  const orderId = useOrder();
+  console.log(orderId);
+
+  // const orderId = useOrder();
   useEffect(() => {
     // from chatroom > click pay now > load this page and run this function
     // Create PaymentIntent as soon as the page loads
     const getClientSecret = async () => {
-      const res = await createPaymentIntent({ orderId: 8 });
+      const res = await createPaymentIntent({ orderId: orderId });
       setClientSecret(res?.data?.clientSecret);
     };
     getClientSecret();

@@ -1,16 +1,32 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 
-export default function Example({ people }) {
-  const [selected, setSelected] = useState(people[0]);
+const people = [
+  { name: 'Wade Cooper' },
+  { name: 'Arlene Mccoy' },
+  { name: 'Devon Webb' },
+  { name: 'Tom Cook' },
+  { name: 'Tanya Fox' },
+  { name: 'Hellen Schmidt' },
+];
 
+function ListBox({ people, list }) {
+  const [selected, setSelected] = useState();
+
+  // useEffect(() => {
+  //   if (list) {
+  //     setSelected(list[0]);
+  //   }
+  // }, [list]);
+
+  console.log(selected);
   return (
-    <div className=" w-72">
+    <div className="fixed top-16 w-72">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate">{selected?.name}</span>
+            <span className="block truncate">asdasdasdasd</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <SelectorIcon
                 className="h-5 w-5 text-gray-400"
@@ -25,7 +41,7 @@ export default function Example({ people }) {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {people?.map((person, personIdx) => (
+              {people.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
                   className={({ active }) =>
@@ -60,3 +76,5 @@ export default function Example({ people }) {
     </div>
   );
 }
+
+export default ListBox;

@@ -33,7 +33,7 @@ export default function Router() {
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/change-password" element={<ChangePasswordPage />} />
       <Route path="/new-password" element={<NewPasswordPage />} />
-      <Route path="/checkout-page/*" element={<CheckoutPage />} />
+      <Route path="/checkout-page/:orderId" element={<CheckoutPage />} />
       <Route path="/profile" element={<EditProfilePage />} />
       <Route path="/test-create-order" element={<CreateOrder />} />
       <Route path="/test-create-quotation" element={<Quotation />} />
