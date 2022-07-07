@@ -10,6 +10,10 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { getAllProducts } from '../api/product';
 import CarouselLanding from '../components/carousel/CarouselLanding';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 function ResultPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -123,7 +127,7 @@ function ResultPage() {
           </a>
         </div>
         {/* ==================== carousel ==================== */}
-        <div className="w-4/5 flex flex-col gap-6">
+        <div className="w-4/5 flex flex-col gap-6" data-aos="flip-left">
           <CarouselLanding width={'1024px'} />
           {/* </div> */}
 

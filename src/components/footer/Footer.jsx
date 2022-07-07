@@ -2,10 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
+
 function Footer() {
   return (
     <div>
-      <div className=" w-screen bg-gray-900 py-12">
+      <div data-aos="fade-up" className=" w-screen bg-gray-900 py-12">
         <div className="max-w-screen-lg mx-auto grid grid-cols-5">
           <div className=" text-white col-span-1 font-medium text-xl">
             DavCats

@@ -10,6 +10,10 @@ import Footer from '../components/footer/Footer';
 import PhotoCollage from '../components/products/PhotoCollage';
 import { useAuth } from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -42,7 +46,10 @@ export default function ProductPage() {
         <Navbar />
       </div>
 
-      <div className="max-w-screen-lg mx-auto w-8/12 py-4 flex flex-col gap-8">
+      <div
+        className="max-w-screen-lg mx-auto w-8/12 py-4 flex flex-col gap-8"
+        data-aos="fade-up"
+      >
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-baseline">
             <div className="flex gap-4 items-center">
@@ -109,12 +116,12 @@ export default function ProductPage() {
           </div>
 
           {Object.values(product).length > 0 && (
-            <div className="w-full">
+            <div className="w-full" data-aos="flip-left">
               <PhotoCollage photo={product?.ProductImages} />
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4" data-aos="fade-up">
           <div className="text-chat font-semibold text-2xl">
             {product?.title}
           </div>
@@ -122,7 +129,7 @@ export default function ProductPage() {
             <ProductDetails message={product?.info} />
           </div>
         </div>
-        <div>
+        <div data-aos="fade-up">
           <div className="flex w-full justify-between">
             <p className="text-chat font-semibold">Package</p>
             {dev && dev?.id == product?.Dev?.id ? (
@@ -134,14 +141,14 @@ export default function ProductPage() {
             )}
           </div>
         </div>
-        <div>
+        <div data-aos="fade-up">
           <PackageDetails
             product={product?.Packages}
             devId={product?.Dev?.id}
           />
         </div>
       </div>
-      <div className="mt-6">
+      <div className="mt-6" data-aos="fade-up">
         <Review
           product={product}
           productId={productId}
