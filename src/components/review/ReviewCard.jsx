@@ -8,6 +8,7 @@ export default function ReviewCard({
   name,
   message,
   rate,
+  profilePic,
   isAnonymous,
   setProductByIDRender,
 }) {
@@ -27,6 +28,7 @@ export default function ReviewCard({
             name={name}
             message={message}
             rate={rate}
+            profilePic={profilePic}
             isAnonymous={isAnonymous}
             setIsReadOnlyMode={setIsReadOnlyMode}
             isReadOnlyMode={isReadOnlyMode}
@@ -35,10 +37,12 @@ export default function ReviewCard({
           />
         ) : (
           <ReviewCardEditMode
+            userId={userId}
             id={id}
             name={name}
             message={message}
             rate={rate}
+            profilePic={profilePic}
             setProductByIDRender={setProductByIDRender}
             isAnonymous={isAnonymous}
             setIsReadOnlyMode={setIsReadOnlyMode}

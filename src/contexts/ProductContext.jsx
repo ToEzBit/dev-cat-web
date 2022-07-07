@@ -28,7 +28,12 @@ function ProductContextProvider({ children }) {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products, handleCreateProductReview }}>
+    <ProductContext.Provider
+      value={{
+        products,
+        handleCreateProductReview,
+      }}
+    >
       {children}
     </ProductContext.Provider>
   );

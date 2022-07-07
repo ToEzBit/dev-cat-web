@@ -16,6 +16,7 @@ export default function ReviewCardEditMode({
   id,
   isAnonymous,
   setIsReadOnlyMode,
+  profilePic,
   isReadOnlyMode,
   anonymousName,
   setProductByIDRender,
@@ -27,7 +28,14 @@ export default function ReviewCardEditMode({
   const [newIsAnonymous, setNewIsAnonymous] = useState(isAnonymous);
   const handleUpdateReview = async () => {
     setIsReadOnlyMode(!isReadOnlyMode);
-    if (newRate === rate || newMessage === newMessage) {
+    if (
+      newRate === rate &&
+      newMessage === message &&
+      newIsAnonymous === isAnonymous
+    ) {
+      console.log(newRate === rate);
+      console.log(newMessage === message);
+      console.log(newIsAnonymous === isAnonymous);
       setError('Nothing to update yet.');
     }
     if (!id) {
@@ -35,15 +43,20 @@ export default function ReviewCardEditMode({
     }
 
     try {
-      const res = await updateProductReview(
-        {
-          message: newMessage,
-          rate: newRate,
-          isAnonymous: newIsAnonymous,
-        },
-        id,
-      );
-      setProductByIDRender((prev) => !prev);
+      if (error.length != 0) {
+        const res = await updateProductReview(
+          {
+            message: newMessage,
+            rate: newRate,
+            isAnonymous: newIsAnonymous,
+          },
+          id,
+        );
+        console.log(res);
+        if (setProductByIDRender) {
+          setProductByIDRender((prev) => !prev);
+        }
+      }
     } catch (err) {
       console.log(err);
     }
@@ -55,9 +68,13 @@ export default function ReviewCardEditMode({
         <div className="flex gap-2 items-center">
           <div className="w-2/12 ">
             {newIsAnonymous ? (
-              <img src={AnonymousProfilePic} alt="" className="w-[200px]" />
+              <img src={AnonymousProfilePic} alt="" className="w-[240px]" />
             ) : (
-              <img src={ProfilePic} alt="" />
+              <img
+                src={profilePic || ProfilePic}
+                alt=""
+                className="w-[240px]"
+              />
             )}
           </div>
           <div className="flex items-stretch">
@@ -85,7 +102,7 @@ export default function ReviewCardEditMode({
               />
             </button>
           </div>
-          <Rating setNewRate={setNewRate} />
+          <Rating setNewRate={rate} />
         </div>
       </div>
       <textarea
@@ -95,6 +112,7 @@ export default function ReviewCardEditMode({
         className="min-w-full max-w-full border border-indigo-50 rounded-md"
         onChange={(e) => setNewMessage(e.target.value)}
       ></textarea>
+      {error.length !== 0 && <span>{error}</span>}
     </div>
   );
 }

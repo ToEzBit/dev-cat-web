@@ -2,7 +2,7 @@ import axios from '../../config/axios';
 import React from 'react';
 import { useState } from 'react';
 
-function RequiredEdit({ getOrderId }) {
+function RequiredEdit({ getOrderId, setFetchOrder }) {
   const [comment, setComment] = useState('');
 
   const handleStartWork = async () => {
@@ -10,6 +10,7 @@ function RequiredEdit({ getOrderId }) {
       reviewDetail: comment,
     };
     await axios.post(`/orders/${getOrderId}/review/`, message);
+    setFetchOrder((prev) => !prev);
   };
 
   return (
@@ -29,14 +30,14 @@ function RequiredEdit({ getOrderId }) {
         />
         <div className=" flex justify-center gap-8">
           <label
-            htmlFor="save-modal"
+            htmlFor="Required-modal"
             className="border cursor-pointer border-stroke p-2 rounded-xl px-4 hover:bg-chat  hover:text-white duration-300  text-chat"
             onClick={handleStartWork}
           >
             Confirm your Requirement
           </label>
           <label
-            htmlFor="save-modal"
+            htmlFor="Required-modal"
             className="border border-stroke p-2 rounded-xl px-4  hover:bg-chat  hover:text-white duration-300  text-chat"
           >
             No need to edit...

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import axios from '../../config/axios';
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -14,6 +14,8 @@ function Submit({
 }) {
   const [link, setLink] = useState('');
   const [comment, setComment] = useState('');
+
+  const submitModalRef = useRef();
 
   const ctx = useAuth();
 
@@ -43,23 +45,28 @@ function Submit({
       const res = await axios.post('/messages', message);
       await axios.patch(`/orders/${orderId}/status`, status);
       setMessages([...messages, res.data]);
-      setNewMessages('');
+      // setNewMessages('');
+      // setLink('');
+      // setComment('');
+      submitModalRef.current.click();
     } catch (err) {
       console.log(err);
+      // setLink('');
+      // setComment('');
     }
   };
-
   return (
     <div className="max-w-screen-lg mx-auto">
       <div className="flex justify-end ">
         <div className="modal-action">
-          <label htmlFor="submit-modal">X</label>
+          <label htmlFor="submit-modal" role="button">
+            X
+          </label>
         </div>
       </div>
       <div className="flex flex-col   text-[#06033A] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg border border-[#7879F1]">
         <div className="flex flex-col py-5">
-          <label>John Doe</label>
-          <label>#01234567PP</label>
+          <label>{ctx?.dev?.username}</label>
         </div>
         {/* ==============================================================detailUser=============================================================== */}
         <div>
@@ -98,13 +105,21 @@ function Submit({
             />
           </div>
           {/* ==================================================================input detail============================================================= */}
-          <div className="flex  justify-center rounded-lg ">
-            <button
+          <div className="modal-action justify-center">
+            <label
+              htmlFor="submit-modal"
+              ref={submitModalRef}
+              className="hidden"
+            >
+              x
+            </label>
+            <label
+              role="button"
               onClick={handleSubmit}
               className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 my-4 border border-[#E8E7FF] rounded-xl shadow"
             >
               Submit
-            </button>
+            </label>
           </div>
           {/* ==================================================================button================================================================ */}
         </div>

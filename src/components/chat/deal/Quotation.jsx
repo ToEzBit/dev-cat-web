@@ -1,6 +1,6 @@
 import axios from '../../../config/axios';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useOrder } from '../../../contexts/OrderContext';
 import CheckoutPage from '../../../pages/CheckoutPage';
@@ -17,11 +17,17 @@ function Quotation({
   setSelectedOrder,
   selectedOrder,
   getOrderId,
+  getOrderPaymentStatus,
+  getOrderStatus,
+  orderId,
+  setFetchOrder,
 }) {
-  const [isClicked, setIsClicked] = useState(false);
+  // console.log(orderId);
+
   const [order, setOrder] = useState([]);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const [user, setUser] = useState(null);
   const ctx = useAuth();
 
@@ -31,7 +37,6 @@ function Quotation({
     const friendId = array.filter((e) => {
       return e.sender !== ctx.clientChat.id;
     });
-    // console.log(friendId);
 
     const getUser = async () => {
       try {
@@ -73,13 +78,18 @@ function Quotation({
     // setGetOrderId(order);
   }, [array, ctx.clientChat.id, ret]);
 
+  //  }
+  //fetchOrder เฉพาะไอดี
   const currentQuotation = getOrderId?.filter((el) => el.id == +ret);
+
   const handleCancel = async () => {
     await updateOrderStatus({ status: 'cancelled' }, +ret);
+    setFetchOrder((prev) => !prev);
   };
 
-  // console.log(selectedOrder);
+  // console.log(currentQuotation);
 
+  // console.log(selectedOrder);
   return (
     <div>
       {own ? (
@@ -90,29 +100,33 @@ function Quotation({
                 <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content bg-chat  text-white rounded-lg  border-stroke">
                   <div className="flex justify-between items-baseline px-4">
                     <h5>{message.message}</h5>
-                    <div>{currentQuotation[0]?.totalPrice} BAHT</div>
+                    <div>{`${order?.totalPrice || 6000} BATH`}</div>
                   </div>
                   <div className="text-white">
-                    {currentQuotation[0]?.Product?.title}
+                    {currentQuotation[0]?.Product?.title ||
+                      'All types of website making services Easy to use, works fast'}
                   </div>
-                  <div className="grid grid-cols-2 gap-4 px-4">
-                    <button
-                      className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
-                      onClick={() => setSelectedOrder(+ret)}
-                    >
-                      View Detail
-                    </button>
-                    <button
-                      className={`border p-2 rounded-lg bg-white border-bg-home-content ${
-                        currentQuotation[0]?.status === 'cancelled'
-                          ? 'text-white btn-disable'
-                          : 'text-chat'
-                      }`}
-                      onClick={() => handleCancel()}
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                  {currentQuotation[0]?.status === 'cancelled' ? (
+                    <p className="text-center">This order is canceled</p>
+                  ) : (
+                    <>
+                      <div className="grid grid-cols-2 gap-4 px-4">
+                        <Link
+                          to={`/product/${order?.Product?.id}`}
+                          className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
+                          target="_blank"
+                        >
+                          View Detail
+                        </Link>
+                        <button
+                          className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
+                          onClick={handleCancel}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="avatar">
@@ -145,78 +159,52 @@ function Quotation({
         </>
       ) : (
         <div className="flex justify-end gap-4">
-          <div className="flex flex-col gap-2 ">
+          <div className="flex flex-row-reverse items-end gap-2 ">
             <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
               <div className="flex justify-between items-baseline px-4">
                 <h5>{message.message}</h5>
-                <div>{currentQuotation[0]?.totalPrice} BAHT</div>
+                <div>{`${order?.totalPrice || 6000} BATH`}</div>
               </div>
               <div className="text-chat-quotation">
-                {currentQuotation[0]?.Product.title}
+                {currentQuotation[0]?.Product.title ||
+                  'All types of website making services Easy to use, works fast'}
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
-                <button
-                  className="border p-2 rounded-lg border-bg-home-content col-span-2"
-                  onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
-                >
-                  View Detail
-                </button>
-
-                {order.paymentStatus === 'paymentReceived' ||
-                order.status === 'cancelled' ? (
-                  <div></div>
+                {currentQuotation[0]?.status === 'cancelled' ? (
+                  <p className="text-center">This order is canceled</p>
                 ) : (
-                  <div className="col-span-2 w-full">
-                    <div
-                      role="button"
-                      htmlFor="payment-modal"
-                      className="w-full  border p-2 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center"
+                  <>
+                    <Link
+                      to={`/product/${order?.Product?.id}`}
+                      className="border p-2 rounded-lg border-bg-home-content"
+                      target="_blank"
                     >
-                      <label role="button" htmlFor="payment-modal">
+                      View Detail
+                    </Link>
+                    {getOrderPaymentStatus !== 'paymentReceived' ? (
+                      <button
+                        className="border p-2 rounded-lg border-bg-home-content"
+                        onClick={() => navigate(`/checkout-page/${order.id}`)}
+                      >
                         Pay Now!
-                      </label>
-                    </div>
-
-                    <input
-                      type="checkbox"
-                      id="payment-modal"
-                      className="modal-toggle w-full bg-slate-300"
-                      onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
-                    />
-
-                    <div className="modal w-full h-full ">
-                      <div className="modal-box w-full ">
-                        <CheckoutPage orderId={currentQuotation[0]?.id} />
-                      </div>
-                    </div>
-                  </div>
+                      </button>
+                    ) : (
+                      <p className="border p-2 rounded-lg border-bg-home-content">
+                        payment received
+                      </p>
+                    )}
+                  </>
                 )}
-                {/* <label
-                  htmlFor="payment-modal"
-                  className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                  role="button"
-                >
-                  Pay Now!
-                </label>
-
-                <input
-                  type="checkbox"
-                  id="payment-modal"
-                  className="modal-toggle"
-                  onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
-                />
-
-                <div className="modal w-full h-full">
-                  <div className="modal-box">
-                    <CheckoutPage orderId={currentQuotation[0]?.id} />
-                  </div>
-                </div> */}
               </div>
               <div className="text-xs text-slate-400">8.00 PM</div>
             </div>
             <div className="avatar ">
-              <div className="w-14 rounded-full ">
-                <img src={user?.profileImage || ProfilePic} alt="" />
+              <div className="w-16 h-16 rounded-full bg-gray-800 ">
+                <img
+                  src={user?.profileImage || ProfilePic}
+                  alt=""
+                  className="object-contain"
+                />
               </div>
             </div>
           </div>
