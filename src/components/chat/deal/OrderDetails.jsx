@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function OrderDetails({ order }) {
-  console.log(order);
   return (
     <div className="w-full h-full flex justify-center items-center overflow-auto">
       <div className="w-1/2xw gap-5 flex flex-col">

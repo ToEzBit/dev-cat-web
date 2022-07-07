@@ -174,11 +174,12 @@ function ChatRoom() {
     const getOrderStatus = async () => {
       if (currentChat) {
         var allOrderId = currentChat?.Chats?.filter((e) => {
+          console.log(currentChat?.Chats);
           let arrayOrderId = e?.message?.startsWith('order: ');
           return arrayOrderId;
         });
         var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
-        console.log(ctx.clientChat);
+        // console.log(ctx.clientChat);
 
         if (ctx.clientChat.id % 2 === 0) {
           const getOrderIdStatus = await axios.get(
