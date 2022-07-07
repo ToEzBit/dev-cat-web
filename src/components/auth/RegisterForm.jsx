@@ -70,7 +70,9 @@ function RegisterForm() {
         </div>
         <div className="card-body">
           <div className="flex justify-between">
-            <h2 className="card-title">DevCats</h2>
+            {tab ? <h2 className="card-title ml-28">DevCats</h2> : null}
+            {tab ? null : <h2 className="card-title ml-28">Developer</h2>}
+
             <a href="/" className="btn btn-ghost text-red-600">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +90,7 @@ function RegisterForm() {
               </svg>
             </a>
           </div>
-          <div className="divider text-gray-400">OR</div>
+
           <p className="flex">Sign Up</p>
 
           {error ? <p className="text-red-500">username is required</p> : null}
@@ -132,7 +134,9 @@ function RegisterForm() {
                 className="checkbox"
                 onChange={(e) => setChecked(!checked)}
               />
-              <span className="label-text">I agree with Terms of Service</span>
+              <span className="label-text absolute ml-10">
+                I agree with Terms of Service
+              </span>
             </label>
           </div>
           <div className="card-actions">

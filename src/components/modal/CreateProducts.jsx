@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import AddPackage from './AddPackage';
 import FileInput from '../ui/FileInput';
 import ImageDisplay from '../ui/ImageDisplay';
@@ -11,6 +11,7 @@ import {
   createProduct,
 } from '../../api/product';
 import RichTextEditor from '../jodit/JoditDraft';
+import StepTab from '../../components/step/StepTab';
 
 function CreateProducts() {
   const navigate = useNavigate();
@@ -98,7 +99,9 @@ function CreateProducts() {
   return (
     <>
       {isLoading ? <Spinner /> : null}
-      <div className="flex flex-col ">
+      <StepTab />
+      <Outlet />
+      {/* <div className="flex flex-col ">
         <div className="flex justify-end px-5 py-3">
           <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
             Close
@@ -167,8 +170,8 @@ function CreateProducts() {
                       getValue={setInfo}
                     ></RichTextEditor>
                     <td dangerouslySetInnerHTML={{ __html: info }}></td>
-                  </div>
-                  {/* <textarea
+                  </div> */}
+      {/* <textarea
                     id="message"
                     rows="4"
                     className="block p-2.5 w-full text-md text-[#706D9E]    rounded-xl border border-[#9747FF] py-8 "
@@ -176,12 +179,12 @@ function CreateProducts() {
                     value={info}
                     onChange={(e) => setInfo(e.target.value)}
                   /> */}
-                </div>
+      {/* </div>
               </div>
-            </div>
+            </div> */}
 
-            {/* ====================================================================TitleProject =============================================================================*/}
-            <div className="w-1/2">
+      {/* ====================================================================TitleProject =============================================================================*/}
+      {/* <div className="w-1/2">
               <div className="flex flex-col  px-4 py-2 m-2 gap-1 my-2   ">
                 <div className="flex  w-full ">
                   <label
@@ -231,9 +234,9 @@ function CreateProducts() {
                 </div>
               </div>
             </div>
-          </div>
-          {/* ====================================================================add image =============================================================================*/}
-          <div className="flex flex-col ">
+          </div> */}
+      {/* ====================================================================add image =============================================================================*/}
+      {/* <div className="flex flex-col ">
             <div className="flex flex-row  justify-end  ">
               <div>
                 {packageArr.length >= 3 ? null : (
@@ -258,16 +261,16 @@ function CreateProducts() {
                       </div>
                     </div>
                   </>
-                )}
+                )} */}
 
-                {/* <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
+      {/* <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 mx-3 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
                 ADD
               </button>
               <button className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md ">
                 DELETE
               </button> */}
-              </div>
-            </div>
+      {/* </div> */}
+      {/* </div>
             {packageArr?.map((el, idx) => (
               <Package
                 key={idx}
@@ -281,17 +284,17 @@ function CreateProducts() {
                 deletePackageArr={deletePackageArr}
               />
             ))}
-          </div>
-          {/* ====================================================================add TitleProject =============================================================================*/}
+          </div> */}
+      {/* ====================================================================add TitleProject =============================================================================*/}
 
-          <div className="flex flex-col  flex-auto text-[#5D5FEF] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg ">
-            {/* <button className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 border border-[#E8E7FF] rounded shadow">
+      {/* <div className="flex flex-col  flex-auto text-[#5D5FEF] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg "> */}
+      {/* <button className="bg-white hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold py-2 px-4 border border-[#E8E7FF] rounded shadow">
             +
           </button> */}
-          </div>
-        </div>
-        {/* ====================================================================button TitleProject =============================================================================*/}
-      </div>
+      {/* </div> */}
+      {/* </div> */}
+      {/* ====================================================================button TitleProject =============================================================================*/}
+      {/* </div> */}
     </>
   );
 }
