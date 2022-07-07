@@ -26,6 +26,7 @@ function ChatRoom() {
   const [getOrderId, setGetOrderId] = useState(null);
   const [getOrderStatus, setGetOrderStatus] = useState(null);
   const [orderId, setOrderId] = useState(null);
+  const [orderId1, setOrderId1] = useState(null);
   // const [notification, setNotification] = useState(false);
   //socket io
 
