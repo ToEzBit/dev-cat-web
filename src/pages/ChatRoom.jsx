@@ -117,7 +117,7 @@ function ChatRoom() {
     const getConversations = async () => {
       try {
         const res = await axios.get('/conversations/' + ctx?.clientChat?.id);
-        console.log(...res.data);
+        // console.log(...res.data);
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
@@ -134,7 +134,7 @@ function ChatRoom() {
       try {
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
-        console.log(res.data);
+        // console.logw(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -180,9 +180,9 @@ function ChatRoom() {
       // console.log(currentChat.Chats.length);
       if (currentChat.Chats.length !== 0) {
         var allOrderId = currentChat?.Chats?.filter((e) => {
-          console.log(currentChat?.Chats);
+          // console.log(currentChat?.Chats);
           let arrayOrderId = e?.message?.startsWith('order: ');
-          console.log(arrayOrderId);
+          // console.log(arrayOrderId);
           return arrayOrderId;
         });
         var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');

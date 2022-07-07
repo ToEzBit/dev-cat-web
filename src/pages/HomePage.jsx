@@ -37,7 +37,7 @@ function HomePage() {
     // console.log({ id, title, Packages, ProductReviews });
     const priceArr = Packages.map((el) => +el.price);
     // console.log(priceArr);
-    console.log(Dev);
+    // console.log(Dev);
     const maxPrice = Math.max(...priceArr);
     // console.log(maxPrice);
     const minPrice = Math.min(...priceArr);
@@ -69,7 +69,7 @@ function HomePage() {
   return (
     <>
       {/* {console.log('term', pro.products)} */}
-      {console.log(pro.products)}
+      {/* {console.log(pro.products)} */}
 
       <motion.div
         className="relative flex flex-col  gap-20"
@@ -309,7 +309,7 @@ function HomePage() {
             <div className="flex flex-col gap-4">
               <h5>Popular Mobile</h5>
               <div className="grid gap-4 grid-cols-4">
-                {console.log(productArr)}
+                {/* {console.log(productArr)} */}
                 {productArr
                   .map((e, index) => {
                     if (e?.category === 'mobile') {
