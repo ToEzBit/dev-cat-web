@@ -97,12 +97,14 @@ function Quotation({
           <div className="w-full flex justify-end">
             <div className="flex p-4 items-center gap-4">
               <div className="flex flex-col gap-2 ">
-                <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content bg-chat  text-white rounded-lg  border-stroke">
+                <div className="flex flex-col gap-4 border p-6 shadow-md shadow-bg-home-content bg-chat  text-white rounded-lg  border-stroke">
                   <div className="flex justify-between items-baseline px-4">
-                    <h5>{message.message}</h5>
-                    <div>{`${order?.totalPrice || 6000} BATH`}</div>
+                    <h5 className=" font-semibold">{message.message}</h5>
+                    <div className=" font-semibold">{`${
+                      order?.totalPrice || 6000
+                    } BATH`}</div>
                   </div>
-                  <div className="text-white">
+                  <div className="text-white text-center">
                     {currentQuotation[0]?.Product?.title ||
                       'All types of website making services Easy to use, works fast'}
                   </div>
@@ -113,7 +115,7 @@ function Quotation({
                       <div className="grid grid-cols-2 gap-4 px-4">
                         <Link
                           to={`/product/${order?.Product?.id}`}
-                          className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
+                          className="border text-center p-2 rounded-lg bg-white text-chat border-bg-home-content"
                           target="_blank"
                         >
                           View Detail
@@ -158,14 +160,16 @@ function Quotation({
               </div> */}
         </>
       ) : (
-        <div className="flex justify-end gap-4">
-          <div className="flex flex-row-reverse items-end gap-2 ">
-            <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
+        <div className="flex justify-end  gap-4">
+          <div className="flex flex-row-reverse items-center gap-4 ">
+            <div className="flex flex-col gap-4 border p-6 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
               <div className="flex justify-between items-baseline px-4">
-                <h5>{message.message}</h5>
-                <div>{`${order?.totalPrice || 6000} BATH`}</div>
+                <h5 className=" font-semibold">{message.message}</h5>
+                <div className=" font-semibold">{`${
+                  order?.totalPrice || 6000
+                } BATH`}</div>
               </div>
-              <div className="text-chat-quotation">
+              <div className="text-chat-quotation text-center">
                 {currentQuotation[0]?.Product.title ||
                   'All types of website making services Easy to use, works fast'}
               </div>
@@ -176,7 +180,7 @@ function Quotation({
                   <>
                     <Link
                       to={`/product/${order?.Product?.id}`}
-                      className="border p-2 rounded-lg border-bg-home-content"
+                      className="border p-2 rounded-lg border-bg-home-content text-center"
                       target="_blank"
                     >
                       View Detail

@@ -190,7 +190,7 @@ function Step4() {
                 </div>
                 <div class="">
                   <button
-                    class="btn btn-primary w-full bg-chat border-none hover:bg-chat-quotation duration-500d"
+                    class="btn btn-primary w-full bg-chat border-none hover:bg-chat-quotation duration-500"
                     onClick={handlePushArr}
                   >
                     SUBMIT

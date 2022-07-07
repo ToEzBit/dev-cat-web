@@ -13,28 +13,39 @@ function ModalBody({
   deletePackageArr,
 }) {
   return (
-    <div className="flex">
+    <div className="flex flex-col gap-3 border p-4 rounded-xl border-chat border-opacity-20">
       <>
-        <Dialog.Title
-          as="h3"
-          className="text-lg font-medium leading-6 text-gray-900"
-        >
-          {title}
-        </Dialog.Title>
-        <div className="mt-2">
+        <div className="flex justify-between items-center">
+          <Dialog.Title
+            as="h3"
+            className="text-lg font-bold leading-6 text-chat"
+          >
+            {title}
+          </Dialog.Title>
+          <p
+            className="text-red-500"
+            role="button"
+            onClick={() => deletePackageArr(key, packageArr, setPackageArr)}
+          >
+            Delete
+          </p>
+        </div>
+        <div className="flex flex-col gap-2">
           <p className="text-sm text-gray-500">{info}</p>
-          <p>{`Price : ${price}`}</p>
-          <p>{`Duration : ${duration}`}</p>
-          <p>{`Revision : ${revision}`}</p>
+          <div className="flex items-baseline gap-2">
+            <div>Price : </div>
+            <p className=" font-semibold text-chat">{price}</p>
+          </div>
+          <div className="flex items-baseline gap-2">
+            <div>Duration : </div>
+            <p className=" font-semibold text-chat">{duration}</p>
+          </div>
+          <div className="flex items-baseline gap-2">
+            <div>Revision : </div>
+            <p className=" font-semibold text-chat">{revision}</p>
+          </div>
         </div>
       </>
-      <p
-        className="text-red-500"
-        role="button"
-        onClick={() => deletePackageArr(key, packageArr, setPackageArr)}
-      >
-        x
-      </p>
     </div>
   );
 }

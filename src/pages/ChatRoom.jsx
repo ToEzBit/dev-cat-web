@@ -273,9 +273,11 @@ function ChatRoom() {
               {ctx.dev ? (
                 <div className=" col-span-2 border-x">
                   <div className="px-8 py-6 ">
-                    <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
+                    <div className="flex justify-center gap-4 relative  w-full items-center ">
                       <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
-                        <h5>{interlocutor?.username}</h5>
+                        <h5 className="  font-bold tracking-wide text-xl">
+                          {interlocutor?.username.toUpperCase()}
+                        </h5>
                       </div>
                       {getOrderStatus === null ||
                       getOrderStatus === 'completed' ||
@@ -285,7 +287,7 @@ function ChatRoom() {
                             <>
                               <label
                                 htmlFor="createOrder-modal"
-                                className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                                className=" border   px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
                                 role="button"
                               >
                                 Create Order
