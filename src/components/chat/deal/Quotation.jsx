@@ -4,20 +4,28 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useOrder } from '../../../contexts/OrderContext';
 import CheckoutPage from '../../../pages/CheckoutPage';
+import { Navigate } from 'react-router-dom';
+import OrderDetails from './OrderDetails';
+import { updateOrderStatus } from '../../../api/order';
 
-function Quotation({ ProfilePic, own, message, array }) {
-  const { orderId } = useOrder();
+function Quotation({
+  currentOrder,
+  ProfilePic,
+  own,
+  message,
+  array,
+  setSelectedOrder,
+  selectedOrder,
+  getOrderId,
+}) {
   const [isClicked, setIsClicked] = useState(false);
-  const [order, setOrder] = useState('');
+  const [order, setOrder] = useState([]);
+
   // const navigate = useNavigate();
-  //  const handleClick = () => {
   const [user, setUser] = useState(null);
   const ctx = useAuth();
 
-  // console.log('message');
-  // console.log(ctx.clientChat);
   let ret = message.message.replace('order: ', '');
-  // console.log(+ret);
 
   useEffect(() => {
     const friendId = array.filter((e) => {
@@ -27,13 +35,13 @@ function Quotation({ ProfilePic, own, message, array }) {
 
     const getUser = async () => {
       try {
-        if (friendId.sender % 2 === 0) {
-          const res = await axios.get('/user/' + friendId.sender);
-          setUser(res.data.user);
+        if (friendId?.sender % 2 === 0) {
+          const res = await axios.get('/user/' + friendId?.sender);
+          setUser(res?.data?.user);
           // setClientChat(res?.data?.user);
         } else {
-          const resDev = await axios.get('/dev/' + friendId[0].sender);
-          setUser(resDev.data.dev);
+          const resDev = await axios.get('/dev/' + friendId[0]?.sender);
+          setUser(resDev?.data?.dev);
         }
       } catch (err) {
         console.log(err);
@@ -51,18 +59,27 @@ function Quotation({ ProfilePic, own, message, array }) {
           setOrder(res.data.order);
         } else {
           const resDev = await axios.get('/dev/order/' + ret);
+          // console.log(ret);
+
           setOrder(resDev.data.order);
         }
       } catch (err) {
         console.log(err);
+      } finally {
       }
     };
+
     getOrder();
     // setGetOrderId(order);
   }, [array, ctx.clientChat.id, ret]);
 
-  //  }
-  //fetchOrder เฉพาะไอดี
+  const currentQuotation = getOrderId?.filter((el) => el.id == +ret);
+  const handleCancel = async () => {
+    await updateOrderStatus({ status: 'cancelled' }, +ret);
+  };
+
+  // console.log(selectedOrder);
+
   return (
     <div>
       {own ? (
@@ -73,24 +90,30 @@ function Quotation({ ProfilePic, own, message, array }) {
                 <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content bg-chat  text-white rounded-lg  border-stroke">
                   <div className="flex justify-between items-baseline px-4">
                     <h5>{message.message}</h5>
-                    <div>3,000 BAHT</div>
+                    <div>{currentQuotation[0]?.totalPrice} BAHT</div>
                   </div>
                   <div className="text-white">
-                    Quick quiz is the easiest way to make quizzes FREE
+                    {currentQuotation[0]?.Product?.title}
                   </div>
                   <div className="grid grid-cols-2 gap-4 px-4">
-                    <button className="border p-2 rounded-lg bg-white text-chat border-bg-home-content">
+                    <button
+                      className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
+                      onClick={() => setSelectedOrder(+ret)}
+                    >
                       View Detail
                     </button>
                     <button
-                      className="border p-2 rounded-lg bg-white text-chat border-bg-home-content"
-                      onClick={() => setIsClicked((prev) => !prev)}
+                      className={`border p-2 rounded-lg bg-white border-bg-home-content ${
+                        currentQuotation[0]?.status === 'cancelled'
+                          ? 'text-white btn-disable'
+                          : 'text-chat'
+                      }`}
+                      onClick={() => handleCancel()}
                     >
                       Cancel
                     </button>
                   </div>
                 </div>
-                <div className="text-xs text-slate-400">8.00 PM</div>
               </div>
               <div className="avatar">
                 <div className=" w-14 rounded-full ">
@@ -126,28 +149,75 @@ function Quotation({ ProfilePic, own, message, array }) {
             <div className="flex flex-col gap-4 border p-4 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
               <div className="flex justify-between items-baseline px-4">
                 <h5>{message.message}</h5>
-                <div>3,000 BAHT</div>
+                <div>{currentQuotation[0]?.totalPrice} BAHT</div>
               </div>
               <div className="text-chat-quotation">
-                Quick quiz is the easiest way to make quizzes FREE
+                {currentQuotation[0]?.Product.title}
               </div>
               <div className="grid grid-cols-2 gap-4 px-4">
-                <button className="border p-2 rounded-lg border-bg-home-content">
+                <button
+                  className="border p-2 rounded-lg border-bg-home-content col-span-2"
+                  onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
+                >
                   View Detail
                 </button>
-                <button
-                  className="border p-2 rounded-lg border-bg-home-content"
-                  onClick={() => setIsClicked((prev) => !prev)}
+
+                {order.paymentStatus === 'paymentReceived' ||
+                order.status === 'cancelled' ? (
+                  <div></div>
+                ) : (
+                  <div className="col-span-2 w-full">
+                    <div
+                      role="button"
+                      htmlFor="payment-modal"
+                      className="w-full  border p-2 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center"
+                    >
+                      <label role="button" htmlFor="payment-modal">
+                        Pay Now!
+                      </label>
+                    </div>
+
+                    <input
+                      type="checkbox"
+                      id="payment-modal"
+                      className="modal-toggle w-full bg-slate-300"
+                      onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
+                    />
+
+                    <div className="modal w-full h-full ">
+                      <div className="modal-box w-full ">
+                        <CheckoutPage orderId={currentQuotation[0]?.id} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {/* <label
+                  htmlFor="payment-modal"
+                  className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                  role="button"
                 >
                   Pay Now!
-                </button>
+                </label>
+
+                <input
+                  type="checkbox"
+                  id="payment-modal"
+                  className="modal-toggle"
+                  onClick={() => setSelectedOrder(currentQuotation[0]?.id)}
+                />
+
+                <div className="modal w-full h-full">
+                  <div className="modal-box">
+                    <CheckoutPage orderId={currentQuotation[0]?.id} />
+                  </div>
+                </div> */}
               </div>
+              <div className="text-xs text-slate-400">8.00 PM</div>
             </div>
-            <div className="text-xs text-slate-400">8.00 PM</div>
-          </div>
-          <div className="avatar ">
-            <div className="w-14 rounded-full ">
-              <img src={user?.profileImage || ProfilePic} alt="" />
+            <div className="avatar ">
+              <div className="w-14 rounded-full ">
+                <img src={user?.profileImage || ProfilePic} alt="" />
+              </div>
             </div>
           </div>
         </div>

@@ -20,14 +20,9 @@ export default function CreateOrder({
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [newMessageOrder, setNewMessageOrder] = useState(null);
 
-  function useRegex(input) {
-    let regex = /order: /i;
-    return regex.test(input);
-  }
-
   useEffect(() => {
     const getDevProducts = async () => {
-      const res = await getAllDevProducts(ctx.dev?.id);
+      const res = await getAllDevProducts(ctx?.dev?.id);
       setDevProducts(res);
     };
     getDevProducts();
@@ -49,42 +44,42 @@ export default function CreateOrder({
     getPackage();
   }, [selectedProduct]);
 
+  //   console.log(ctx?.clientChat);
+
   const handleCreateOrder = async () => {
     const productId = selectedProduct.id;
     const packageId = selectedPackage.id;
 
+    const receiverId =
+      currentChat?.senderId === ctx?.clientChat?.id
+        ? currentChat?.receiverId
+        : currentChat?.senderId;
+
     const res = await createOrder({
       productId: selectedProduct.id,
       packageId: selectedPackage.id,
-      userId: 2,
+      userId: receiverId,
     });
+
     setOrderId(res?.data?.createdOrder?.id);
-    setNewMessageOrder('order: ' + res?.data?.createdOrder?.id);
-    //ใส่ลอจิคให้มันขึ้นแชท ให้ลูกค้ากดจ่ายเงิน/ดูรายละเอียดได้
+    const createdOrderId = res?.data?.createdOrder?.id;
 
     const message = {
       sender: ctx.clientChat.id,
-      message: newMessageOrder,
+      message: `order: ${res?.data?.createdOrder?.id}`,
       conversationId: currentChat.id,
     };
 
-    console.log(message);
-    const receiverId =
-      currentChat.senderId === ctx.clientChat.id
-        ? currentChat.receiverId
-        : currentChat.senderId;
-
     socket.current.emit('sendMessage', {
-      senderId: ctx?.clientChat.id,
+      senderId: ctx?.clientChat?.id,
       receiverId,
-      message: newMessageOrder,
+      message: `order:${res?.data?.createdOrder?.id}`,
     });
 
     try {
       const res = await axios.post('/messages', message);
       setMessages([...messages, res.data]);
       setNewMessages('');
-      setNewMessageOrder('');
       setOrderId('');
     } catch (err) {
       console.log(err);

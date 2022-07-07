@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import ProfilePic from '../asset/image/ProfilePic.png';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect } from 'react';
+import StartWork from '../components/modal/StartWork';
 import axios from 'axios';
 import Conversation from '../components/chat/conversation/Conversation';
 import Message from '../components/chat/Message';
@@ -16,6 +17,8 @@ import SpecialRequirement from '../components/modal/SpecialRequirement';
 import SendImage from '../components/chat/conversation/SendImage';
 import Step from '../components/chat/step/Step';
 import CreateOrder from '../components/chat/deal/CreateOrder';
+import OrderDetails from '../components/chat/deal/OrderDetails';
+import { current } from 'daisyui/src/colors';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -23,8 +26,16 @@ function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [friendId, setFriendId] = useState(null);
   const [getOrderId, setGetOrderId] = useState(null);
+  const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
+  const [getOrderStatus, setGetOrderStatus] = useState(null);
+  const [orderId, setOrderId] = useState(null);
+  const [orderId1, setOrderId1] = useState(null);
   // const [notification, setNotification] = useState(false);
   //socket io
+
+  const [currentValue, setCurrentValue] = useState(0);
+
+  const [stepOrder, setStepOrder] = useState({});
   const socket = useRef();
   //inputChat
   const [newMessages, setNewMessages] = useState('');
@@ -32,24 +43,40 @@ function ChatRoom() {
   const scrollRef = useRef();
   //Online user
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState([]);
   //notification
   // const [notification, setNotification] = useState(false);
+  const [currentChatroom, setCurrentChatroom] = useState(undefined);
 
   const [loading, setLoading] = useState(false);
 
   const ctx = useAuth();
-  console.log(getOrderId.orders);
+  // console.log(getOrderId);
+
+  // useEffect(() => {
+  //   const getOrder = async () => {
+  //     try {
+  //       const res = await axios.get('/user/order/' + selectedOrder);
+  //       setSelectedOrder(res.data.orders);
+  //       // console.log(selectedOrder);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getOrder();
+  // }, [selectedOrder]);
 
   useEffect(() => {
     const getOrder = async () => {
       try {
-        if (ctx.clientChat.id % 2 === 0) {
+        if (ctx?.clientChat?.id % 2 === 0) {
           // setClientChat(res?.data?.user);
           const res = await axios.get('/user/orders/');
-          setGetOrderId(res.data);
+          setGetOrderId(res?.data?.orders);
+          // console.log(getOrderId);
         } else {
           const resDev = await axios.get('/dev/orders/');
-          setGetOrderId(resDev.data);
+          setGetOrderId(resDev?.data?.orders);
         }
       } catch (err) {
         console.log(err);
@@ -90,6 +117,7 @@ function ChatRoom() {
     const getConversations = async () => {
       try {
         const res = await axios.get('/conversations/' + ctx?.clientChat?.id);
+        // console.log(...res.data);
         const arrayConversations = [...res.data];
         setConversations(arrayConversations);
       } catch (err) {
@@ -100,11 +128,13 @@ function ChatRoom() {
     setLoading(false);
   }, [ctx?.clientChat?.id]);
 
+  //onclick = navigate to chatroom/conversationId
   useEffect(() => {
     const getMessages = async () => {
       try {
         const res = await axios.get('/messages/' + currentChat?.id);
         setMessages(res.data);
+        // console.logw(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -144,6 +174,48 @@ function ChatRoom() {
     scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  useEffect(() => {
+    const getOrderStatus = async () => {
+      console.log(currentChat);
+      // console.log(currentChat.Chats.length);
+      if (currentChat.Chats.length !== 0) {
+        var allOrderId = currentChat?.Chats?.filter((e) => {
+          // console.log(currentChat?.Chats);
+          let arrayOrderId = e?.message?.startsWith('order: ');
+          // console.log(arrayOrderId);
+          return arrayOrderId;
+        });
+        var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
+        // console.log(ctx.clientChat);
+
+        if (ctx.clientChat.id % 2 === 0) {
+          const getOrderIdStatus = await axios.get(
+            `/user/order/${getLastOrderId}`,
+          );
+          setStepOrder(getOrderIdStatus?.data?.order);
+          setOrderId(getLastOrderId);
+          setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+          // console.log(getOrderIdStatus);
+        } else {
+          const getOrderIdStatus = await axios.get(
+            `/dev/order/${getLastOrderId}`,
+          );
+          // console.log(getOrderIdStatus);
+          setStepOrder(getOrderIdStatus?.data?.order);
+          setOrderId(getLastOrderId);
+          setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
+        }
+      } else {
+        setGetOrderStatus(null);
+        setStepOrder({});
+        setCurrentValue(0);
+        setOrderId(null);
+        // console.log('waiting');
+      }
+    };
+    getOrderStatus();
+  }, [currentChat, getOrderStatus, orderId]);
+
   return (
     <>
       {' '}
@@ -176,68 +248,118 @@ function ChatRoom() {
                   </div>
                 </div>
               </div>
-              <div className=" col-span-2 border-x">
-                <div className="px-8 py-6 ">
-                  <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
-                    <label
-                      htmlFor="specialRequirement-modal"
-                      className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                      role="button"
-                    >
-                      Create Order
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      id="specialRequirement-modal"
-                      className="modal-toggle"
-                    />
-
-                    <div className="modal w-full h-full">
-                      <div className="modal-box">
-                        <CreateOrder
-                          currentChat={currentChat}
-                          socket={socket}
-                          setMessages={setMessages}
-                          setNewMessages={setNewMessages}
-                          messages={messages}
-                        />
+              {ctx.dev ? (
+                <div className=" col-span-2 border-x">
+                  <div className="px-8 py-6 ">
+                    <div className="grid grid-cols-3 justify-center gap-4 w-full items-center">
+                      <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
+                        <h5>John Doe</h5>
+                        <div>#01234567PP</div>
                       </div>
-                    </div>
+                      {getOrderStatus === null ||
+                      getOrderStatus === 'completed' ||
+                      getOrderStatus === 'cancelled' ? (
+                        <div>
+                          <label
+                            htmlFor="specialRequirement-modal"
+                            className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                            role="button"
+                          >
+                            Create Order
+                          </label>
 
-                    <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
-                      <h5>John Doe</h5>
-                      <div>#01234567PP</div>
-                    </div>
+                          <input
+                            type="checkbox"
+                            id="specialRequirement-modal"
+                            className="modal-toggle"
+                          />
 
-                    <button>
-                      <label
-                        htmlFor="submit-modal"
-                        className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
-                        role="button"
-                      >
-                        SUBMIT
-                      </label>
-                    </button>
-                    <input
-                      type="checkbox"
-                      id="submit-modal"
-                      className="modal-toggle"
-                    />
+                          <div className="modal w-full h-full">
+                            <div className="modal-box">
+                              <CreateOrder
+                                currentChat={currentChat}
+                                socket={socket}
+                                setMessages={setMessages}
+                                setNewMessages={setNewMessages}
+                                messages={messages}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ) : getOrderStatus === 'pending' ? (
+                        <div>
+                          <button>
+                            <label
+                              htmlFor="save-modal"
+                              className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                              role="button"
+                            >
+                              START
+                            </label>
+                          </button>
+                          <input
+                            type="checkbox"
+                            id="save-modal"
+                            className="modal-toggle"
+                          />
 
-                    <div className="modal">
-                      <div className="modal-box">
-                        <Submit
-                          setMessages={setMessages}
-                          messages={messages}
-                          currentChat={currentChat}
-                          socket={socket}
-                        />
-                      </div>
+                          <div className="modal">
+                            <div className="modal-box">
+                              <StartWork currentChat={currentChat} />
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <button>
+                            <label
+                              htmlFor="submit-modal"
+                              className=" border px-4 rounded-lg text-chat border-stroke shadow-md shadow-bg-home-content modal-button text-center "
+                              role="button"
+                            >
+                              SUBMIT
+                            </label>
+                          </button>
+                          <input
+                            type="checkbox"
+                            id="submit-modal"
+                            className="modal-toggle"
+                          />
+
+                          <div className="modal">
+                            <div className="modal-box">
+                              <Submit
+                                orderId={orderId}
+                                setMessages={setMessages}
+                                messages={messages}
+                                currentChat={currentChat}
+                                socket={socket}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {/* ============================= Create Order  ================================== */}
+
+                      {/* ============================= Create Order  ================================== */}
+
+                      {/* =============================  start work  ================================== */}
+
+                      {/* =============================  start work  ================================== */}
+                      {/* ============================= SUBMIT  ================================== */}
+
+                      {/* ============================= SUBMIT  ================================== */}
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className=" col-span-2 border-x">
+                  <div className="px-8 py-6 flex flex-col text-chat-quotation font-semibold  items-center px-4">
+                    <h5>John Doe</h5>
+                    <div>#01234567PP</div>
+                  </div>
+                </div>
+              )}
               <div className="col-span-1">
                 <div className="px-8 py-6  ">
                   <div className="grid grid-cols-2 justify-center gap-4 w-full items-center">
@@ -273,6 +395,7 @@ function ChatRoom() {
 
                 return (
                   <div key={index} onClick={() => setCurrentChat(c)}>
+                    {/* {console.log(c)} */}
                     <Conversation
                       online={online}
                       conversation={c}
@@ -300,17 +423,21 @@ function ChatRoom() {
                       let p = m?.message?.match(
                         /([/|.|\w|\s|-])(?:jpg|gif|png)/g,
                       );
-                      let u = m?.message?.match(/order: /i);
+                      let u = m?.message?.match(/order:/i);
                       if (u) {
                         return (
                           <div key={index} className="" ref={scrollRef}>
                             <Quotation
+                              currentOrder={stepOrder}
                               array={messages}
                               loading={loading}
                               message={m}
                               own={m.sender === ctx.clientChat.id}
                               currentUser={ctx.clientChat}
                               ProfilePic={ProfilePic}
+                              setSelectedOrder={setSelectedOrder}
+                              selectedOrder={selectedOrder}
+                              getOrderId={getOrderId}
                             />
                           </div>
                         );
@@ -332,6 +459,8 @@ function ChatRoom() {
                           <div key={index} className="" ref={scrollRef}>
                             <Confirmation
                               array={messages}
+                              currentChat={currentChat}
+                              getOrderId={orderId}
                               message={m}
                               own={m.sender === ctx.clientChat.id}
                               currentUser={ctx.clientChat}
@@ -408,13 +537,18 @@ function ChatRoom() {
               {/* <div className="flex flex-col gap-8 justify-center items-center overflow-auto p-8"> */}
 
               <div className="text-base p-4 w-full border rounded-lg p-4 shadow-lg shadow-bg-home-content flex items-baseline">
-                Lorem Ipsum has been the industry's standard dummy text ever
+                <OrderDetails order={stepOrder} />
+                {/* Lorem Ipsum has been the industry's standard dummy text ever
                 since the 1500s, Lorem Ipsum has been the industry's standard
-                dummy text ever since the 1500s
+                dummy text ever since the 1500s */}
               </div>
 
               {/* --------------- steps work -------------- */}
-              <Step />
+              <Step
+                order={stepOrder}
+                currentValue={currentValue}
+                setCurrentValue={setCurrentValue}
+              />
 
               {/* --------------- Dev profile -------------- */}
 

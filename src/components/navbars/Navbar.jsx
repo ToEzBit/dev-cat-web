@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
+import NavbarHome from './NavbarHome';
+import DropdownNav from '../dropdown/DropdownNav';
 
 function Navbar() {
   const ctx = useAuth();
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
-      <div className="max-w-screen-2xl mx-auto flex justify-center ">
+      {/* <div className="max-w-screen-2xl mx-auto flex justify-center ">
         <div className="form-control absolute pt-5 hidden md:block">
           <input
             type="text"
@@ -17,7 +19,7 @@ function Navbar() {
             className="w-96 h-7 input  opacity-50 hover:opacity-100 focus:text-chat placeholder:italic placeholder:text-chat-quotation   opacity-64   input-bordered   shadow-2xl shadow-green-900"
           />
         </div>
-      </div>
+      </div> */}
       {/* ========================================= right side =============================================== */}
 
       <div className="navbar flex gap-4 justify-between md:justify-between max-w-screen-2xl mx-auto items-center  bg-transparent">
@@ -56,7 +58,7 @@ function Navbar() {
           </div>
           <Link to="/">
             <div className="btn btn-ghost text-emerald-600 normal-case text-3xl">
-              daisyUI
+              devCats
             </div>
           </Link>
         </div>
@@ -89,7 +91,7 @@ function Navbar() {
               </div>
 
               {/* =================  left side Noti ==================== */}
-              <div className="navbar-end">
+              {/* <div className="navbar-end">
                 <button className="btn btn-ghost btn-circle ">
                   <div className="indicator">
                     <svg
@@ -109,9 +111,10 @@ function Navbar() {
                     <span className="badge badge-xs badge-primary indicator-item"></span>
                   </div>
                 </button>
-              </div>
+              </div> */}
               {/* =================  left side Profile ==================== */}
-              <div className="dropdown dropdown-end">
+              <DropdownNav />
+              {/* <div className="dropdown dropdown-end">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-12 rounded-full">
                     <img
@@ -139,7 +142,7 @@ function Navbar() {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </>
           ) : (
             <>

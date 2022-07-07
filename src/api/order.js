@@ -23,7 +23,7 @@ export const deleteSpecialRequirement = async (specialRequirementId) => {
 // dev's side
 // input = status : Inprogress(start working), awaitingReview(submit work), cancelled(cancel work)
 export const updateOrderStatus = async (input, orderId) => {
-  await axios.patch(`/orders/${orderId}/status`);
+  await axios.patch(`/orders/${orderId}/status`, input);
 };
 
 //transactionId
@@ -39,10 +39,20 @@ export const orderIsCompleted = async (orderId) => {
 //user's side
 //input: reviewDetail
 export const orderNeedsRevision = async (input, orderId) => {
-  await axios.patch(`/orders/${orderId}/review`, input);
+  await axios.post(`/orders/${orderId}/review`, input);
 };
 
 export const getUserOder = async () => {
   const res = await axios.get('/user/orders');
   return res.data.orders;
+};
+
+export const getUserOderById = async (productId) => {
+  const res = await axios.get(`/user/order/${productId}`);
+  return res.data.order;
+};
+
+export const getDevOderById = async (productId) => {
+  const res = await axios.get(`/dev/order/${productId}`);
+  return res.data.order;
 };

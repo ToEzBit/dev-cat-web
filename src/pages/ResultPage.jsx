@@ -7,7 +7,13 @@ import Footer from '../components/footer/Footer';
 import CarouselSecondary from '../components/carousel/CarouselSecondary';
 import Pagination from '../components/pagination/Pagination';
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { getAllProducts } from '../api/product';
+import CarouselLanding from '../components/carousel/CarouselLanding';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 function ResultPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,7 +38,15 @@ function ResultPage() {
   }, []);
 
   const productArr = products.reduce((acc, curr) => {
-    const { id, title, Packages, ProductReviews } = curr;
+    const {
+      id,
+      title,
+      Packages,
+      ProductReviews,
+      category,
+      Dev,
+      ProductImages,
+    } = curr;
     // console.log({ id, title, Packages, ProductReviews });
     const priceArr = Packages.map((el) => +el.price);
     // console.log(priceArr);
@@ -49,14 +63,26 @@ function ResultPage() {
       );
     } else avgReview = '0';
 
-    return [...acc, { id, title, maxPrice, minPrice, avgReview }];
+    return [
+      ...acc,
+      {
+        id,
+        title,
+        maxPrice,
+        minPrice,
+        avgReview,
+        category,
+        Dev,
+        ProductImages,
+      },
+    ];
   }, []);
-
-  console.log(productArr);
 
   const filteredPrice = productArr.filter(
     (el) => el.minPrice > LowerBoundPrice && el.maxPrice < upperBoundPrice,
   );
+
+  console.log(filteredPrice);
 
   const filteredRating = filteredPrice.filter((el) => {
     if (!el.avgReview) {
@@ -73,7 +99,7 @@ function ResultPage() {
   }
 
   // let pageLimit = 20;
-  let pageLimit = 5;
+  let pageLimit = 8;
   const pageNumber = Math.ceil(filteredRating.length / pageLimit);
   const limitPages = filteredRating.slice(
     (currentPage - 1) * pageLimit,
@@ -81,9 +107,14 @@ function ResultPage() {
   );
 
   return (
-    <div className="flex flex-col gap-30 w-screen">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col gap-30 w-screen"
+    >
       <Navbar />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center max-w-screen-xl mx-auto">
         <div className="flex w-3/6 justify-between my-8">
           <a href="/" className="font-medium">
             Mobile Application
@@ -96,8 +127,8 @@ function ResultPage() {
           </a>
         </div>
         {/* ==================== carousel ==================== */}
-        <div className="w-4/5 flex flex-col gap-6">
-          <CarouselSecondary />
+        <div className="w-4/5 flex flex-col gap-6" data-aos="flip-left">
+          <CarouselLanding width={'1024px'} />
           {/* </div> */}
 
           {/* ==================== filter bar ==================== */}
@@ -124,7 +155,7 @@ function ResultPage() {
           </div>
           <div className="grid grid-cols-4 gap-x-2 gap-y-3 justify-start">
             {limitPages.map((el, idx) => (
-              <Workcard key={idx} />
+              <Workcard key={idx} workcard={el} />
             ))}
           </div>
         </div>
@@ -135,7 +166,7 @@ function ResultPage() {
         />
         <Footer />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

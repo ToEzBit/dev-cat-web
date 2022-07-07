@@ -3,13 +3,16 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
+import { Menu } from '@headlessui/react';
+import DropdownNav from '../dropdown/DropdownNav';
 
 function NavbarHome() {
   const ctx = useAuth();
+
   return (
     <div className="relative pt-2 z-10">
       {/* =========================================  Search  =============================================== */}
-      <div className="max-w-screen-2xl mx-auto flex justify-center ">
+      {/* <div className="max-w-screen-2xl mx-auto flex justify-center ">
         <div className="form-control absolute pt-5 hidden md:block">
           <input
             type="text"
@@ -17,10 +20,10 @@ function NavbarHome() {
             className="w-96 h-7 input  opacity-50 hover:opacity-100 focus:text-chat placeholder:italic placeholder:text-chat-quotation   opacity-64   input-bordered   shadow-2xl shadow-green-900"
           />
         </div>
-      </div>
+      </div> */}
       {/* ========================================= right side =============================================== */}
 
-      <div className="navbar flex gap-4 justify-between md:justify-between max-w-screen-2xl mx-auto items-center  bg-transparent">
+      <div className="navbar flex gap-4 justify-between md:justify-between  max-w-screen-2xl mx-auto items-center  bg-transparent">
         <div className="flex justify-center">
           <div className="dropdown md:hidden">
             <label tabIndex="0" className="btn btn-ghost btn-circle">
@@ -58,7 +61,7 @@ function NavbarHome() {
             to="/"
             className="btn btn-ghost text-emerald-600 normal-case text-3xl"
           >
-            daisyUI
+            devCats
           </Link>
         </div>
 
@@ -67,9 +70,9 @@ function NavbarHome() {
           {ctx.clientChat ? (
             <>
               {/* =================  left side MSG ==================== */}
-              <div className="navbar-end">
+              <div className="navbar-end ">
                 <Link to="/chatroom" className="btn btn-ghost btn-circle ">
-                  <div className="indicator">
+                  <div className="indicator hover:opacity-80 duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-8 w-8"
@@ -90,9 +93,9 @@ function NavbarHome() {
               </div>
 
               {/* =================  left side Noti ==================== */}
-              <div className="navbar-end">
+              {/* <div className="navbar-end">
                 <button className="btn btn-ghost btn-circle ">
-                  <div className="indicator">
+                  <div className="indicator hover:opacity-80 duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-8 w-8"
@@ -110,9 +113,10 @@ function NavbarHome() {
                     <span className="badge badge-xs badge-primary indicator-item"></span>
                   </div>
                 </button>
-              </div>
+              </div> */}
               {/* =================  left side Profile ==================== */}
-              <div className="dropdown dropdown-end">
+              <DropdownNav />
+              {/* <div className="dropdown dropdown-end">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-12 rounded-full">
                     <img
@@ -140,7 +144,7 @@ function NavbarHome() {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </>
           ) : (
             <>

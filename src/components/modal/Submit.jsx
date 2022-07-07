@@ -10,6 +10,7 @@ function Submit({
   newMessages,
   socket,
   setNewMessages,
+  orderId,
 }) {
   const [link, setLink] = useState('');
   const [comment, setComment] = useState('');
@@ -19,24 +20,28 @@ function Submit({
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
-      sender: ctx.user.id,
+      sender: ctx?.clientChat?.id,
       message: link,
       conversationId: currentChat.id,
     };
+    const status = {
+      status: 'awaitingReview',
+    };
 
     const receiverId =
-      currentChat.senderId == ctx.user.id
+      currentChat.senderId == ctx?.clientChat?.id
         ? currentChat.receiverId
         : currentChat.senderId;
 
     socket.current.emit('sendMessage', {
-      senderId: ctx?.user.id,
+      senderId: ctx?.user?.id,
       receiverId,
       message: link,
     });
 
     try {
       const res = await axios.post('/messages', message);
+      await axios.patch(`/orders/${orderId}/status`, status);
       setMessages([...messages, res.data]);
       setNewMessages('');
     } catch (err) {

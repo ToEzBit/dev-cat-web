@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Routes, Route } from 'react-router-dom';
+import { Navigate, Routes, Route, useNavigate } from 'react-router-dom';
 
 import ChatRoom from '../pages/ChatRoom';
 import HomePage from '../pages/HomePage';
@@ -22,13 +22,15 @@ import Step2 from '../components/step/Step2';
 import Step3 from '../components/step/Step3';
 import Step4 from '../components/step/Step4';
 import Step5 from '../components/step/Step5';
+import UpdateOrder from '../components/chat/deal/UpdateOrder';
+import Confirmation from '../components/chat/deal/Confirmation';
 
 export default function Router() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/result" element={<ResultPage />} />
-      <Route path="/chatroom" element={<ChatRoom />} />
+
       <Route path="/create-product" element={<CreateProductPage />}>
         <Route path="1" element={<Step1 />} />
         <Route path="2" element={<Step2 />} />
@@ -36,6 +38,9 @@ export default function Router() {
         <Route path="4" element={<Step4 />} />
         <Route path="5" element={<Step5 />} />
       </Route>
+      <Route path="/chatroom/:roomId" element={<ChatRoom />} />
+      <Route path="/chatroom/*" element={<ChatRoom />} />
+
       <Route path="/dev/profile/:id" element={<DevProfilePage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/login" element={<LoginPage />} />
@@ -45,9 +50,11 @@ export default function Router() {
       <Route path="/new-password" element={<NewPasswordPage />} />
       <Route path="/checkout-page/*" element={<CheckoutPage />} />
       <Route path="/profile" element={<EditProfilePage />} />
-      <Route path="/test-create-order" element={<CreateOrder />} />
-      <Route path="/test-create-quotation" element={<Quotation />} />
+      <Route path="/test-create-order" element={<Confirmation />} />
+      <Route path="/test-update-order" element={<UpdateOrder />} />
+      <Route path="/test-update-order" element={<Quotation />} />
       <Route path="/jodit" element={<Jodit />} />
+      <Route path="/*" element={<Navigate to="/home" />} />
     </Routes>
   );
 }

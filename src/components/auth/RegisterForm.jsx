@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { devRegister, userRegister } from '../../api/auth';
+import { motion } from 'framer-motion';
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -45,7 +46,11 @@ function RegisterForm() {
   };
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="card w-96 bg-base-100 shadow-xl mt-12 mx-auto">
         <div className="tabs">
           <button
@@ -156,7 +161,7 @@ function RegisterForm() {
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }
 

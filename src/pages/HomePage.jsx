@@ -16,20 +16,33 @@ import Alltype5 from '../asset/image/Alltype5.png';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useProduct } from '../contexts/ProductContext';
-import CarouselHome from '../components/carousel/CarouselHome';
 
-// import { useProduct } from '../contexts/ProductContext';
+import Typewriters from '../components/typewriter/Typewriters';
+import CarouselLanding from '../components/carousel/CarouselLanding';
+import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 function HomePage() {
   const ctx = useAuth();
   const pro = useProduct();
 
   const productArr = pro.products.reduce((acc, curr) => {
-    const { id, title, Packages, ProductReviews, category, Dev } = curr;
+    const {
+      id,
+      title,
+      Packages,
+      ProductReviews,
+      category,
+      Dev,
+      ProductImages,
+    } = curr;
     // console.log({ id, title, Packages, ProductReviews });
     const priceArr = Packages.map((el) => +el.price);
     // console.log(priceArr);
-    console.log(Dev);
+    // console.log(Dev);
     const maxPrice = Math.max(...priceArr);
     // console.log(maxPrice);
     const minPrice = Math.min(...priceArr);
@@ -45,14 +58,23 @@ function HomePage() {
 
     return [
       ...acc,
-      { id, category, title, maxPrice, Dev, minPrice, avgReview },
+      {
+        id,
+        category,
+        title,
+        maxPrice,
+        Dev,
+        minPrice,
+        avgReview,
+        ProductImages,
+      },
     ];
   }, []);
 
   return (
     <>
-      {/* {console.log('term', pro.products)} */}
-      {console.log(pro.products)}
+      {/* {console.log('term', productArr)} */}
+      {/* {console.log(pro.products)} */}
 
       <motion.div
         className="relative flex flex-col  gap-20"
@@ -74,10 +96,13 @@ function HomePage() {
             <div className=" grid grid-cols-2 items-center ">
               <div className="col-span-1 flex flex-col gap-8">
                 <div>
-                  <div className=" text-8xl  text-white">DEVcats...</div>
+                  {/* <div className=" text-8xl  text-white">DEVcats...</div> */}
+                  <Typewriters />
+
                   <div className=" text-7xl  text-orange-500">
                     that can read
                   </div>
+
                   <div className=" text-7xl text-orange-500">your mind</div>
                 </div>
                 <div className=" text-2xl text-orange-200 opacity-60">
@@ -173,7 +198,7 @@ function HomePage() {
             </div>
           </div>
           <div id="section1"></div>
-          <div className="flex flex-col gap-4 text-center">
+          <div className="flex flex-col gap-4 text-center" data-aos="flip-left">
             <h1>Devcats, one of the best quality developer</h1>
             <div>
               They also have the freedom to choose employment from time to time.
@@ -188,50 +213,68 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="  flex flex-col gap-16">
+          <div className="  flex flex-col gap-16" data-aos="fade-up">
             <div className=" flex flex-col gap-8">
               <div className=" flex gap-4 justify-between w-full text-center ">
-                <Cards pic={phone} bgpic={phone} type={'Mobile Application'} />
-                <Cards pic={laptop} bgpic={laptop} type={'Website Developer'} />
+                <Link to="/result">
+                  <Cards
+                    pic={phone}
+                    bgpic={phone}
+                    type={'Mobile Application'}
+                  />
+                </Link>
+                <Link to="/result">
+                  <Cards
+                    pic={laptop}
+                    bgpic={laptop}
+                    type={'Website Developer'}
+                  />
+                </Link>
               </div>
-              <div className=" hover:scale-110 duration-300 group card bg-base-100 shadow-xl image-full">
-                <figure className="gap-8">
-                  <img
-                    src={Alltype2}
-                    className="bg-contain h-36 w-48"
-                    alt="Shoes"
-                  />
-                  <img
-                    src={Alltype3}
-                    className="bg-contain h-36 w-48"
-                    alt="Shoes"
-                  />
-                  <img
-                    src={AlltypeHome}
-                    className="bg-contain h-48 w-48"
-                    alt="Shoes"
-                  />
-                  <img
-                    src={Alltype4}
-                    className="bg-contain h-48 w-48"
-                    alt="Shoes"
-                  />
-                  <img
-                    src={Alltype5}
-                    className="bg-contain h-48 w-48"
-                    alt="Shoes"
-                  />
-                </figure>
-                <div className="card-body items-center gap-4">
-                  <h2 className="card-title text-center mt-8">All Type</h2>
-                  <p>Mobile Application and Website Developer</p>
-                  {/* <div className="card-actions justify-end">
+              <Link to="/result">
+                <div className=" hover:scale-110 duration-300 group card bg-base-100 shadow-xl image-full">
+                  <figure className="gap-8">
+                    <img
+                      src={Alltype2}
+                      className="bg-contain h-36 w-48"
+                      alt="Shoes"
+                    />
+                    <img
+                      src={Alltype3}
+                      className="bg-contain h-36 w-48"
+                      alt="Shoes"
+                    />
+                    <img
+                      src={AlltypeHome}
+                      className="bg-contain h-48 w-48"
+                      alt="Shoes"
+                    />
+                    <img
+                      src={Alltype4}
+                      className="bg-contain h-48 w-48"
+                      alt="Shoes"
+                    />
+                    <img
+                      src={Alltype5}
+                      className="bg-contain h-48 w-48"
+                      alt="Shoes"
+                    />
+                  </figure>
+
+                  <div className="card-body items-center gap-4">
+                    <h2 className="card-title text-center mt-8">All Type</h2>
+                    <p>Mobile Application and Website Developer</p>
+                    {/* <div className="card-actions justify-end">
                     <button className="btn btn-primary">Buy Now</button>
                   </div> */}
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
-            <div className=" flex flex-col gap-4 text-center">
+            <div
+              className=" flex flex-col gap-4 text-center"
+              data-aos="fade-up"
+            >
               <h3 className="text-text-orange">
                 We have quality developer. and various experts in the system to
                 serve
@@ -249,8 +292,9 @@ function HomePage() {
             <div className=" flex flex-col gap-8">
               <h5 className="text-text-normal">Popular works</h5>
 
-              <div className="h-[24rem]">
-                <CarouselHome />
+              <div className="flex justify-center " data-aos="fade-up">
+                {/* <CarouselHome /> */}
+                <CarouselLanding width={'1024px'} />
               </div>
               {/* <div className=" flex flex-col gap-4">
               <h4 className="text-text-orange">
@@ -286,15 +330,18 @@ function HomePage() {
                       );
                     }
                   })
-                  .slice(0, 5)}
+                  .slice(0, 4)}
               </div>
             </div>
             <div className="flex flex-col gap-4">
               <h5>Popular Mobile</h5>
               <div className="grid gap-4 grid-cols-4">
+                {/* {console.log(productArr)} */}
                 {productArr
                   .map((e, index) => {
+                    console.log(e?.category === 'mobile');
                     if (e?.category === 'mobile') {
+                      console.log(e.category !== 'mobile');
                       return (
                         <div key={index}>
                           <Workcard workcard={e} />
@@ -302,13 +349,16 @@ function HomePage() {
                       );
                     }
                   })
-                  .slice(0, 5)}
+                  .slice(21, 25)}
               </div>
             </div>
           </div>
         </div>
         {/* ================================== Why use Devwork? ===================================== */}
-        <div className="max-w-screen-lg mx-auto flex flex-col gap-24">
+        <div
+          className="max-w-screen-lg mx-auto flex flex-col gap-24"
+          data-aos="fade-up"
+        >
           <div className="flex flex-col gap-4">
             <h5>Why use Devcats?</h5>
             <div className="grid grid-cols-3 gap-8 ">
@@ -336,7 +386,7 @@ function HomePage() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4" data-aos="fade-up">
             <h5>Devcats, one of the best quality developer</h5>
             <div>
               They also have the freedom to choose employment from time to time.
