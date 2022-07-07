@@ -18,6 +18,7 @@ import SendImage from '../components/chat/conversation/SendImage';
 import Step from '../components/chat/step/Step';
 import CreateOrder from '../components/chat/deal/CreateOrder';
 import OrderDetails from '../components/chat/deal/OrderDetails';
+import { current } from 'daisyui/src/colors';
 
 function ChatRoom() {
   const [conversations, setConversations] = useState([]);
@@ -30,6 +31,8 @@ function ChatRoom() {
   const [orderId, setOrderId] = useState(null);
   // const [notification, setNotification] = useState(false);
   //socket io
+
+  const [currentValue, setCurrentValue] = useState(0);
 
   const [stepOrder, setStepOrder] = useState({});
   const socket = useRef();
@@ -172,10 +175,13 @@ function ChatRoom() {
 
   useEffect(() => {
     const getOrderStatus = async () => {
-      if (currentChat) {
+      console.log(currentChat);
+      // console.log(currentChat.Chats.length);
+      if (currentChat.Chats.length !== 0) {
         var allOrderId = currentChat?.Chats?.filter((e) => {
           console.log(currentChat?.Chats);
           let arrayOrderId = e?.message?.startsWith('order: ');
+          console.log(arrayOrderId);
           return arrayOrderId;
         });
         var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
@@ -199,6 +205,10 @@ function ChatRoom() {
           setGetOrderStatus(getOrderIdStatus?.data?.order?.status);
         }
       } else {
+        setGetOrderStatus(null);
+        setStepOrder({});
+        setCurrentValue(0);
+        setOrderId(null);
         // console.log('waiting');
       }
     };
@@ -533,7 +543,11 @@ function ChatRoom() {
               </div>
 
               {/* --------------- steps work -------------- */}
-              <Step order={stepOrder} />
+              <Step
+                order={stepOrder}
+                currentValue={currentValue}
+                setCurrentValue={setCurrentValue}
+              />
 
               {/* --------------- Dev profile -------------- */}
 

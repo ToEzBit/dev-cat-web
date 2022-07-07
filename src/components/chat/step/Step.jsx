@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 import { getDevOderById, getUserOderById } from '../../../api/order';
 
-export default function Step({ order }) {
+export default function Step({ order, currentValue, setCurrentValue }) {
   const formatTime = (dateTime) => {
     return DateTime.fromISO(dateTime).toFormat('dd/LLL/yy');
   };
-
-  const [currentValue, setCurrentValue] = useState(0);
 
   useEffect(() => {
     if (order?.paymentStatus === 'awaitingPayment') {
