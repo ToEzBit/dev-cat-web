@@ -12,6 +12,7 @@ import {
 } from '../../api/product';
 import RichTextEditor from '../jodit/JoditDraft';
 import StepTab from '../../components/step/StepTab';
+import Navbar from '../navbars/Navbar';
 
 function CreateProducts() {
   const navigate = useNavigate();
@@ -99,6 +100,7 @@ function CreateProducts() {
   return (
     <>
       {isLoading ? <Spinner /> : null}
+      <Navbar />
       <StepTab />
       <Outlet />
       {/* <div className="flex flex-col ">

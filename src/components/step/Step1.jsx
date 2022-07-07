@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 import step1 from '../../asset/video/step1.mp4';
 import { motion } from 'framer-motion';
+import { useCreateProduct } from '../../contexts/CreateProductContext';
 
-const people = [{ name: 'Web Application' }, { name: 'Mobile Application' }];
+const category = [{ name: 'Web Application' }, { name: 'Mobile Application' }];
 
 function Step1() {
   const navigate = useNavigate();
+  const { setCategory } = useCreateProduct();
 
-  const [selected, setSelected] = useState(people[0]);
+  const [selected, setSelected] = useState(category[0]);
+
+  useEffect(() => {
+    setCategory(selected.name);
+  }, [selected]);
 
   const handleContinue2 = () => {
     navigate('/create-product/2');
@@ -23,7 +29,7 @@ function Step1() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="card  max-w-screen-xl h-full p-20 border flex flex-col bg-base-100 shadow-xl mx-auto mt-20"
+        className="card  max-w-screen-xl h-full p-20 border flex flex-col bg-base-100 shadow-xl mx-auto mt-4"
       >
         {/*====================== Title Project ====================== */}
         <div className=" grid grid-cols-2">
@@ -68,9 +74,9 @@ function Step1() {
                     leaveTo="opacity-0"
                   >
                     <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                      {people.map((person, personIdx) => (
+                      {category.map((el, idx) => (
                         <Listbox.Option
-                          key={personIdx}
+                          key={idx}
                           className={({ active }) =>
                             `relative cursor-default select-none py-2 pl-10 pr-4 ${
                               active
@@ -78,7 +84,7 @@ function Step1() {
                                 : 'text-gray-900'
                             }`
                           }
-                          value={person}
+                          value={el}
                         >
                           {({ selected }) => (
                             <>
@@ -87,7 +93,7 @@ function Step1() {
                                   selected ? 'font-medium' : 'font-normal'
                                 }`}
                               >
-                                {person.name}
+                                {el.name}
                               </span>
                               {selected ? (
                                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-chat ">

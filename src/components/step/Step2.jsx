@@ -1,27 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RichTextEditor from '../jodit/JoditDraft';
 import { motion } from 'framer-motion';
+import { useCreateProduct } from '../../contexts/CreateProductContext';
 
 function Step2() {
   const navigate = useNavigate();
 
-  const [info, setInfo] = useState('');
   const [error, setError] = useState(false);
-  const [nameProduct, setNameProduct] = useState('');
+
+  const { title, setTitle, info, setInfo } = useCreateProduct();
 
   const handleContinue3 = async (e) => {
-    try {
-      e.preventDefault();
-
-      if (!nameProduct) {
-        setError(true);
-      }
-      navigate('/create-product/3');
-      //   window.location.reload();
-    } catch (err) {
-      console.log(err);
+    if (!title || !info) {
+      setError(true);
+      return;
     }
+    navigate('/create-product/3');
   };
 
   const handleBack1 = () => {
@@ -34,7 +29,7 @@ function Step2() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="card  max-w-screen-xl h-full  px-20 py-16 border flex flex-col bg-base-100 shadow-xl mx-auto mt-8"
+        className="card  max-w-screen-xl h-full  px-20 py-16 border flex flex-col bg-base-100 shadow-xl mx-auto mt-4"
       >
         <div className="flex gap-4 flex-col">
           <label
@@ -55,7 +50,8 @@ function Step2() {
                 type="text"
                 placeholder="Product Name"
                 className="input input-bordered w-full max-w-xs"
-                onChange={(e) => setNameProduct(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
               {error ? (
                 <p className="text-red-500">Product Name is required</p>
@@ -86,7 +82,6 @@ function Step2() {
                   initialValue=""
                   getValue={setInfo}
                 ></RichTextEditor>
-                <td dangerouslySetInnerHTML={{ __html: info }}></td>
               </div>
             </div>
           </div>

@@ -10,7 +10,7 @@ function Typewriters() {
   });
 
   return (
-    <span className=" text-8xl  text-white">
+    <span className=" text-[7.5rem]  text-white">
       {text}
       <Cursor />
     </span>
