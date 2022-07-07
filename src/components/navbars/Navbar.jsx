@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import ProfilePic from '../../asset/image/ProfilePic.png';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
+import NavbarHome from './NavbarHome';
+import DropdownNav from '../dropdown/DropdownNav';
 
 function Navbar() {
   const ctx = useAuth();
@@ -56,7 +58,7 @@ function Navbar() {
           </div>
           <Link to="/">
             <div className="btn btn-ghost text-emerald-600 normal-case text-3xl">
-              daisyUI
+              devCats
             </div>
           </Link>
         </div>
@@ -111,7 +113,8 @@ function Navbar() {
                 </button>
               </div>
               {/* =================  left side Profile ==================== */}
-              <div className="dropdown dropdown-end">
+              <DropdownNav />
+              {/* <div className="dropdown dropdown-end">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-12 rounded-full">
                     <img
@@ -139,7 +142,7 @@ function Navbar() {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </>
           ) : (
             <>
