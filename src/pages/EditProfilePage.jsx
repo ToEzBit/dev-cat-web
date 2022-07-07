@@ -122,7 +122,7 @@ function EditProfilePage() {
 
           <div className="flex justify-center py-3">
             <button
-              className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md "
+              className="bg-transparent hover:bg-chat-quotation duration-500 text-chat font-semibold border-stroke hover:text-white py-2 px-4 border   hover:border-transparent rounded-xl shadow-md "
               onClick={() => refInputImage.current.click()}
             >
               Change Profile Image
@@ -242,7 +242,7 @@ function EditProfilePage() {
               </div>
               <div className="pb-3">
                 <Link
-                  className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md  "
+                  className="bg-transparent hover:bg-chat-quotation duration-500 text-chat font-semibold border-stroke hover:text-white  font-semibold hover:text-[#06033A] py-2 px-4 border hover:border-transparent rounded-xl shadow-md  "
                   to="/change-password"
                 >
                   change Password
@@ -251,7 +251,7 @@ function EditProfilePage() {
               {/* ========================================================= change Password ======================================================*/}
               <div className="flex flex-col  flex-auto text-[#5D5FEF] text-center  px-4 py-2 m-2 gap-1 my-2 mx-5 rounded-lg ">
                 <button
-                  className="bg-transparent hover:bg-[#E8E7FF] text-[#5D5FEF] font-semibold hover:text-[#06033A] py-2 px-4 border border-[#9747FF] hover:border-transparent rounded-xl shadow-md "
+                  className="bg-transparent  hover:bg-chat-quotation duration-500 text-chat font-semibold border-stroke hover:text-white font-semibold  py-2 px-4 border  hover:border-transparent rounded-xl shadow-md "
                   type="submit"
                 >
                   Submit

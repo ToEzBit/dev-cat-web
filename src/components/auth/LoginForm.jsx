@@ -50,6 +50,7 @@ function LoginForm() {
         setDev(res?.data?.dev);
       }
       navigate('/');
+      window.location.reload();
     } catch (err) {
       setApiError(err.response.data.message);
     }
@@ -159,14 +160,14 @@ function LoginForm() {
           <div className="flex justify-between mt-4">
             <a
               href="/forgot-password"
-              className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
+              className="text-xs ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
             >
               Forgot Password ?
             </a>
 
             <a
               href="/register"
-              className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
+              className="text-xs ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all"
             >
               Don't have an account yet?
             </a>
