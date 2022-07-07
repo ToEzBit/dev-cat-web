@@ -9,7 +9,7 @@ import Footer from '../components/footer/Footer';
 import Review from '../components/review/Review';
 import { getDevProfile } from '../api/dev';
 import { getAllDevProducts } from '../api/product';
-
+import { motion } from 'framer-motion';
 function DevProfilePage() {
   const { id } = useParams();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -35,7 +35,12 @@ function DevProfilePage() {
 
 
   return (
-    <div className="w-screen flex flex-col items-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="w-screen flex flex-col items-center"
+    >
       <div className="w-full">
         <Navbar />
       </div>
@@ -124,7 +129,7 @@ function DevProfilePage() {
 
       <Review reviews={reviews} setRender={setRender} setReviews={setReviews} />
       <Footer />
-    </div>
+    </motion.div>
   );
 }
 

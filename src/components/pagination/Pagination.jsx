@@ -1,4 +1,8 @@
 import React from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 function Pagination({ currentPage, setCurrentPage, pageNumber }) {
   let pagination = [];
@@ -19,7 +23,10 @@ function Pagination({ currentPage, setCurrentPage, pageNumber }) {
   const nextPage = currentPage + 1;
   const prevPage = currentPage - 1;
   return (
-    <div className="btn-group duration-700 btn-ghost my-8 mx-auto rounded-xl">
+    <div
+      data-aos="fade-up"
+      className="btn-group duration-700 btn-ghost my-8 mx-auto rounded-xl"
+    >
       <button
         className={`btn btn-ghost ${currentPage === 1 && 'btn-disabled'}`}
         onClick={() => setCurrentPage(1)}

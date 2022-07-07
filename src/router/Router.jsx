@@ -17,6 +17,11 @@ import CheckoutPage from '../pages/CheckoutPage';
 import CreateOrder from '../components/chat/deal/CreateOrder';
 import Quotation from '../components/chat/deal/Quotation';
 import Jodit from '../pages/Jodit';
+import Step1 from '../components/step/Step1';
+import Step2 from '../components/step/Step2';
+import Step3 from '../components/step/Step3';
+import Step4 from '../components/step/Step4';
+import Step5 from '../components/step/Step5';
 import UpdateOrder from '../components/chat/deal/UpdateOrder';
 import Confirmation from '../components/chat/deal/Confirmation';
 
@@ -25,9 +30,17 @@ export default function Router() {
     <Routes>
       <Route path="/home" element={<HomePage />} />
       <Route path="/result" element={<ResultPage />} />
+
+      <Route path="/create-product" element={<CreateProductPage />}>
+        <Route path="1" element={<Step1 />} />
+        <Route path="2" element={<Step2 />} />
+        <Route path="3" element={<Step3 />} />
+        <Route path="4" element={<Step4 />} />
+        <Route path="5" element={<Step5 />} />
+      </Route>
       <Route path="/chatroom/:roomId" element={<ChatRoom />} />
       <Route path="/chatroom/*" element={<ChatRoom />} />
-      <Route path="/create-product" element={<CreateProductPage />} />
+
       <Route path="/dev/profile/:id" element={<DevProfilePage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/login" element={<LoginPage />} />
