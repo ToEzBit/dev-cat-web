@@ -10,19 +10,26 @@ import FilterContextProvider from './contexts/FilterContext';
 import ProductContextProvider from './contexts/ProductContext';
 import OrderContextProvider from './contexts/OrderContext';
 
+import Wrapper from './components/utils/Wrapper';
+import CreateProductContextProvider from './contexts/CreateProductContext';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <FilterContextProvider>
-        <AuthContextProvider>
-          <ProductContextProvider>
-            <OrderContextProvider>
-              <App />
-            </OrderContextProvider>
-          </ProductContextProvider>
-        </AuthContextProvider>
-      </FilterContextProvider>
+      <Wrapper>
+        <FilterContextProvider>
+          <AuthContextProvider>
+            <ProductContextProvider>
+              <OrderContextProvider>
+                <CreateProductContextProvider>
+                  <App />
+                </CreateProductContextProvider>
+              </OrderContextProvider>
+            </ProductContextProvider>
+          </AuthContextProvider>
+        </FilterContextProvider>
+      </Wrapper>
     </BrowserRouter>
   </React.StrictMode>,
 );

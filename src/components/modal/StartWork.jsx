@@ -1,13 +1,19 @@
 import axios from '../../config/axios';
 import React from 'react';
 
-function StartWork({ currentChat }) {
+function StartWork({ currentChat, setFetchOrder }) {
   if (currentChat) {
     var allOrderId = currentChat?.Chats?.filter((e) => {
       let arrayOrderId = e?.message?.startsWith('order: ');
       return arrayOrderId;
     });
-    var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
+    // var getLastOrderId = allOrderId[0]?.message?.replace('order: ', '');
+    const lastIndexAllOrderId = allOrderId.length - 1;
+    var getLastOrderId = allOrderId[lastIndexAllOrderId]?.message?.replace(
+      'order: ',
+      '',
+    );
+
     // console.log(allOrderId);
   } else {
     // console.log('waiting');
@@ -17,7 +23,12 @@ function StartWork({ currentChat }) {
     const message = {
       status: 'Inprogress',
     };
-    await axios.patch(`/orders/${getLastOrderId}/status/`, message);
+    try {
+      await axios.patch(`/orders/${getLastOrderId}/status/`, message);
+    } catch (err) {
+      console.log(err);
+    }
+    setFetchOrder((prev) => !prev);
   };
   return (
     <div className="pb-4 pt-2">

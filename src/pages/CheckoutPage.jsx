@@ -6,17 +6,19 @@ import { createPaymentIntent } from '../api/order';
 import CheckoutForm from '../orders/CheckoutForm';
 import { useOrder } from '../contexts/OrderContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useParams } from 'react-router-dom';
 
 // devCat's publishable key
 const stripePromise = loadStripe(
   'pk_test_51LGO25J0De5S2BwxtNSp0yGpXK7bRGe475uYsBdLccGVPbf7zDtQMTSHHUBQLoGJMRphPubYQf7deuIyVtls5Dw900ZacHe3vj',
 );
 
-export default function CheckoutPage({ orderId }) {
-  console.log(orderId);
+export default function CheckoutPage() {
+  const { orderId } = useParams();
   const [clientSecret, setClientSecret] = useState('');
   const { user } = useAuth();
 
+  // const orderId = useOrder();
   useEffect(() => {
     const getClientSecret = async () => {
       const res = await createPaymentIntent({ orderId: orderId });

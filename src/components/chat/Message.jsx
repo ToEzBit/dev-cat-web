@@ -3,11 +3,16 @@ import React, { useEffect } from 'react';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { useState } from 'react';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
+
+TimeAgo.addDefaultLocale(en);
 
 function Message({ ProfilePic, own, message, array }) {
   const [user, setUser] = useState(null);
 
   const ctx = useAuth();
+  const timeAgo = new TimeAgo();
 
   useEffect(() => {
     const friendId = array.find((e) => {
@@ -46,7 +51,7 @@ function Message({ ProfilePic, own, message, array }) {
                 {message.message}
               </div>
               <div className="text-xs text-slate-400 flex justify-end">
-                {message.createdAt}
+                {timeAgo.format(new Date(message.createdAt))}
               </div>
             </div>
             <div className="avatar ">
@@ -68,7 +73,9 @@ function Message({ ProfilePic, own, message, array }) {
               <div className="border p-4 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
                 {message.message}
               </div>
-              <div className="text-xs text-slate-400">{message.createdAt}</div>
+              <div className="text-xs text-slate-400">
+                {timeAgo.format(new Date(message.createdAt))}
+              </div>
             </div>
           </div>
         </div>

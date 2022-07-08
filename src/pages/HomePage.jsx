@@ -216,14 +216,14 @@ function HomePage() {
           <div className="  flex flex-col gap-16" data-aos="fade-up">
             <div className=" flex flex-col gap-8">
               <div className=" flex gap-4 justify-between w-full text-center ">
-                <Link to="/result">
+                <Link to="/result/mobile">
                   <Cards
                     pic={phone}
                     bgpic={phone}
                     type={'Mobile Application'}
                   />
                 </Link>
-                <Link to="/result">
+                <Link to="/result/web">
                   <Cards
                     pic={laptop}
                     bgpic={laptop}
@@ -231,7 +231,7 @@ function HomePage() {
                   />
                 </Link>
               </div>
-              <Link to="/result">
+              <Link to="/result/all">
                 <div className=" hover:scale-110 duration-300 group card bg-base-100 shadow-xl image-full">
                   <figure className="gap-8">
                     <img

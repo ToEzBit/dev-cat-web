@@ -18,6 +18,8 @@ export const updateProductReview = async (
     rate,
     isAnonymous,
   });
+  console.log(res);
+
   return res.data.updatedReview;
 };
 
