@@ -425,7 +425,7 @@ function ChatRoom() {
 
                 return (
                   <div key={index} onClick={() => setCurrentChat(c)}>
-                    {/* {console.log(c)} */}
+                    {console.log(currentChat)}
                     <Conversation
                       online={online}
                       conversation={c}
