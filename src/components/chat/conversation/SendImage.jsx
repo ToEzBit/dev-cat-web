@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../../config/axios';
 import { useAuth } from '../../../contexts/AuthContext';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 
 function SendImage({ ProfilePic, own, message, array }) {
   const [user, setUser] = useState(null);
   const ctx = useAuth();
+  TimeAgo.addDefaultLocale(en);
+  const timeAgo = new TimeAgo('en-US');
 
   useEffect(() => {
     const friendId = array.filter((e) => {
@@ -37,10 +41,12 @@ function SendImage({ ProfilePic, own, message, array }) {
           <div className="flex p-4 items-center gap-4">
             <div className="flex flex-col gap-2">
               <div className="border p-4  shadow-md shadow-bg-home-content bg-chat text-white rounded-lg  border-stroke">
+                {console.log(timeAgo.format(new Date()))}
                 <img src={message.message} alt="" />
               </div>
               <div className="text-xs text-slate-400 flex justify-end">
-                {message.createdAt}
+                {/* {message.createdAt} */}
+                {timeAgo.format(new Date(message?.createdAt))}
               </div>
             </div>
             <div className="avatar ">
@@ -62,7 +68,9 @@ function SendImage({ ProfilePic, own, message, array }) {
               <div className="border p-4 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
                 <img src={message.message} alt="" />
               </div>
-              <div className="text-xs text-slate-400">{message.createdAt}</div>
+              <div className="text-xs text-slate-400">
+                {timeAgo.format(new Date(message?.createdAt))}
+              </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ import OrderReview from './OrderReview';
 import { useEffect } from 'react';
 import { useAuth } from '../../../contexts/AuthContext';
 import RequiredEdit from '../../modal/RequiredEdit';
-
+import TimeAgo from 'javascript-time-ago';
 function Confirmation({
   message,
   currentUser,
@@ -20,6 +20,7 @@ function Confirmation({
   setFetchOrder,
 }) {
   const ctx = useAuth();
+  const timeAgo = new TimeAgo('en-US');
 
   // let ret = message.message.replace('order: ', '');
   // const currentQuotation = getOrderId?.filter((el) => el.id == +ret);
@@ -33,13 +34,12 @@ function Confirmation({
       <div className="w-full ">
         <div className="flex p-8 justify-center items-baseline gap-4">
           <div className="flex flex-col gap-2">
-            <div className="flex flex-col gap-8 border p-8 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
+            <div className="flex flex-col gap-4 border p-12 shadow-md shadow-bg-home-content text-chat rounded-lg  border-stroke">
               <div className="flex flex-col text-chat-quotation font-semibold  items-center px-4">
                 {getOrderStatus === 'completed' ? (
                   <p>This Order Is Already Completed</p>
                 ) : null}
-                <h5>{currentUser?.username}</h5>
-                <div>{message?.createdAt}</div>
+                <h5 className=" font-semibold ">CONFIRMATION</h5>
               </div>
               <div className="flex flex-col items-center">
                 <a
@@ -51,6 +51,9 @@ function Confirmation({
                 </a>
                 <div className="text-chat-quotation text-[8px]">
                   click this link to view your work
+                </div>
+                <div className=" text-text-normal opacity-20 pt-4 -mb-4">
+                  {currentUser?.username}
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 items-center ">
@@ -100,7 +103,10 @@ function Confirmation({
                 ) : null}
               </div>
             </div>
-            <div className="text-xs text-slate-400">8.00 PM</div>
+            {/* <div className="text-xs text-slate-400">
+              {' '}
+              <div> {timeAgo.format(new Date(message?.createdAt))}</div>
+            </div> */}
           </div>
         </div>
       </div>
