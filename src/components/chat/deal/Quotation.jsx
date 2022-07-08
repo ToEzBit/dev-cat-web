@@ -8,6 +8,9 @@ import { Navigate } from 'react-router-dom';
 import OrderDetails from './OrderDetails';
 import { updateOrderStatus } from '../../../api/order';
 import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
+
+TimeAgo.addDefaultLocale(en);
 
 function Quotation({
   currentOrder,
@@ -31,7 +34,7 @@ function Quotation({
 
   const [user, setUser] = useState(null);
   const ctx = useAuth();
-  const timeAgo = new TimeAgo('en-US');
+  const timeAgo = new TimeAgo();
 
   let ret = message.message.replace('order: ', '');
 

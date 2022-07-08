@@ -2,6 +2,10 @@ import axios from '../../../config/axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import ProfilePic from '../../../asset/image/ProfilePic.png';
+import en from 'javascript-time-ago/locale/en';
+import TimeAgo from 'javascript-time-ago';
+
+TimeAgo.addDefaultLocale(en);
 
 function Conversation({ conversation, currentUser, updatedAt, online }) {
   const [user, setUser] = useState(null);

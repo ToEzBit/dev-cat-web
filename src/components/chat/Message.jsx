@@ -4,12 +4,15 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useState } from 'react';
 import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
+
+TimeAgo.addDefaultLocale(en);
 
 function Message({ ProfilePic, own, message, array }) {
   const [user, setUser] = useState(null);
 
   const ctx = useAuth();
-  const timeAgo = new TimeAgo('en-US');
+  const timeAgo = new TimeAgo();
 
   useEffect(() => {
     const friendId = array.find((e) => {
