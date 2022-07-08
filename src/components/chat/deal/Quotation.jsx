@@ -7,6 +7,7 @@ import CheckoutPage from '../../../pages/CheckoutPage';
 import { Navigate } from 'react-router-dom';
 import OrderDetails from './OrderDetails';
 import { updateOrderStatus } from '../../../api/order';
+import TimeAgo from 'javascript-time-ago';
 
 function Quotation({
   currentOrder,
@@ -30,6 +31,7 @@ function Quotation({
 
   const [user, setUser] = useState(null);
   const ctx = useAuth();
+  const timeAgo = new TimeAgo('en-US');
 
   let ret = message.message.replace('order: ', '');
 
@@ -130,6 +132,9 @@ function Quotation({
                     </>
                   )}
                 </div>
+                <div className="text-xs text-slate-400">
+                  {timeAgo.format(new Date(message?.createdAt))}
+                </div>
               </div>
               <div className="avatar">
                 <div className=" w-14 rounded-full ">
@@ -162,46 +167,51 @@ function Quotation({
       ) : (
         <div className="flex justify-end  gap-4">
           <div className="flex flex-row-reverse items-center gap-4 ">
-            <div className="flex flex-col gap-4 border p-6 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
-              <div className="flex justify-between items-baseline px-4">
-                <h5 className=" font-semibold">{message.message}</h5>
-                <div className=" font-semibold">{`${
-                  order?.totalPrice || 6000
-                } BATH`}</div>
-              </div>
-              <div className="text-chat-quotation text-center">
-                {currentQuotation[0]?.Product.title ||
-                  'All types of website making services Easy to use, works fast'}
-              </div>
-              <div className="grid grid-cols-2 gap-4 px-4">
-                {currentQuotation[0]?.status === 'cancelled' ? (
-                  <p className="text-center">This order is canceled</p>
-                ) : (
-                  <>
-                    <Link
-                      to={`/product/${order?.Product?.id}`}
-                      className="border p-2 rounded-lg border-bg-home-content text-center"
-                      target="_blank"
-                    >
-                      View Detail
-                    </Link>
-                    {getOrderPaymentStatus !== 'paymentReceived' ? (
-                      <button
-                        className="border p-2 rounded-lg border-bg-home-content"
-                        onClick={() => navigate(`/checkout-page/${order.id}`)}
+            <div className=" flex flex-col gap-2">
+              <div className="flex flex-col gap-4 border p-6 shadow-md shadow-bg-home-content  text-chat rounded-lg  border-stroke">
+                <div className="flex justify-between items-baseline px-4">
+                  <h5 className=" font-semibold">{message.message}</h5>
+                  <div className=" font-semibold">{`${
+                    order?.totalPrice || 6000
+                  } BATH`}</div>
+                </div>
+                <div className="text-chat-quotation text-center">
+                  {currentQuotation[0]?.Product.title ||
+                    'All types of website making services Easy to use, works fast'}
+                </div>
+                <div className="grid grid-cols-2 gap-4 px-4">
+                  {currentQuotation[0]?.status === 'cancelled' ? (
+                    <p className="text-center">This order is canceled</p>
+                  ) : (
+                    <>
+                      <Link
+                        to={`/product/${order?.Product?.id}`}
+                        className="border p-2 rounded-lg border-bg-home-content text-center"
+                        target="_blank"
                       >
-                        Pay Now!
-                      </button>
-                    ) : (
-                      <p className="border p-2 rounded-lg border-bg-home-content">
-                        payment received
-                      </p>
-                    )}
-                  </>
-                )}
+                        View Detail
+                      </Link>
+                      {getOrderPaymentStatus !== 'paymentReceived' ? (
+                        <button
+                          className="border p-2 rounded-lg border-bg-home-content"
+                          onClick={() => navigate(`/checkout-page/${order.id}`)}
+                        >
+                          Pay Now!
+                        </button>
+                      ) : (
+                        <p className="border p-2 rounded-lg border-bg-home-content">
+                          payment received
+                        </p>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
-              <div className="text-xs text-slate-400">8.00 PM</div>
+              <div className="text-xs text-slate-400">
+                {timeAgo.format(new Date(message?.createdAt))}
+              </div>
             </div>
+
             <div className="avatar ">
               <div className="w-16 h-16 rounded-full bg-gray-800 ">
                 <img
