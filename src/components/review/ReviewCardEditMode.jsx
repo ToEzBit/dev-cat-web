@@ -70,7 +70,7 @@ export default function ReviewCardEditMode({
             {newIsAnonymous ? (
               <img src={AnonymousProfilePic} alt="" className="w-[240px]" />
             ) : (
-              <img src={profilePic} alt="" className="w-[240px]" />
+              <img src={profilePic || ProfilePic} alt="" className="w-[240px]" />
             )}
           </div>
           <div className="flex items-stretch">

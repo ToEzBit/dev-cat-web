@@ -37,7 +37,11 @@ export default function CreateReview({ name, setProductByIDRender }) {
           <div className=" flex justify-start gap-3 items-center ">
             <div className="w-10">
               <img
-                src={isAnonymous ? AnonymousProfilePic : user?.profileImage}
+                src={
+                  isAnonymous
+                    ? AnonymousProfilePic
+                    : user?.profileImage || ProfilePic
+                }
                 alt=""
               />
             </div>

@@ -42,7 +42,11 @@ export default function ReviewCardReadOnly({
             {isAnonymous ? (
               <img src={AnonymousProfilePic} alt="" className="w-[240px]" />
             ) : (
-              <img src={profilePic} alt="" className="w-[240px]" />
+              <img
+                src={profilePic || ProfilePic}
+                alt=""
+                className="w-[240px]"
+              />
             )}
           </div>
           <h3 className="card-title">
