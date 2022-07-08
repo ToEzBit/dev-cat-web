@@ -8,7 +8,7 @@ function SendImage({ ProfilePic, own, message, array }) {
   const [user, setUser] = useState(null);
   const ctx = useAuth();
   TimeAgo.addDefaultLocale(en);
-  const timeAgo = new TimeAgo('en-US');
+  const timeAgo = new TimeAgo();
 
   useEffect(() => {
     const friendId = array.filter((e) => {
