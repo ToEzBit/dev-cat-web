@@ -592,7 +592,7 @@ function ChatRoom() {
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-12 rounded-full">
                     <img
-                      src={getDevProfile.profileImage || ProfilePic}
+                      src={getDevProfile?.profileImage || ProfilePic}
                       alt=""
                     />
                   </div>
@@ -600,7 +600,7 @@ function ChatRoom() {
 
                 <div className="flex flex-col gap-1">
                   <div className=" text-chat rounded-lg  border-stroke">
-                    {getDevProfile.firstName} {getDevProfile.lastName}
+                    {getDevProfile?.firstName} {getDevProfile?.lastName}
                   </div>
                   <div className="text-xs text-stroke">
                     Give feedback or Report this profile

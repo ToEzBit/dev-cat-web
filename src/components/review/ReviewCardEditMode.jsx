@@ -38,12 +38,16 @@ export default function ReviewCardEditMode({
       console.log(newIsAnonymous === isAnonymous);
       setError('Nothing to update yet.');
     }
+    console.log(newRate === rate);
+    console.log(newMessage === message);
+    console.log(newIsAnonymous === isAnonymous);
     if (!id) {
       setError('Product not found.');
     }
+    console.log(error);
 
     try {
-      if (error.length != 0) {
+      if (error.trim() == '') {
         const res = await updateProductReview(
           {
             message: newMessage,
@@ -52,7 +56,6 @@ export default function ReviewCardEditMode({
           },
           id,
         );
-        console.log(res);
         if (setProductByIDRender) {
           setProductByIDRender((prev) => !prev);
         }

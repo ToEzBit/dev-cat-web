@@ -28,6 +28,7 @@ function DevProfilePage() {
     };
     const fetchMyProduct = async () => {
       const res = await getAllDevProducts(id);
+ 
       setDevProducts(res?.slice(0, 6));
     };
     const fetchPortfolio = async () => {

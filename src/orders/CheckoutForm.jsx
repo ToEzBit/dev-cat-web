@@ -85,13 +85,13 @@ export default function CheckoutForm({ orderId }) {
     <form
       id="payment-form"
       onSubmit={handleSubmit}
-      className="flex flex-col gap-2 justify-center"
+      className="flex flex-col gap-8 justify-center"
     >
       <PaymentElement id="payment-element" />
       <button
         disabled={!stripe || !elements}
         id="submit"
-        className="btn btn-md btn-info rounded-md"
+        className="btn btn-md btn-info border-none rounded-md bg-bg-home-content hover:bg-stroke"
       >
         <span id="button-text">Pay Now</span>
       </button>
