@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { createPaymentIntent } from '../api/order';
+import { motion } from 'framer-motion';
 
 import CheckoutForm from '../orders/CheckoutForm';
 import { useOrder } from '../contexts/OrderContext';
@@ -9,6 +10,10 @@ import { useAuth } from '../contexts/AuthContext';
 import { useParams } from 'react-router-dom';
 
 import Alltype2 from '../../src/asset/image/Alltype2.png';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
 
 // devCat's publishable key
 const stripePromise = loadStripe(
@@ -38,12 +43,18 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-stroke">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="w-full h-screen flex justify-center items-center bg-stroke"
+    >
       <div className="w-3/5 h-4/5 flex justify-evenly gap-4 items-center">
         <img src={Alltype2} alt="" className="object-cover" />
       </div>
 
       <div
+        data-aos="fade-up"
         className=" bg-white flex flex-col p-4  rounded-lg "
         style={{ margin: '0 0 0 20' }}
       >
@@ -53,6 +64,6 @@ export default function CheckoutPage() {
           </Elements>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
